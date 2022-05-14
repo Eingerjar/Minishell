@@ -7,7 +7,7 @@
 #include <sys/resource.h>
 
 
-void ViewRUsage(pid_t pid, struct rusage *pru);
+void ViewRUsage(struct rusage *pru);
 int main()
 {
     pid_t cpid = fork();
@@ -23,13 +23,13 @@ int main()
         printf("<parent> fork child pid:%u\n",cpid);
         int rvalue = 0;
         struct rusage ru;
-        pid_t wpid = wait3(&rvalue,0, &ru);
-        ViewRUsage(wpid, &ru);
+        wait3(&rvalue,0, &ru);
+        ViewRUsage(&ru);
     }
     else
     {
         printf("<child> pid:%d \n",getpid());
-        int i=0,j=0;
+        int i=0;
         for(i=0;i<100000;i++)
         {
             fprintf(stderr,".");
@@ -37,7 +37,7 @@ int main()
     }
     return 0;
 }
-void ViewRUsage(pid_t pid, struct rusage *pru)
+void ViewRUsage(struct rusage *pru)
 {
     printf("\n=== pid rusage info ===\n");
     struct timeval *tv = &(pru->ru_utime);

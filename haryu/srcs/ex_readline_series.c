@@ -20,6 +20,7 @@ int main(void)
     int ret;
     char *line;
 
+	ret = 0;
     signal(SIGINT, handler);
     while (1)
     {
