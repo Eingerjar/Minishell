@@ -29,7 +29,7 @@ int main()
     else
     {
         printf("<child> pid:%d \n",getpid());
-        int i=0,j=0;
+        int i=0;
         for(i=0;i<100000;i++)
         {
             fprintf(stderr,".");
@@ -39,6 +39,7 @@ int main()
 }
 void ViewRUsage(pid_t pid, struct rusage *pru)
 {
+	(void)pid;
     printf("\n=== pid rusage info ===\n");
     struct timeval *tv = &(pru->ru_utime);
     printf("user CPU time used [%ld]sec [%d]usec\n", tv->tv_sec,tv->tv_usec );

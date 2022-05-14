@@ -1,40 +1,24 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/04 23:43:42 by haryu             #+#    #+#              #
-#    Updated: 2022/05/14 11:46:11 by haryu            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+MAKE = make
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra 
+SRCS_DIR = ./srcs/
+READLINE_DIR := /opt/homebrew/Cellar/readline/8.1.2/include
+READLINE_LIB := /opt/homebrew/Cellar/readline/8.1.2/lib
+SRCS := $(wildcard $(SRCS_DIR)*.c)
+EXES := $(SRCS:.c=.out)
+#OBJS := $(SRCS:.c=.o)
+LIBFT_DIR = ./libft/
+LIBFT_AFILE = libft.a
+LIBFTA = ${addprefix $(LIBFT_DIR), $(LIBFT_AFILE)}
 
-SRC_DIR 			= .
-SRCS				= $(wildcard $(SRCS_DIR)*.c)
-EXES				= $(SRCS:.c=.out)
-
-CC					= gcc
-
-sky					:=$(shell tput setaf 6)
-reset				:=$(shell tput sgr0)
-
-all					:$(EXES)
-					$(info $(sky)========== all ===========$(reset))
-
-%.out				:%.c
-					$(info $(sky)========== $(<) $(@) ==========$(reset))
-					$(CC) -lreadline -L/opt/homebrew/Cellar/readline/8.1.2/lib -I/opt/homebrew/Cellar/readline/8.1.2/include/library -lcurses $< -c -o $@ 
-
-clean				:
-					$(info $(sky)========== clean ==========$(reset))
-					$(RM) *.out
-
-fclean				: clean
-					$(info $(sky)========== fclean ==========$(reset))
-					$(RM) *.out
-
-re					:fclean all
-					$(info $(shell tput setiaf 1)========== re ==========$(reset))
-
-.PHONY				: all clean fclean re bonus 
+all: $(EXES)
+clean :
+	rm -rf $(SRCS_DIR)*.out
+fclean :
+	rm -rf $(SRCS_DIR)*.out
+re :
+	make fclean
+	make all
+%.out : %.c
+	$(CC) $(CFLAGS) -I $(READLINE_DIR) -L $(READLINE_LIB) -lreadline -lcurses $< -o $@
+.PHONY : all bonus clean fclean re
