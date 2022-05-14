@@ -1,6 +1,8 @@
 MAKE = make
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
+READLINE_DIR := $(HOME)/.brew/opt/readline/include
+READLINE_LIB := $(HOME)/.brew/opt/readline/lib
 SRCS_DIR = ./srcs/
 SRCS := $(wildcard $(SRCS_DIR)*.c)
 INCLUDES_DIR = ./includes/
@@ -19,5 +21,5 @@ re :
 	make fclean
 	make all
 %.out : %.c
-	$(CC) $(CFLAGS) -I $(INCLUDES_DIR) $(LDFLAGS) $(CREADLINEFAGS) -lreadline -lcurses $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(READLINE_DIR) -L$(READLINE_LIB) -lreadline -lcurses $< -o $@
 .PHONY : all bonus clean fclean re
