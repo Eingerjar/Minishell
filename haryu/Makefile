@@ -1,11 +1,10 @@
 MAKE = make
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
-READLINE_DIR := $(HOME)/.brew/opt/readline/include
-READLINE_LIB := $(HOME)/.brew/opt/readline/lib
+CFLAGS = -Wall -Werror -Wextra 
 SRCS_DIR = ./srcs/
+READLINE_DIR := /opt/homebrew/Cellar/readline/8.1.2/include
+READLINE_LIB := /opt/homebrew/Cellar/readline/8.1.2/lib
 SRCS := $(wildcard $(SRCS_DIR)*.c)
-INCLUDES_DIR = ./includes/
 EXES := $(SRCS:.c=.out)
 #OBJS := $(SRCS:.c=.o)
 LIBFT_DIR = ./libft/
@@ -21,5 +20,5 @@ re :
 	make fclean
 	make all
 %.out : %.c
-	$(CC) $(CFLAGS) -I$(INCLUDES_DIR) -I$(READLINE_DIR) -L$(READLINE_LIB) -lreadline -lcurses $< -o $@
+	$(CC) $(CFLAGS) -I $(READLINE_DIR) -L $(READLINE_LIB) -lreadline -lcurses $< -o $@
 .PHONY : all bonus clean fclean re
