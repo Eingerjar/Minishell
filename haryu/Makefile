@@ -2,8 +2,8 @@ MAKE = make
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
 SRCS_DIR = ./srcs/
-READLINE_DIR := /opt/homebrew/Cellar/readline/8.1.2/include
-READLINE_LIB := /opt/homebrew/Cellar/readline/8.1.2/lib
+READLINE_DIR := /goinfre/haryu/.brew/opt/readline/include
+READLINE_LIB := /goinfre/haryu/.brew/opt/readline/lib
 SRCS := $(wildcard $(SRCS_DIR)*.c)
 EXES := $(SRCS:.c=.out)
 #OBJS := $(SRCS:.c=.o)
