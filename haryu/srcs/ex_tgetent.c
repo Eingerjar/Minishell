@@ -8,6 +8,8 @@
 # define LEFT_ARROW 4479771
 # define RIGHT_ARROW 4414235
 
+/* 컴파일 시 -lcurses 옵션과 같이 컴파일 되어야 한다.  */
+
 int	nbr_length(int n)
 {
 	int	i = 0;

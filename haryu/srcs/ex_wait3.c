@@ -39,6 +39,7 @@ int main()
 }
 void ViewRUsage(struct rusage *pru)
 {
+	(void)pid;
     printf("\n=== pid rusage info ===\n");
     struct timeval *tv = &(pru->ru_utime);
     printf("user CPU time used [%ld]sec [%d]usec\n", tv->tv_sec,tv->tv_usec );

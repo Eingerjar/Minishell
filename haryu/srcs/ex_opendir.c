@@ -4,7 +4,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-int main()
+int main(void)
 {
 	DIR *dir_ptr = NULL;
 	struct dirent *file = NULL;
