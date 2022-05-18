@@ -14,7 +14,6 @@ void handler(int signum)
     if (signum != SIGINT)
         return;
 	printf("\n");
-	rl_replace_line("^C", 1);
 	rl_on_new_line();
     rl_replace_line("", 1);
     rl_redisplay();
