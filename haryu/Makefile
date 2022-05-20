@@ -2,10 +2,10 @@ MAKE = make
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra 
 SRCS_DIR = ./srcs/
-READLINE_DIR := /goinfre/haryu/.brew/opt/readline/include
-READLINE_LIB := /goinfre/haryu/.brew/opt/readline/lib
-# READLINE_DIR := /opt/homebrew/opt/readline/include
-# READLINE_LIB := /opt/homebrew/opt/readline/lib
+# READLINE_DIR := /goinfre/haryu/.brew/opt/readline/include
+# READLINE_LIB := /goinfre/haryu/.brew/opt/readline/lib
+READLINE_DIR := /opt/homebrew/opt/readline/include
+READLINE_LIB := /opt/homebrew/opt/readline/lib
 
 SRCS := $(wildcard $(SRCS_DIR)*.c)
 EXES := $(SRCS:.c=.out)
