@@ -1,6 +1,6 @@
 MAKE = make
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 SRCS_DIR = ./srcs/
 SRCS := $(wildcard $(SRCS_DIR)*.c)
 INCLUDES_DIR = ./includes/
@@ -13,8 +13,10 @@ LIBFTA = ${addprefix $(LIBFT_DIR), $(LIBFT_AFILE)}
 all: $(EXES)
 clean :
 	rm -rf $(SRCS_DIR)*.out
+	rm -rf $(SRCS_DIR)*.dSYM
 fclean :
 	rm -rf $(SRCS_DIR)*.out
+	rm -rf $(SRCS_DIR)*.dSYM
 re :
 	make fclean
 	make all
