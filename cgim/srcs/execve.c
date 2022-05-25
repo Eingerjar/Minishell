@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	args[argc - 1] = NULL;
 	while (++i < argc - 1)
 		args[i] = argv[i + 1];
-	execve("/bin/echo", args, NULL);
+	execve("/bin/selkjf", args, NULL);
 	free(args);
 	return (0);
 }
