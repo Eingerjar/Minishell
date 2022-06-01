@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/01 21:20:33 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/02 00:56:11 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@
 # include <termcap.h>
 # include <term.h>
 
-# include <../library/libft/libft.h>
+# include "../library/libft/libft.h"
 
 # define TRUE 1
 # define FALSE 0
+# define BUFFER 1024
 
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"
@@ -45,7 +46,7 @@
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
 
-# define TEMP "./temp/"
+# define TEMP "/temp/"
 
 # define BUILTIN "echo cd pwd export unset env"
 
@@ -60,7 +61,7 @@ typedef struct s_flist
 	char			type;
 	char 			*name;
 	struct s_flist	*next;
-}t_flist;
+}				t_flist;
 
 /*
  * argv[0]	: command
@@ -73,9 +74,20 @@ typedef struct s_chunk
 	char		**argv;
 	t_flist		*input;
 	t_flist		*output;
-}t_chunk;
+}				t_chunk;
+
+/*
+ * sentece		: 전체 문장, 사용 여부 미정 
+ * installed	: 컴파일 된 위치 정보  
+ */
+typedef struct s_meta
+{
+	char	*sentence;
+	char	*installed;
+}				t_meta;
 
 /* initialize temp directory into empty.  */
-void	ft_unlink(void);
-
+int	ft_unlink(char *current);
+/**/
+char	*ft_getcwd(void);
 #endif
