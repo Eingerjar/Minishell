@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/01 20:35:49 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/01 21:20:33 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <dirent.h>
 # include <errno.h>
+# include <signal.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <sys/resource.h>
@@ -29,6 +30,8 @@
 # include <termios.h>
 # include <termcap.h>
 # include <term.h>
+
+# include <../library/libft/libft.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -41,6 +44,8 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
+
+# define TEMP "./temp/"
 
 # define BUILTIN "echo cd pwd export unset env"
 
@@ -69,5 +74,8 @@ typedef struct s_chunk
 	t_flist		*input;
 	t_flist		*output;
 }t_chunk;
+
+/* initialize temp directory into empty.  */
+void	ft_unlink(void);
 
 #endif
