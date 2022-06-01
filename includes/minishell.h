@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/01 16:41:34 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/01 16:59:04 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ typedef struct s_queue
 	t_queue	*next;
 }t_queue;
 
-/*
- * type : 
- * 			0 : external PATH
- * 			1 : external no PATH 
- * 			2 ~ : BUILTIN 
- */
 typedef struct s_chunk
 {
 	char		**argv;
