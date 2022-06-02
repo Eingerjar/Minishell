@@ -6,7 +6,7 @@
 #    By: haryu <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 18:36:54 by haryu             #+#    #+#              #
-#    Updated: 2022/06/02 18:48:26 by haryu            ###   ########.fr        #
+#    Updated: 2022/06/02 23:29:37 by haryu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR 					= ${addprefix $(LIB_DIR), libft/}
 LIBFT_AFILE 				= libft.a
 LIBFTA 						= ${addprefix $(LIBFT_DIR), $(LIBFT_AFILE)}
 READLINE_INCLUDE_DIR 		= ${addprefix $(INCLUDES_DIR), readline/}
-READLINE_LIB_DIR 			= ${addprefix $(LIB_DIR), readline/lib}
+READLINE_LIB_DIR 			= ${addprefix $(LIB_DIR), readline/lib/}
 
 all							: $(NAME)
 
@@ -46,7 +46,7 @@ debug 						:
 
 $(NAME) 					: $(OBJS)
 								$(MAKE) bonus -C $(LIBFT_DIR)
-								$(CC) $(CFLAGS) -L $(READLINE_LIB_DIR) -I $(INCLUDES_DIR) -I $(READLINE_INCLUDE_DIR) -I $(LIBFT_DIR)  -lreadline $(LIBFTA) $^ -o $@
+								$(CC) $(CFLAGS) -L$(READLINE_LIB_DIR) -I$(INCLUDES_DIR) -I$(READLINE_INCLUDE_DIR) -I$(LIBFT_DIR) $(LIBFTA) ./library/readline/lib/libreadline.8.1.dylib $^ -o $@
 
 .PHONY : all bonus clean fclean re debug
 

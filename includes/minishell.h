@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 15:01:49 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/02 23:49:27 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ typedef struct s_meta
 
 /* initialize temp directory into empty.  */
 int	ft_unlink(char *current);
-/**/
+/* check current directory */
 char	*ft_getcwd(void);
+/* error check */
+int		pre_error_check(char *line);
+
 #endif

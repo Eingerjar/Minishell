@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/01 20:16:22 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 14:58:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/03 00:09:49 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ int main(void)
 	while(1)
 	{
 		ft_unlink(installed);
-		line = readline("🖥 RC Shell :");
+		line = readline("🖥  RC Shell @>> ");
 		if (line)
 		{
 			add_history(line);
-			printf("🖥 RC Shell :%s\n", line);
+			//printf("🖥  RC Shell @>>%s\n", line);
+			pre_error_check(line);
 			free(line);
 			line = NULL;
 		}
