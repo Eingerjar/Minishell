@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 23:49:27 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/03 03:28:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,16 @@ typedef struct s_meta
 }				t_meta;
 
 /* initialize temp directory into empty.  */
-int	ft_unlink(char *current);
+int		ft_unlink(char *current);
 /* check current directory */
 char	*ft_getcwd(void);
 /* error check */
 int		pre_error_check(char *line);
+/* utils */
+/* smart split */
+char 	**vertical_split(char *line);
+size_t	check_height(char *line);
+/* chunk free */
+void	chunk_free(char **chunk, size_t height);
 
 #endif
