@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 00:56:11 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/02 15:01:49 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <sys/resource.h>
 # include <sys/types.h>
 # include <sys/ioctl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "./readline/readline.h"
+# include "./readline/history.h"
 # include <termios.h>
 # include <termcap.h>
 # include <term.h>
