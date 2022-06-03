@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/03 19:51:10 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/04 03:37:56 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ static void cut_vertical(char ***chunks, char *line, size_t height)
 		if ((line[i] == '|' || !line[i]) && dq == 0 && sq == 0)
 		{
 			(*chunks)[deep] = ft_strndup(line + previous, i - previous);
-			previous = i + 1;
+			if (line[i + 1] == ' ')
+				previous = i + 2;
+			else
+				previous = i + 1;
 			deep++;
 		}
 		i++;
