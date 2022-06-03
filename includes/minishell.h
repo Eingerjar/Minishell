@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/03 03:28:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/03 14:00:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <fcntl.h>
 # include <errno.h>
 # include <signal.h>
 # include <sys/stat.h>
@@ -93,6 +94,8 @@ char	*ft_getcwd(void);
 /* error check */
 int		pre_error_check(char *line);
 /* utils */
+/* main frontend */
+int		welchs(void);
 /* smart split */
 char 	**vertical_split(char *line);
 size_t	check_height(char *line);

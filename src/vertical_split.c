@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/03 03:27:23 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/03 19:51:10 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char *ft_strndup(char *line, size_t byte)
 	char	*ret;
 	size_t	i;
 
-	ret = malloc(sizeof(char) * byte);
+	ret = malloc(sizeof(char) * (byte + 1));
 	if (!ret)
 	{
 		printf("Please check yuour Error\n");
@@ -29,6 +29,7 @@ static char *ft_strndup(char *line, size_t byte)
 		ret[i] = line[i];
 		i++;
 	}
+	ret[i] = '\0';
 	return (ret);
 }
 
@@ -82,10 +83,11 @@ static void cut_vertical(char ***chunks, char *line, size_t height)
 			dq++;
 		else if (line[i] == '"' && dq == 1)
 			dq--;
-		if (line[i] == '|' && dq == 0 && sq == 0)
+		if ((line[i] == '|' || !line[i]) && dq == 0 && sq == 0)
 		{
-			(*chunks)[deep++] = ft_strndup(line + previous, i - previous);
+			(*chunks)[deep] = ft_strndup(line + previous, i - previous);
 			previous = i + 1;
+			deep++;
 		}
 		i++;
 	}
@@ -99,7 +101,7 @@ char	**vertical_split(char *line)
 
 	ret = NULL;
 	height = check_height(line);
-	ret = (char **)malloc(sizeof(char *) * height + 1);
+	ret = (char **)malloc(sizeof(char *) * (height + 1));
 	if (!ret)
 	{
 		printf("Please check Error\n");

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/03 00:09:49 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/03 13:57:49 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int main(void)
 	char	*line;
 
 	installed = ft_getcwd();
-
 	signal(SIGINT, handler_main);
+	welchs();
 	while(1)
 	{
 		ft_unlink(installed);

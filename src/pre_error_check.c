@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/03 03:28:36 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/03 19:32:14 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int pre_error_check(char *line)
 {
 	char	**chunk;
+	int		checknum;
 
 	chunk = vertical_split(line);
-	for(int i = 0; chunk[i]; i++)
+	checknum= check_height(line);
+	for(int i = 0; i < checknum; i++)
 		printf("[%d]%s(%d)\n", i, chunk[i], (int)ft_strlen(chunk[i]));
 	chunk_free(chunk, check_height(line));
 	return (0);
