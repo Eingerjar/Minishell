@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/04 01:51:53 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/04 03:22:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char *current_prompt(void)
 	char	*last;
 
 	front = "\033[0;35m🥤 shell \033[0;36m\"";
-	last = "\" \033[0;37m>> \n";
+	last = "\" \033[0;37m\n>> ";
 	middle = ft_getcwd();
 	temp = ft_strjoin(CYAN, middle);
 	free(middle);
@@ -78,7 +78,7 @@ int main(void)
 		}
 		else
 		{
-			printf("exit\n");
+			printf("😴 exit\n");
 			exit(0);
 		}
 	}
