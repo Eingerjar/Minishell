@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/03 13:57:49 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/04 01:51:53 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@ void handler_main(int signum)
 	rl_redisplay();
 }
 
+char *current_prompt(void)
+{
+	char	*ret;
+	char	*middle;
+	char	*temp;
+	char	*front;
+	char	*last;
+
+	front = "\033[0;35m🥤 shell \033[0;36m\"";
+	last = "\" \033[0;37m>> \n";
+	middle = ft_getcwd();
+	temp = ft_strjoin(CYAN, middle);
+	free(middle);
+	middle = ft_strjoin(front, temp);
+	free(temp);
+	ret = ft_strjoin(middle, last);
+	free(middle);
+	return (ret);
+}
+
 int main(void)
 {
 	char	*installed;
@@ -46,12 +66,13 @@ int main(void)
 	while(1)
 	{
 		ft_unlink(installed);
-		line = readline("🖥  RC Shell @>> ");
+		line = readline(current_prompt());
 		if (line)
 		{
 			add_history(line);
 			//printf("🖥  RC Shell @>>%s\n", line);
-			pre_error_check(line);
+			if(!pre_error_check(line))
+				printf("error ok! Lets make another function!\n");
 			free(line);
 			line = NULL;
 		}
