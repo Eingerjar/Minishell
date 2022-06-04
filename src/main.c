@@ -6,7 +6,7 @@
 /*   By: haryu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 20:16:22 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 01:34:16 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/04 18:11:41 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,26 @@ void handler_main(int signum)
 
 int main(void)
 {
-	char	*installed;
+	//char	*installed;
 	char	*line;
 
-	installed = ft_getcwd();
+	char	*cmd[2];
+
+	cmd[1] = NULL;
+	//installed = ft_getcwd();
 
 	signal(SIGINT, handler_main);
 	while(1)
 	{
-		ft_unlink(installed);
+		//ft_unlink(installed);
 		line = readline("🖥   RC Shell :");
 		if (line)
 		{
 			add_history(line);
 			printf("🖥   RC Shell :%s\n", line);
-			free(line);
+			cmd[0] = line;
+			init_structure(0, cmd);
+			//free(line);
 			line = NULL;
 		}
 		else
@@ -60,6 +65,6 @@ int main(void)
 			exit(0);
 		}
 	}
-	free(installed);
+	//free(installed);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 00:56:11 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/04 17:53:06 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,5 @@ typedef struct s_meta
 int	ft_unlink(char *current);
 /**/
 char	*ft_getcwd(void);
+t_chunk *init_structure(int index, char **cmd);
 #endif
