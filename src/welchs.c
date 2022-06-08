@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:49:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/04 02:13:53 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/08 15:36:40 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern char **environ;
 
-void	welchs_clear(void)
+static void	welchs_clear(void)
 {
 	char	*cmd;
 	pid_t	pid;
@@ -35,7 +35,7 @@ void	welchs_clear(void)
 	return ;
 }
 
-void	welchs_sleep(void)
+static void	welchs_sleep(void)
 {
 	char	*cmd;
 	pid_t	pid;
@@ -83,5 +83,5 @@ int welchs(void)
 	free(buffer);
 	welchs_sleep();
 	welchs_clear();
-	return (0);
+	return (FALSE);
 }

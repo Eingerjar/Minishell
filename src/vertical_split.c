@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/04 03:37:56 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/08 16:49:21 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,6 @@ static char *ft_strndup(char *line, size_t byte)
 		i++;
 	}
 	ret[i] = '\0';
-	return (ret);
-}
-
-size_t check_height(char *line)
-{
-	size_t ret;
-	int	sq;
-	int	dq;
-	int	i;
-
-	i = -1;
-	ret = 1;
-	sq = 0;
-	dq = 0;
-	while(line[++i])
-	{
-		if (line[i] == '\'' && sq == 0)
-			sq++;
-		else if (line[i] == '\'' && sq == 1)
-			sq--;
-		if (line[i] == '"' && dq == 0)
-			dq++;
-		else if (line[i] == '"' && dq == 1)
-			dq--;
-		if (line[i] == '|' && dq == 0 && sq == 0)
-			ret++;
-	}
 	return (ret);
 }
 

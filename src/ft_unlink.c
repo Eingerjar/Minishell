@@ -6,13 +6,13 @@
 /*   By: haryu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 21:13:36 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 01:33:54 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/08 15:05:47 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_unlink(char *current)
+int	ft_unlink(char *installed)
 {
 	DIR				*dirptr;
 	struct dirent	*file;
@@ -20,7 +20,7 @@ int	ft_unlink(char *current)
 	char			*temp;
 	int				i;
 
-	home = ft_strjoin(current, TEMP);
+	home = ft_strjoin(installed, TEMP);
 	dirptr = opendir(home);
 	if (!dirptr)
 	{

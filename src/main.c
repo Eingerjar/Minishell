@@ -6,15 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/04 23:13:57 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/08 15:40:57 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-extern char	**environ;
-
-int	heredoc(char *line);
+extern t_global	global;
 
 char *ft_getcwd(void)
 {
