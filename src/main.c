@@ -6,13 +6,15 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/04 03:22:51 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/04 23:13:57 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 extern char	**environ;
+
+int	heredoc(char *line);
 
 char *ft_getcwd(void)
 {
@@ -31,7 +33,7 @@ void handler_main(int signum)
 		return ;
 	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 1);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
@@ -59,6 +61,8 @@ int main(void)
 {
 	char	*installed;
 	char	*line;
+	pid_t	switcher;
+	int		status;
 
 	installed = ft_getcwd();
 	signal(SIGINT, handler_main);
@@ -70,9 +74,18 @@ int main(void)
 		if (line)
 		{
 			add_history(line);
-			//printf("🖥  RC Shell @>>%s\n", line);
 			if(!pre_error_check(line))
 				printf("error ok! Lets make another function!\n");
+			/*if (heredoc(vertical_split(line)), check_height(line))
+			{
+				switcher = fork();
+				if (switcher == 0)
+					sentence_part(vertical_split(line), check_height(line), installed);
+				else
+					waitpid(switcher, &status, 0);
+			}*/
+			(void)switcher;
+			(void)status;
 			free(line);
 			line = NULL;
 		}
