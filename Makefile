@@ -6,14 +6,14 @@
 #    By: haryu <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 18:36:54 by haryu             #+#    #+#              #
-#    Updated: 2022/06/04 17:46:15 by cgim             ###   ########.fr        #
+#    Updated: 2022/06/08 20:59:04 by cgim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 						= minishell
 MAKE	 					= make
 CC 							= gcc
-CFLAGS 						= -Wall -Werror -Wextra
+CFLAGS 						= -Wall -Werror -Wextra -g
 SRCS_DIR 					= ./src/
 SRCS 						:= $(wildcard $(SRCS_DIR)*.c)
 INCLUDES_DIR 				= ./includes/

@@ -6,13 +6,22 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:26:20 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/05 22:05:24 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/08 21:44:32 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	p_status = 0;
+//error_exit
+void	print_error_exit(char *err_msg)
+{
+	int	size;
+	
+	size = ft_strlen(err_msg);
+	write(2, err_msg, size);
+	exit(1);
+}
 //free_part
 void	*free_chunk(t_chunk *chunk)
 {
@@ -56,25 +65,16 @@ int	skip_quote(char *cmd, int i)
 	int	q;
 
 	q = 0;
-	while (cmd[i] != '\0')
+	if (cmd[i] == '"')
+		q = 2;
+	else
+		q = 1;
+	i++;
+	while (q != 0)
 	{
-		if (cmd[i] == '"' || cmd[i] == '\'')
-		{
-			if (q == 0)
-			{
-				if (cmd[i] == '"')
-					q = 2;
-				else
-					q = 1;
-			}
-			else if ((cmd[i] == '"' && q == 2) || (cmd[i] == '\'' && q == 1))
-				q = 0;
-			i++;
-		}
-		else if ((cmd[i] == '<' || cmd[i] == '>' || cmd[i] == ' ') && q == 0)
-			break ;
-		else
-			i++;
+		if ((cmd[i] == '"' && q == 2) || (cmd[i] == '\'' && q == 1))
+			q = 0;
+		i++;
 	}
 	return (i);
 }
@@ -125,7 +125,7 @@ int	count_argv(char *cmd)
 		else
 		{
 			i = skip_arg(cmd, i);
-			index++;
+			index += 1;
 		}
 	}
 	return (index);
@@ -136,6 +136,8 @@ int	count_argv(char *cmd)
 int	skip_env(char *str, int i)
 {
 	i++;
+	if (str[i] == '?' || ft_isdigit(str[i]))
+		return (i + 1);
 	while (str[i] != '\0')
 	{
 		if (ft_isdigit(str[i]) || ft_isalpha(str[i]) || str[i] == '_')
@@ -146,26 +148,74 @@ int	skip_env(char *str, int i)
 	return (i);
 }
 
-int	cout_env_val(char *str, int i)
+char	*get_env(char *str, int i)
+{
+	char	*env;
+	int		index;
+	
+	index = skip_env(str, i) - i;
+	env = (char *)malloc(sizeof(char) * index);
+	if (env == NULL)
+		return (NULL);
+	ft_memcpy(env, env + i + 1, index - 1);
+	env[index - 1] = '\0';
+	return (env);
+}
+
+int	count_env_val(char *str, int i)
 {
 	int		cnt;
 	char	*env;
 	char	*env_val;
 
 	if (str[i + 1] == '?')
-	{
 		return (ft_strlen(ft_itoa(p_status)));
-	}
-	env = (char *)malloc(sizeof(char) * (skip_env(str, i) - i));
-	cnt = ft_strlen(env_val);
+	if (ft_isdigit(str[i + 1]))
+		return (0);
+	env = get_env(str, i);
+	if (env == NULL)
+		print_error_exit("get_env error\n");
+	env_val = getenv(env);
+	if (env_val == NULL)
+		cnt = 0;
+	else
+		cnt = ft_strlen(env_val);
+	free(env);
 	return (cnt);
 }
 
-int	count_env_and_quote(char *str)
+// quote와double quote 경우 안의 환경변수 변환 해준다.
+int	count_quote(char *str, int i)
+{
+	int	cnt;
+	int	q;
+
+	cnt = 0;
+	if (str[i] == '"')
+		q = 2;
+	else
+		q = 1;
+	i++;
+	while (q != 0)
+	{
+		if ((str[i] == '"' && q == 2) || (str[i] == '\'' && q == 1))
+			q = 0;
+		else if (str[i] == '$' && q == 2)
+		{
+			cnt += count_env_val(str, i);
+			i = skip_env(str, i);
+		}
+		else
+			cnt++;
+		i++;
+	}
+	return (cnt);
+}
+
+int	count_env_val_and_quote(char *str)
 {
 	int	cnt;
 	int	i;
-	int	quote;
 
 	i = 0;
 	cnt = 0;
@@ -173,11 +223,13 @@ int	count_env_and_quote(char *str)
 	{
 		if (str[i] == '$')
 		{
-			cnt += cout_env_val(str, i);
+			cnt += count_env_val(str, i);
 			i = skip_env(str, i);
 		}
 		else if (str[i] == '"' || str[i] == '\'')
 		{
+			cnt += count_quote(str, i);
+			i = skip_quote(str, i);
 		}
 		else
 		{
@@ -188,12 +240,12 @@ int	count_env_and_quote(char *str)
 	return (cnt);
 }
 
-char	*conver_env_and_quote(char	*str)
+char	*convert_env_and_quote(char	*str)
 {
 	char	*ret;
 	int		index;
 
-	index = count_env_and_quote(str);
+	index = count_env_val_and_quote(str);
 	ret = (char *)malloc(sizeof(char) * (index + 1));
 	if (ret == NULL)
 		return (NULL);
@@ -259,6 +311,7 @@ char	**init_argv(char *cmd)
 		return (NULL);
 	}
 	argv[index] = NULL;
+	printf("%s\n", argv[index]);
 	return (argv);
 }
 
@@ -333,7 +386,7 @@ t_flist	*init_input(char *cmd)
 		{
 			new = get_redirection(cmd, i);
 			if (new == NULL)
-				return (free_flist(head));
+				print_error_exit("intput get_redirection error\n");
 			printf("input type:%d name:%s\n", new->type, new->name);
 			flistadd_back(&head, new);
 			i = skip_redirection(cmd, i);
@@ -362,7 +415,7 @@ t_flist	*init_output(char *cmd)
 		{
 			new = get_redirection(cmd, i);
 			if (new == NULL)
-				return (free_flist(head));
+				print_error_exit("output get_redirection error\n");
 			printf("output type:%d name:%s\n", new->type, new->name);
 			flistadd_back(&head, new);
 			i = skip_redirection(cmd, i);
@@ -386,10 +439,6 @@ t_chunk	*init_structure(int index, char **cmds)
 	if (chunk->argv == NULL)
 		return (free_chunk(chunk));
 	chunk->input = init_input(cmds[index]);
-	if (chunk->input == NULL)
-		return (free_chunk(chunk));
 	chunk->output = init_output(cmds[index]);
-	if (chunk->output == NULL)
-		return (free_chunk(chunk));
 	return (chunk);
 }

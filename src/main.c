@@ -6,7 +6,7 @@
 /*   By: haryu <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 20:16:22 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/05 18:31:05 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/08 20:54:51 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ int main(void)
 		if (line)
 		{
 			add_history(line);
-			printf("🖥   RC Shell :%s\n", line);
 			cmd[0] = line;
 			init_structure(0, cmd);
-			//free(line);
-			line = NULL;
+			free(line);
+			cmd[0] = NULL;
 		}
 		else
 		{
