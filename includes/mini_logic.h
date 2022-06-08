@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/08 16:52:19 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/08 20:34:35 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_unlink(char *installed);
 int		welchs(void);
 /* --------------------------------------------------------------------------*/
 /**
- * @Synopsis  "pre_error_check"
+ * @Synopsis	"pre_error_check"
  *
  * @Param line : whole commands line for parsing.
  *
@@ -63,7 +63,7 @@ int		pre_error_check(char *line);
 
 /* --------------------------------------------------------------------------*/
 /**
- * @Synopsis  "check_height"
+ * @Synopsis	"check_height"
  *
  * @Param line : whole commands line for parsing.
  *
@@ -71,6 +71,28 @@ int		pre_error_check(char *line);
  */
 /* ----------------------------------------------------------------------------*/
 size_t	check_height(char *line);
+
+/* --------------------------------------------------------------------------*/
+/**
+ * @Synopsis  		: check heredoc and make temp file for heredoc
+ *
+ * @Param chunks	: commands that are taken aprt.
+ * @Param height	: the number of commands.
+ *
+ * @Returns			: True or False(heredoc success or not)
+ */
+/* ----------------------------------------------------------------------------*/
+int		heredoc(char **chunks, int height);
+
+/* --------------------------------------------------------------------------*/
+/**
+ * @Synopsis  		: free all chunk(utility)
+ *
+ * @Param chunk		: commands that are taken apart.
+ * @Param height	: the number of commands.
+ */
+/* ----------------------------------------------------------------------------*/
+void	chunk_free(char **chunk, size_t height);
 
 /* sentence part */
 

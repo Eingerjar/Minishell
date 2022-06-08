@@ -6,13 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/08 15:40:57 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/08 20:34:31 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-extern t_global	global;
+t_global	global;
 
 char *ft_getcwd(void)
 {
@@ -74,16 +74,15 @@ int main(void)
 			add_history(line);
 			if(!pre_error_check(line))
 				printf("error ok! Lets make another function!\n");
-			/*if (heredoc(vertical_split(line)), check_height(line))
+			if (heredoc(vertical_split(line), check_height(line)))
 			{
-				switcher = fork();
+				/* switcher = fork();
 				if (switcher == 0)
 					sentence_part(vertical_split(line), check_height(line), installed);
 				else
-					waitpid(switcher, &status, 0);
-			}*/
-			(void)switcher;
-			(void)status;
+					waitpid(switcher, &status, 0);*/
+				/* error 처리 필요*/
+			}
 			free(line);
 			line = NULL;
 		}
