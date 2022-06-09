@@ -19,6 +19,12 @@ static void	handler_heredoc(int signum)
 
 static int check_double_bracket(char **chunks, int height)
 {
+	char **heredoc;
+	int i;
+
+	i = 0;
+	
+
 	return (FALSE);
 }
 

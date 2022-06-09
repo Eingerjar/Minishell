@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/08 20:34:31 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/09 13:57:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,17 @@ int main(void)
 			add_history(line);
 			if(!pre_error_check(line))
 				printf("error ok! Lets make another function!\n");
-			if (heredoc(vertical_split(line), check_height(line)))
-			{
+			/*if (heredoc(vertical_split(line), check_height(line)))
+			{*/
 				/* switcher = fork();
 				if (switcher == 0)
 					sentence_part(vertical_split(line), check_height(line), installed);
 				else
 					waitpid(switcher, &status, 0);*/
 				/* error 처리 필요*/
-			}
+		/*	}*/
+			(void)switcher;
+			(void)status;
 			free(line);
 			line = NULL;
 		}
