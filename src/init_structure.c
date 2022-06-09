@@ -6,22 +6,24 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:26:20 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/08 21:44:32 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/09 20:14:08 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	p_status = 0;
+
 //error_exit
 void	print_error_exit(char *err_msg)
 {
 	int	size;
-	
+
 	size = ft_strlen(err_msg);
 	write(2, err_msg, size);
 	exit(1);
 }
+
 //free_part
 void	*free_chunk(t_chunk *chunk)
 {
@@ -143,7 +145,7 @@ int	skip_env(char *str, int i)
 		if (ft_isdigit(str[i]) || ft_isalpha(str[i]) || str[i] == '_')
 			i++;
 		else
-			break;
+			break ;
 	}
 	return (i);
 }
@@ -152,7 +154,7 @@ char	*get_env(char *str, int i)
 {
 	char	*env;
 	int		index;
-	
+
 	index = skip_env(str, i) - i;
 	env = (char *)malloc(sizeof(char) * index);
 	if (env == NULL)
@@ -240,6 +242,89 @@ int	count_env_val_and_quote(char *str)
 	return (cnt);
 }
 
+void	copy_env_val(char *dst, char *str, int i, int cnt)
+{
+	char	*env;
+	char	*env_val;
+
+	if (str[i + 1] == '?')
+	{
+		env_val = ft_itoa(p_status);
+		if (env_val == NULL)
+			print_error_exit("ft_itoa malloc error\n");
+		ft_memcpy(dst + cnt, str + i + 1, ft_strlen(env_val));
+		return ;
+	}
+	if (ft_isdigit(str[i + 1]))
+		return ;
+	env = get_env(str, i);
+	if (env == NULL)
+		print_error_exit("get_env error\n");
+	env_val = getenv(env);
+	free(env);
+	if (env_val == NULL)
+		return ;
+	else
+		ft_memcpy(dst + cnt, str + i + 1, ft_strlen(env_val));
+}
+
+void	copy_quote(char *dst, char *str, int i, int cnt)
+{
+	int	q;
+
+	if (str[i] == '"')
+		q = 2;
+	else
+		q = 1;
+	i++;
+	while (q != 0)
+	{
+		if ((str[i] == '"' && q == 2) || (str[i] == '\'' && q == 1))
+			q = 0;
+		else if (str[i] == '$' && q == 2)
+		{
+			copy_env_val(dst, str, i, cnt);
+			cnt += count_env_val(str, i);
+			i = skip_env(str, i);
+		}
+		else
+		{
+			dst[cnt] = str[i];
+			cnt++;
+		}
+		i++;
+	}
+}
+
+void	copy_env_val_and_quote(char *dst, char *src)
+{
+	int	i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (src[i] != '\0')
+	{
+		if (src[i] == '$')
+		{
+			copy_env_val(dst, src, i, cnt);
+			cnt += count_env_val(src, i);
+			i = skip_env(src, i);
+		}
+		else if (src[i] == '"' || src[i] == '\'')
+		{
+			copy_quote(dst, src, i, cnt);
+			cnt += count_quote(src, i);
+			i = skip_quote(src, i);
+		}
+		else
+		{
+			i++;
+			dst[cnt++] = src[i];
+		}
+	}
+}
+
 char	*convert_env_and_quote(char	*str)
 {
 	char	*ret;
@@ -249,28 +334,36 @@ char	*convert_env_and_quote(char	*str)
 	ret = (char *)malloc(sizeof(char) * (index + 1));
 	if (ret == NULL)
 		return (NULL);
+	copy_env_val_and_quote(ret, str);
+	ret[index] = '\0';
 	return (ret);
 }
 
 char	*get_arg(char *cmd, int i)
 {
 	char	*arg;
+	char	*ret;
 	int		index;
 
 	index = skip_arg(cmd, i) - i;
 	arg = (char *)malloc(sizeof(char) * (index + 1));
 	if (arg == NULL)
-		return (NULL);
+		print_error_exit("get_arg malloc error\n");
 	ft_memcpy(arg, cmd + i, index);
 	arg[index] = '\0';
-	return (arg);
+	ret = convert_env_and_quote(arg);
+	return (ret);
 }
 
-int	get_argv(char **argv, char *cmd)
+char	**get_argv(char *cmd, int size)
 {
-	int	index;
-	int	i;
+	char	**argv;
+	int		index;
+	int		i;
 
+	argv = (char **)malloc(sizeof(char *) * (size + 1));
+	if (argv == NULL)
+		print_error_exit("\n");
 	index = 0;
 	i = 0;
 	while (cmd[i] != '\0')
@@ -282,17 +375,12 @@ int	get_argv(char **argv, char *cmd)
 		else
 		{
 			argv[index] = get_arg(cmd, i);
-			if (argv[index] == NULL)
-			{
-				while (--index >= 0)
-					free(argv[index]);
-				return (1);
-			}
+			printf("%s\n", argv[index]);
 			i = skip_arg(cmd, i);
 			index++;
 		}
 	}
-	return (0);
+	return (argv);
 }
 
 char	**init_argv(char *cmd)
@@ -302,16 +390,8 @@ char	**init_argv(char *cmd)
 
 	index = count_argv(cmd);
 	printf("index: %d\n", index);
-	argv = (char **)malloc(sizeof(char *) * (index + 1));
-	if (argv == NULL)
-		return (NULL);
-	if (get_argv(argv, cmd))
-	{
-		free(argv);
-		return (NULL);
-	}
+	argv = get_argv(cmd, index);
 	argv[index] = NULL;
-	printf("%s\n", argv[index]);
 	return (argv);
 }
 

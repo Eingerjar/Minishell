@@ -6,14 +6,14 @@
 #    By: haryu <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 18:36:54 by haryu             #+#    #+#              #
-#    Updated: 2022/06/08 20:59:04 by cgim             ###   ########.fr        #
+#    Updated: 2022/06/09 19:44:25 by cgim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 						= minishell
 MAKE	 					= make
 CC 							= gcc
-CFLAGS 						= -Wall -Werror -Wextra -g
+CFLAGS 						= -Wall -Werror -Wextra
 SRCS_DIR 					= ./src/
 SRCS 						:= $(wildcard $(SRCS_DIR)*.c)
 INCLUDES_DIR 				= ./includes/
@@ -40,7 +40,7 @@ re 							:
 								make fclean
 								make all
 debug 						:
-								make all CFLAGS+="-Wall -Werror -Wextra -g3 -fsanitize=address"
+								make re CFLAGS+="-Wall -Werror -Wextra -g3 -fsanitize=address"
 
 %.o:%.c
 							$(CC) $(CFLAGS) -I $(INCLUDES_DIR) -I $(READLINE_INCLUDE_DIR) -I $(LIBFT_DIR) -c $< -o $@
