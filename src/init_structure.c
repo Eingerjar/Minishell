@@ -6,13 +6,13 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:26:20 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/09 20:14:08 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/10 10:19:44 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	p_status = 0;
+int	g_status = 0;
 
 //error_exit
 void	print_error_exit(char *err_msg)
@@ -159,7 +159,7 @@ char	*get_env(char *str, int i)
 	env = (char *)malloc(sizeof(char) * index);
 	if (env == NULL)
 		return (NULL);
-	ft_memcpy(env, env + i + 1, index - 1);
+	ft_memcpy(env, str + i + 1, index - 1);
 	env[index - 1] = '\0';
 	return (env);
 }
@@ -171,7 +171,12 @@ int	count_env_val(char *str, int i)
 	char	*env_val;
 
 	if (str[i + 1] == '?')
-		return (ft_strlen(ft_itoa(p_status)));
+	{
+		env = ft_itoa(g_status);
+		if (env == NULL)
+			print_error_exit("ft_itoa malloc error\n");
+		return (ft_strlen(ft_itoa(g_status)));
+	}
 	if (ft_isdigit(str[i + 1]))
 		return (0);
 	env = get_env(str, i);
@@ -249,7 +254,7 @@ void	copy_env_val(char *dst, char *str, int i, int cnt)
 
 	if (str[i + 1] == '?')
 	{
-		env_val = ft_itoa(p_status);
+		env_val = ft_itoa(g_status);
 		if (env_val == NULL)
 			print_error_exit("ft_itoa malloc error\n");
 		ft_memcpy(dst + cnt, str + i + 1, ft_strlen(env_val));
@@ -265,7 +270,7 @@ void	copy_env_val(char *dst, char *str, int i, int cnt)
 	if (env_val == NULL)
 		return ;
 	else
-		ft_memcpy(dst + cnt, str + i + 1, ft_strlen(env_val));
+		ft_memcpy(dst + cnt, env_val, ft_strlen(env_val));
 }
 
 void	copy_quote(char *dst, char *str, int i, int cnt)
@@ -319,8 +324,8 @@ void	copy_env_val_and_quote(char *dst, char *src)
 		}
 		else
 		{
-			i++;
 			dst[cnt++] = src[i];
+			i++;
 		}
 	}
 }
