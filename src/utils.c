@@ -1,25 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chunk_free.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/03 03:22:28 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 21:02:42 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/10 20:51:57 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/10 23:33:38 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void chunk_free(char **chunk, size_t height)
+void	print_chunks(char **chunks, int height)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < height)
-		free(chunk[i++]);
-	free(chunk[i]);
-	free(chunk);
+	{
+		printf("[%d] %s(%d)\n", i, chunks[i], (int)ft_strlen(chunks[i]));
+		i++;
+	}
+}
+
+void	print_heredoc_lst(t_flist **target, int height)
+{
+	int		i;
+	t_flist	*temp;
+
+	i = 0;
+	while (i < height)
+	{
+		temp = target[i]->next;
+		printf("%d 번 커멘드 heredoc\n", i);
+		while (temp != 0)
+		{
+			printf("%s\n", temp->name);
+			temp = temp->next;
+		}
+		i++;
+	}
 	return ;
 }

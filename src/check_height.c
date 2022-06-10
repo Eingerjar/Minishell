@@ -6,24 +6,24 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:41:40 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/08 15:52:52 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/10 21:01:26 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-size_t check_height(char *line)
+size_t	check_height(char *line)
 {
-	size_t ret;
-	int	sq;
-	int	dq;
-	int	i;
+	size_t	ret;
+	int		sq;
+	int		dq;
+	int		i;
 
 	i = -1;
 	ret = 1;
 	sq = 0;
 	dq = 0;
-	while(line[++i])
+	while (line[++i])
 	{
 		if (line[i] == '\'' && sq == 0)
 			sq++;

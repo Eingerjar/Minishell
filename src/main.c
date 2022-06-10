@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/09 13:57:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/10 21:14:33 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_global	global;
 
-char *ft_getcwd(void)
+char	*ft_getcwd(void)
 {
 	char	*buf;
 
@@ -25,17 +25,17 @@ char *ft_getcwd(void)
 	return (buf);
 }
 
-void handler_main(int signum)
+void	handler_main(int signum)
 {
 	if (signum != SIGINT)
 		return ;
 	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	rl_replace_line("", 1);
 	rl_redisplay();
 }
 
-char *current_prompt(void)
+char	*current_prompt(void)
 {
 	char	*ret;
 	char	*middle;
@@ -55,38 +55,34 @@ char *current_prompt(void)
 	return (ret);
 }
 
-int main(void)
+void	clean_line(char **line, char *tempdir)
+{
+	free(*line);
+	(*line) = NULL;
+	ft_unlink(tempdir);
+	return ;
+}
+
+int	main(void)
 {
 	char	*installed;
 	char	*line;
-	pid_t	switcher;
-	int		status;
 
 	installed = ft_getcwd();
 	signal(SIGINT, handler_main);
 	welchs();
-	while(1)
+	while (1)
 	{
-		ft_unlink(installed);
 		line = readline(current_prompt());
 		if (line)
 		{
 			add_history(line);
-			if(!pre_error_check(line))
-				printf("error ok! Lets make another function!\n");
-			/*if (heredoc(vertical_split(line), check_height(line)))
-			{*/
-				/* switcher = fork();
-				if (switcher == 0)
-					sentence_part(vertical_split(line), check_height(line), installed);
-				else
-					waitpid(switcher, &status, 0);*/
-				/* error 처리 필요*/
-		/*	}*/
-			(void)switcher;
-			(void)status;
-			free(line);
-			line = NULL;
+			if (!pre_error_check(line))
+			{
+				heredoc_check(line);
+				//pre_sentence_part(line);
+			}
+			clean_line(&line, installed);
 		}
 		else
 		{
@@ -94,6 +90,4 @@ int main(void)
 			exit(0);
 		}
 	}
-	free(installed);
-	return (0);
 }

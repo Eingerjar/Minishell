@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/08 16:49:21 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/11 00:36:53 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char *ft_strndup(char *line, size_t byte)
 		exit(0);
 	}
 	i = 0;
-	while(i < byte)
+	while (i < byte)
 	{
 		ret[i] = line[i];
 		i++;
@@ -37,32 +37,35 @@ static void cut_vertical(char ***chunks, char *line, size_t height)
 {
 	int 	i;
 	size_t	deep;
-	int 	sq;
-	int		dq;
 	int		previous;
 
 	i = 0;
-	sq = 0;
-	dq = 0;
 	deep = 0;
 	previous = 0;
-	while(deep < height)
+	while (deep < height && line[i])
 	{
-		if(line[i] == '\'' && sq == 0)
-			sq++;
-		else if (line[i] == '\'' && sq == 1)
-			sq--;
-		if (line[i] == '"' && dq == 0)
-			dq++;
-		else if (line[i] == '"' && dq == 1)
-			dq--;
-		if ((line[i] == '|' || !line[i]) && dq == 0 && sq == 0)
+		if (i == 0 && line[0] == ' ')
 		{
+			while (line[i] == ' ')
+				i++;
+			previous = i - 1;
+		}
+		if (line[i] == 34 || line[i] == 39)
+			i = skip_quotes(line, i, line[i]);
+		if (line[i] == '|' || !line[i + 1])
+		{
+			if (!line[i + 1])
+				i++;
 			(*chunks)[deep] = ft_strndup(line + previous, i - previous);
-			if (line[i + 1] == ' ')
-				previous = i + 2;
-			else
-				previous = i + 1;
+			if (!line[i])
+				break ;
+			else if (line[i + 1] == ' ')
+			{
+				i += 1;
+				while (line[i] == ' ')
+					i++;
+				previous = --i;
+			}
 			deep++;
 		}
 		i++;
@@ -82,7 +85,7 @@ char	**vertical_split(char *line)
 	{
 		printf("Please check Error\n");
 		exit(1);
-	}
+}
 	ret[height] = NULL;
 	cut_vertical(&ret, line, height);
 	printf("vertical bar : %d\n", (int)height);

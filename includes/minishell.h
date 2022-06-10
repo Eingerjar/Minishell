@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/08 15:52:49 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/10 23:11:08 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 typedef struct s_flist
 {
 	char			type;
-	char 			*name;
+	char			*name;
 	struct s_flist	*next;
 }				t_flist;
 
@@ -66,7 +66,9 @@ typedef struct s_chunk
 typedef struct s_global
 {
 	int		last_exitcode;
-	char	*home; 
+	char	*home;
 }				t_global;
 
+
+void	print_heredoc_lst(t_flist **target, int height);
 #endif
