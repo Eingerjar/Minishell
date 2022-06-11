@@ -6,17 +6,30 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 20:53:48 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/02 00:56:11 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "error.h"
-# include "mini_external.h"
-# include "mini_logic.h"
-# include "parse.h"
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <errno.h>
+# include <signal.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <sys/resource.h>
+# include <sys/types.h>
+# include <sys/ioctl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <termios.h>
+# include <termcap.h>
+# include <term.h>
 
 # include "../library/libft/libft.h"
 
@@ -63,30 +76,18 @@ typedef struct s_chunk
 	t_flist		*output;
 }				t_chunk;
 
-typedef struct s_global
+/*
+ * sentece		: 전체 문장, 사용 여부 미정 
+ * installed	: 컴파일 된 위치 정보  
+ */
+typedef struct s_meta
 {
-	int		last_exitcode;
-	char	*home; 
-}				t_global;
+	char	*sentence;
+	char	*installed;
+}				t_meta;
 
-extern int	g_status;
-
-void	copy_env_val(char *dst, char *str, int i, int cnt);
-void	copy_quote(char *dst, char *str, int i, int cnt);
-int	count_env_val(char *str, int i);
-int	count_quote(char *str, int i);
-void	flistadd_back(t_flist **head, t_flist *new);
-t_flist	*flistnew(char type, char *name);
-char	*get_arg(char *cmd, int i);
-char	*get_env(char *str, int i);
-char	**init_argv(char *cmd);
-void	print_error_exit(char *err_msg);
-int	skip_arg(char *cmd, int i);
-int	skip_env(char *str, int i);
-int	skip_quote(char *cmd, int i);
-int	skip_redirection(char *cmd, int i);
-int	skip_whitespace(char *cmd, int i);
-t_chunk	*init_structure(int index, char **cmds);
-char	**init_argv(char *cmd);
+/* initialize temp directory into empty.  */
+int	ft_unlink(char *current);
+/**/
+char	*ft_getcwd(void);
 #endif
-
