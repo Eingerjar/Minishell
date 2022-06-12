@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 23:11:10 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/12 19:14:30 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ size_t	check_height(char *line);
  */
 void	chunk_free(char **chunk, size_t height);
 
-int		heredoc_check(char *line);
+int		heredoc_check(char *line, char *installed);
 
 void	print_chunks(char **chunks, int height);
 

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:33:56 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/11 00:38:23 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/12 20:15:05 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,18 +173,8 @@ void	free_heredoc(t_flist **heredoc, int height)
 	free(heredoc);
 	return ;
 }
-// int	fork_heredoc(t_flist **chunks, int height)
-// {
-// 	pid_t	child;
-// 	int		status;
 
-// 	1. signal 처리 방법 지정 
-// 	2. fork 진행 
-// 	3. 지정된 디리미터 들어오기 전까지 저장하는 구조 작성
-// 	4. 파일 저장 이름 만들어 저장하기 파트 작성 
-// }
-
-int heredoc_check(char *line)
+int heredoc_check(char *line, char *installed)
 {
 	char	**chunks;
 	int		chunk_height;
@@ -195,7 +185,8 @@ int heredoc_check(char *line)
 	print_chunks(chunks, chunk_height);
 	heredoc = pre_heredoc(chunks, chunk_height);
 	print_heredoc_lst(heredoc, chunk_height);
-	// fork_heredoc(heredoc, chunk_height);
+	if (heredoc[0]->next != 0)
+		fork_heredoc(heredoc, chunk_height, installed);
 	free_heredoc(heredoc, chunk_height);
 	chunk_free(chunks, chunk_height);
 	return (FALSE);

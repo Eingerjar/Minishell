@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 21:14:33 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/12 19:45:50 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ int	main(void)
 		if (line)
 		{
 			add_history(line);
+			if (ft_strlen(line) == 0)
+				continue ;
 			if (!pre_error_check(line))
 			{
-				heredoc_check(line);
+				heredoc_check(line, installed);
 				//pre_sentence_part(line);
 			}
 			clean_line(&line, installed);

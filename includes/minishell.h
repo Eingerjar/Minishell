@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 23:11:08 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/12 19:26:21 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define WHITE "\033[0;37m"
 
 # define TEMP "/temp/"
+# define TEMPFILE "temp_"
 
 # define BUILTIN "echo cd pwd export unset env"
 
@@ -71,4 +72,5 @@ typedef struct s_global
 
 
 void	print_heredoc_lst(t_flist **target, int height);
+void	fork_heredoc(t_flist **heredoc, int height, char *installed);
 #endif
