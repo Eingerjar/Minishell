@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_sentence_part.c                                :+:      :+:    :+:   */
+/*   sentence_part.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:57:25 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/15 23:27:23 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/15 23:29:53 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 	return (FALSE);
 }
 
-int	pre_seneten_part(char *line)
+int	seneten_part(char *line)
 {
 	char	**chunks;
 	int		chunk_height;
@@ -148,7 +148,7 @@ int	pre_seneten_part(char *line)
 	index = 0;
 	pipe = init_pipe(chunk_height);
 	if(fork_cmds(chunk_height, chunks, pipe))
-		return ;
+		return ;//애러 처리 해야 함
 	// 1. 파이프 할당 
 	// 2. fork
 			// 3. 파이프 닫기
@@ -160,5 +160,5 @@ int	pre_seneten_part(char *line)
 		// 파이프 할당 사항 전체 프리 
 		// 청크 프리
 	// 7. 엑신 코드 지정
-	return ;
+	return (FALSE);
 }
