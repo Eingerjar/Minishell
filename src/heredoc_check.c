@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:33:56 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/12 20:15:05 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/15 21:22:10 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void	make_flist(int start, int end, char *line, t_flist **target)
 }
 
 int	check_redirection_heredoc(char *line, int index, \
-int redirection, t_flist **target)
+t_flist **target, int *heredocnum)
 {
 	int	priv;
 	int	next;
 
 	next = 0;
-	if (redirection == 60 && line[index + 1] == 60)
+	if (line[index] == 60 && line[index + 1] == 60)
 	{
 		index += 2;
 		while (line[index] == ' ')
@@ -75,13 +75,14 @@ int redirection, t_flist **target)
 		priv = index;
 		next = check_command(line, priv);
 		make_flist(priv, next, line, target);
+		*heredocnum += 1;
 	}
 	else
-		return (check_redirection(line, index, redirection));
+		return (check_redirection(line, index, line[index]));
 	return (next);
 }
 
-void	make_heredoc(char *line, t_flist **target)
+void	make_heredoc(char *line, t_flist **target, int *heredocnum)
 {
 	int	i;
 
@@ -89,7 +90,7 @@ void	make_heredoc(char *line, t_flist **target)
 	while (line[++i])
 	{
 		if (line[i] == 60 || line[i] == 62)
-			i = check_redirection_heredoc(line, i, line[i], target);
+			i = check_redirection_heredoc(line, i, target, heredocnum);
 		else if (line[i] == ' ')
 			continue ;
 		else
@@ -123,10 +124,9 @@ void	init_flist(t_flist ***target, int height)
 		(*target)[i]->type = 0;
 		i++;
 	}
-	// (*target)[height] = 0;
 }
 
-t_flist	**pre_heredoc(char **chunks, int height)
+t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
 {
 	t_flist	**ret;
 	int		i;
@@ -135,7 +135,7 @@ t_flist	**pre_heredoc(char **chunks, int height)
 	init_flist(&ret, height);
 	while (i < height)
 	{
-		make_heredoc(chunks[i], &ret[i]);
+		make_heredoc(chunks[i], &ret[i], heredocnum);
 		i++;
 	}
 	return (ret);
@@ -179,13 +179,14 @@ int heredoc_check(char *line, char *installed)
 	char	**chunks;
 	int		chunk_height;
 	t_flist	**heredoc;
+	int		heredocnum;
 
 	chunks = vertical_split(line);
 	chunk_height = check_height(line);
 	print_chunks(chunks, chunk_height);
-	heredoc = pre_heredoc(chunks, chunk_height);
-	print_heredoc_lst(heredoc, chunk_height);
-	if (heredoc[0]->next != 0)
+	heredocnum = 0;
+	heredoc = pre_heredoc(chunks, chunk_height, &heredocnum);
+	if (heredocnum != 0)
 		fork_heredoc(heredoc, chunk_height, installed);
 	free_heredoc(heredoc, chunk_height);
 	chunk_free(chunks, chunk_height);

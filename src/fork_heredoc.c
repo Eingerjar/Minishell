@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:43:02 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/12 21:04:36 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/15 21:19:19 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	clean_global(void)
 void	handler_heredoc(int signum)
 {
 	if (signum != SIGINT)
-		return ;	
+		return ;
 	global.last_exitcode = 1;
-	return ;
+	exit(1);
 }
 
 char	*make_filename(int number_cmd, int index_cmd, char *dir)
@@ -49,7 +49,7 @@ int	make_temp(char *directory, int *cmdnum)
 	int		ret;
 
 	tempfile = make_filename(cmdnum[0], cmdnum[1], directory);
-	ret = open(tempfile, O_CREAT | O_RDWR | O_APPEND);
+	ret = open(tempfile, O_CREAT | O_RDWR | O_APPEND, S_IRUSR);
 	if (ret < 0)
 	{
 		printf("%sOPEN ERROR, %s", RED, strerror(errno));
@@ -68,66 +68,92 @@ void	reset_integer_vector(int **vector, int length)
 	return ;
 }
 
-char	*find_delimiter(int **cmd, t_flist **heredoc)
+
+t_flist	*find_delimiter(int **cmd, t_flist **heredoc)
 {
+	t_flist	*temp;
 	int		i;
 	int		j;
-	t_flist	*temp;
 
-	i = (*cmd)[0];
-	j = 0;
-	if ((*heredoc)[i].next != 0)
-		temp = (*heredoc)[i].next;
-	else
+	while (TRUE)
 	{
-		(*cmd)[0] += 1;
-		(*cmd)[1] = 0;
 		i = (*cmd)[0];
-		return (find_delimiter(cmd, heredoc));
+		if (heredoc[i]->next == NULL)
+		{
+			(*cmd)[0] += 1;
+		}
+		else
+		{
+			temp = heredoc[i]->next;
+			break ;
+		}
 	}
-	while(j < (*cmd)[1])
+	j = 0;
+	while (j < (*cmd)[1])
 	{
 		temp = temp->next;
 		j++;
 	}
-	if (temp->next == 0)
+	return (temp);
+}
+
+void	check_delimiter(int **cmd, t_flist *delimiter, t_flist **heredoc, int maxlen)
+{
+	if (delimiter->next == NULL)
 	{
 		(*cmd)[0] += 1;
 		(*cmd)[1] = 0;
 	}
-	(*cmd)[1] += 1;
-	return(temp->name);
+	else
+	{
+		(*cmd)[1] += 1;
+		return ;
+	}
+	if ((*cmd)[0] == maxlen)
+		return ;
+	while (heredoc[(*cmd)[0]]->next == NULL)
+		(*cmd)[0] += 1;
 }
 
-int	readline_heredoc(int fd, int *cmd, t_flist **heredoc)
+void	init_delimiter(int **cmd, t_flist **heredoc)
 {
-	char	*delimiter;
+	while (TRUE)
+	{
+		if (heredoc[(*cmd)[0]]->next == NULL)
+			(*cmd)[0] += 1;
+		else
+			break ;
+	}
+}
+
+int	readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height)
+{
+	t_flist	*delimiter;
 	char	*line;
 	char	*putin;
+	int		len;
 
-	delimiter = find_delimiter(&cmd, heredoc);
+	delimiter = find_delimiter(cmd, heredoc);
 	signal(SIGINT, handler_heredoc);
-	while(1)
+	len = 0;
+	while (TRUE)
 	{
 		line = readline(">");
-		if (global.last_exitcode == 1)
-		{
-			global.last_exitcode = 0;
-			rl_on_new_line();
-			rl_replace_line("", 1);
-			rl_redisplay();
-			exit (1);
-		}
 		if (line == NULL)
 			line = ft_strdup("");
-		printf("%scompare :\n%s(%d)\n%s(%d)\n", CYAN, line, (int)ft_strlen(line), delimiter, (int)ft_strlen(delimiter));
-		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter)) && ft_strlen(line) == ft_strlen(delimiter))
+		if (!ft_strncmp(line, delimiter->name, ft_strlen(delimiter->name)) && \
+ft_strlen(line) == ft_strlen(delimiter->name))
+		{
+			if (len == 0)
+				write(fd, "\n", 1);
 			break ;
+		}
 		putin = ft_strjoin(line, "\n");
+		len += ft_strlen(putin);
 		write(fd, putin, ft_strlen(putin));
 		free(putin);
 	}
-	printf("finish\n");
+	check_delimiter(cmd, delimiter, heredoc, height);
 	return (FALSE);
 }
 
@@ -135,18 +161,18 @@ void	child_heredoc(t_flist **heredoc, int height, char *installed)
 {
 	char	*directory;
 	int		fd_temp;
-	int		cmdnum[2];
+	int		*cmdnum;
 
 	clean_global();
 	directory = ft_strjoin(installed, TEMP);
+	cmdnum = malloc(sizeof(int) * 2);
 	cmdnum[0] = 0;
 	cmdnum[1] = 0;
-	while(1)
+	init_delimiter(&cmdnum, heredoc);
+	while (TRUE)
 	{
-		if (global.last_exitcode == 1)
-			break ;
 		fd_temp = make_temp(directory, cmdnum);
-		if (readline_heredoc(fd_temp, cmdnum, heredoc))
+		if (readline_heredoc(fd_temp, &cmdnum, heredoc, height))
 		{
 			printf("%sheredoc Error\n", RED);
 			exit(1);
@@ -163,7 +189,6 @@ void	fork_heredoc(t_flist **heredoc, int height, char *installed)
 	pid_t	here_child;
 	int		status;
 
-	signal(SIGINT, handler_heredoc);
 	here_child = fork();
 	if (here_child == -1)
 		printf("%sfork error\n", RED);
@@ -173,17 +198,4 @@ void	fork_heredoc(t_flist **heredoc, int height, char *installed)
 		if (wait(&status) == -1)
 			global.last_exitcode = WEXITSTATUS(status);
 	return ;
-	
-		/* 1. prepare signal 
-		 * 2. fork - wait
-		 * 0. child : 
-		 * 1. exit code 초기화 
-		 * 2. file name create(반복 시작)
-		 * 2. append mode file create
-		 * 3. line 받기 시작
-		 * 4. delimitter check 
-		 * 5. delimitter check ok -> break(파일 저장 및 fd close)
-		 * 6. No -> write 무한 진행
-		 *
-		 * */
 }
