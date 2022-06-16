@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/11 00:36:53 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/16 17:01:57 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ char	**vertical_split(char *line)
 }
 	ret[height] = NULL;
 	cut_vertical(&ret, line, height);
-	printf("vertical bar : %d\n", (int)height);
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sentence_part.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:57:25 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/15 23:29:53 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/16 17:56:35 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	prepare_pipe(int ***pipes, int height)
 	i = 0;
 	while (i < height)
 	{
-		if (pipe(pipes[i]) == -1)
+		if (pipe((*pipes)[i]) == -1)
 		{
 			printf("Pipe error : %s\n", strerror(errno));
 			global.last_exitcode = 1;
@@ -38,7 +38,7 @@ int **init_pipe(int cmdnum)
 	int		**pipes;
 	int		i;
 
-	pipes = (int **)mallo(sizeof(int *) * cmdnum);
+	pipes = malloc(sizeof(int *) * cmdnum);
 	if (!pipes)
 	{
 		printf("malloc error\n");
@@ -47,7 +47,7 @@ int **init_pipe(int cmdnum)
 	i = -1;
 	while (++i < cmdnum)
 	{
-		pipes[i] = (int *)malloc(sizeof(int) * 2);
+		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
 		{
 			printf("malloc error\n");
@@ -66,22 +66,36 @@ void	close_pipe(int **pipe, int height)
 	int	j;
 
 	i = -1;
-	j = 0;
+	j = -1;
 	while (++i < height)
 	{
-		while (j < 2)
+		while (++j < 2)
 		{
-			if (i == height - 1 && j == 1)
-				return ;
-			close(pipe[i][j]);
+			if (i == height - 1 && j == 0)
+				continue ;
+			else
+				close(pipe[i][j]);
 			j++;
 		}
-		j = 0;
+		j = -1;
 	}
 }
 
 int	final_print(int **pipe, int height)
 {
+	int		cnt;
+	char	buff[3];
+
+	cnt = read(pipe[height - 1][0], buff, 1);
+	if (cnt != 0)
+		write(1, buff, 1);
+	while (cnt)
+	{
+		cnt = read(pipe[height - 1][0], buff, 1);
+		write(1, buff, 1);
+		if (cnt < 0)
+			break ;
+	}
 	return (FALSE);
 }
 
@@ -99,19 +113,38 @@ pid_t	*init_pids(int numbers)
 	return (pids);
 }
 
-void	ft_wait(pid_t *childs, int numbers)
+int	kill_them_all(pid_t *childs, int numbers)
+{
+	int index;
+
+	index = -1;
+	while (++index < numbers)
+		kill(childs[index], SIGKILL);
+	return (FALSE);
+}
+
+int	ft_wait(pid_t *childs, int numbers)
 {
 	int		index;
 	int		stats;
+	int		kill_flag;
 	pid_t	temp;
 
 	index = -1;
-	while(++index < numbers)
+	kill_flag = 0;
+	while (++index < numbers)
 	{
 		temp = wait(&stats);
-		// 종료 신호받기 구현하면 됨! 
+		if (WEXITSTATUS(stats) != 0 && kill_flag == 0)
+		{
+			kill_them_all(childs, numbers);
+			kill_flag++;
+		}
 	}
-	return ;
+	global.last_exitcode = WEXITSTATUS(stats);
+	if (kill_flag != 0)
+		return (TRUE);
+	return (FALSE);
 }
 
 int	fork_cmds(int height, char **chunks, int **pipes)
@@ -124,19 +157,23 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 	while (++index < height)
 	{
 		childs[index] = fork();
-		if (childs[index] == 0)
+		if (childs[index] != 0)
+			continue ;
+		else if (childs[index] == 0)
 		{
+			write(pipes[height - 1][1], "child process test!\n", ft_strlen("child process test!\n"));
 			print_chunks(chunks, height);
 			//call_cmd(int, height, chunks, pipes)
 			exit(0);
 		}
 	}
-	close_pipe(pipe, height);
-	ft_wait(childs, height);
+	close_pipe(pipes, height);
+	if (ft_wait(childs, height))
+		return (TRUE);
 	return (FALSE);
 }
 
-int	seneten_part(char *line)
+int	sentence_part(char *line)
 {
 	char	**chunks;
 	int		chunk_height;
@@ -147,18 +184,9 @@ int	seneten_part(char *line)
 	chunk_height = check_height(line);
 	index = 0;
 	pipe = init_pipe(chunk_height);
-	if(fork_cmds(chunk_height, chunks, pipe))
-		return ;//애러 처리 해야 함
-	// 1. 파이프 할당 
-	// 2. fork
-			// 3. 파이프 닫기
-		// 4. wait
-			// exit 코드 감시 
-			// 시그널 보내기 방식 활용 에러시 킬 전체; 
-	// 5. 출력 
-	// 프리
-		// 파이프 할당 사항 전체 프리 
-		// 청크 프리
-	// 7. 엑신 코드 지정
+	if (!fork_cmds(chunk_height, chunks, pipe))
+		final_print(pipe, chunk_height);
+	close(pipe[chunk_height - 1][0]);
+	chunk_free(chunks, (size_t)chunk_height);
 	return (FALSE);
 }

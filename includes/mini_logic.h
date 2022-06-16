@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_logic.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/15 23:30:05 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/16 14:44:42 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	print_chunks(char **chunks, int height);
 
 /* sentence part */
 
-int		seneten_part(char *line);
+int 	sentence_part(char *line);
 
 /* command part */
 

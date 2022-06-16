@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:33:56 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/15 21:22:10 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/16 17:00:35 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ int heredoc_check(char *line, char *installed)
 
 	chunks = vertical_split(line);
 	chunk_height = check_height(line);
-	print_chunks(chunks, chunk_height);
 	heredocnum = 0;
 	heredoc = pre_heredoc(chunks, chunk_height, &heredocnum);
 	if (heredocnum != 0)

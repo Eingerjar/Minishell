@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:43:02 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/15 21:19:19 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/16 17:50:04 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,11 @@ void	check_delimiter(int **cmd, t_flist *delimiter, t_flist **heredoc, int maxle
 	if ((*cmd)[0] == maxlen)
 		return ;
 	while (heredoc[(*cmd)[0]]->next == NULL)
+	{
 		(*cmd)[0] += 1;
+		if ((*cmd)[0] == maxlen)
+			break ;
+	}
 }
 
 void	init_delimiter(int **cmd, t_flist **heredoc)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_series.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:23:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 23:52:04 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/16 17:44:19 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	check_pipe(char *line, int index)
 	else if (line[index + 1] == '<' || line[index + 1] == '>')
 		return ((int)(line[index + 1] * -1));
 	else if (line[index + 1] == '\n' || !line[index + 1])
+		return (PARSE);
+	else if ((line[index + 1] == ' ' && !line[index + 2]) || !line[index + 1])
 		return (PARSE);
 	else
 		return (index);
