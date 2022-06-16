@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:57:25 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/16 17:56:35 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 01:28:52 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int	ft_wait(pid_t *childs, int numbers)
 		{
 			kill_them_all(childs, numbers);
 			kill_flag++;
+			(void)temp;
 		}
 	}
 	global.last_exitcode = WEXITSTATUS(stats);
@@ -161,9 +162,12 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 			continue ;
 		else if (childs[index] == 0)
 		{
+			sleep(3);
 			write(pipes[height - 1][1], "child process test!\n", ft_strlen("child process test!\n"));
 			print_chunks(chunks, height);
 			//call_cmd(int, height, chunks, pipes)
+			//if (index == 3)
+			//	exit(1);
 			exit(0);
 		}
 	}
@@ -178,11 +182,9 @@ int	sentence_part(char *line)
 	char	**chunks;
 	int		chunk_height;
 	int		**pipe;
-	int		index;
 
 	chunks = vertical_split(line);
 	chunk_height = check_height(line);
-	index = 0;
 	pipe = init_pipe(chunk_height);
 	if (!fork_cmds(chunk_height, chunks, pipe))
 		final_print(pipe, chunk_height);
