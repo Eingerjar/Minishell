@@ -6,24 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/15 23:29:29 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 22:34:09 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_global	global;
-
-char	*ft_getcwd(void)
-{
-	char	*buf;
-
-	buf = (char *)malloc(sizeof(char) * BUFFER);
-	if (!buf)
-		return (NULL);
-	getcwd(buf, BUFFER);
-	return (buf);
-}
+t_global	g_global;
 
 void	handler_main(int signum)
 {
@@ -35,31 +24,27 @@ void	handler_main(int signum)
 	rl_redisplay();
 }
 
-char	*current_prompt(void)
-{
-	char	*ret;
-	char	*middle;
-	char	*temp;
-	char	*front;
-	char	*last;
-
-	front = "\033[0;35m🥤 shell \033[0;36m\"";
-	last = "\" \033[0;37m\n>> ";
-	middle = ft_getcwd();
-	temp = ft_strjoin(CYAN, middle);
-	free(middle);
-	middle = ft_strjoin(front, temp);
-	free(temp);
-	ret = ft_strjoin(middle, last);
-	free(middle);
-	return (ret);
-}
-
-void	clean_line(char **line, char *tempdir)
+void	clean_line(char **line, char *tempdir, char *currentdir)
 {
 	free(*line);
 	(*line) = NULL;
+	free(currentdir);
+	currentdir = NULL;
 	ft_unlink(tempdir);
+	return ;
+}
+
+void	ctrld(void)
+{
+	printf("😴 exit\n");
+	exit(EXIT_SUCCESS);
+}
+
+void	init_process(char **installed)
+{
+	(*installed) = ft_getcwd();
+	g_global.home = getenv("HOME");
+	welchs();
 	return ;
 }
 
@@ -67,13 +52,14 @@ int	main(void)
 {
 	char	*installed;
 	char	*line;
+	char	*prompt;
 
-	installed = ft_getcwd();
-	signal(SIGINT, handler_main);
-	welchs();
-	while (1)
+	init_process(&installed);
+	while (TRUE)
 	{
-		line = readline(current_prompt());
+		signal(SIGINT, handler_main);
+		prompt = current_prompt();
+		line = readline(prompt);
 		if (line)
 		{
 			add_history(line);
@@ -81,15 +67,12 @@ int	main(void)
 				continue ;
 			if (!pre_error_check(line))
 			{
-				heredoc_check(line, installed);
-				sentence_part(line);
+				if (!heredoc_check(line, installed))
+					sentence_part(line);
 			}
-			clean_line(&line, installed);
+			clean_line(&line, installed, prompt);
 		}
 		else
-		{
-			printf("😴 exit\n");
-			exit(0);
-		}
+			ctrld();
 	}
 }

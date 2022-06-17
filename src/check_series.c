@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_series.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:23:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/16 17:44:19 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 21:49:41 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_redirection(char *line, int index, char redirect)
 	else if (line[index + 1] == opposite)
 		return (PARSE);
 	else if (line[index + 1] == '|')
-		return (PARSE) ;
+		return (PARSE);
 	else if (line[index + 1] == '&')
 		return (-38);
 	return (i);

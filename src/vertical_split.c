@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/16 17:01:57 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 16:31:06 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@ static char *ft_strndup(char *line, size_t byte)
 	char	*ret;
 	size_t	i;
 
-	ret = malloc(sizeof(char) * (byte + 1));
-	if (!ret)
-	{
-		printf("Please check yuour Error\n");
-		exit(0);
-	}
+	ret = malloc_wrap(sizeof(char) * (byte + 1));
 	i = 0;
 	while (i < byte)
 	{
@@ -80,12 +75,7 @@ char	**vertical_split(char *line)
 
 	ret = NULL;
 	height = check_height(line);
-	ret = (char **)malloc(sizeof(char *) * (height + 1));
-	if (!ret)
-	{
-		printf("Please check Error\n");
-		exit(1);
-}
+	ret = (char **)malloc_wrap(sizeof(char *) * (height + 1));
 	ret[height] = NULL;
 	cut_vertical(&ret, line, height);
 	return (ret);

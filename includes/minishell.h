@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/12 19:26:21 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 16:26:30 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,4 @@
 
 # define BUILTIN "echo cd pwd export unset env"
 
-/*
- * type :
- * 			0 : normal input / normal output
- * 			1 : heredoc input / append mode output
- * name : in&output string
- */
-typedef struct s_flist
-{
-	char			type;
-	char			*name;
-	struct s_flist	*next;
-}				t_flist;
-
-/*
- * argv[0]	: command
- * argv[x]	: arguments
- * input	: redirection input & heredoc
- * output	: redirection output & append mode output
- */
-typedef struct s_chunk
-{
-	char		**argv;
-	t_flist		*input;
-	t_flist		*output;
-}				t_chunk;
-
-typedef struct s_global
-{
-	int		last_exitcode;
-	char	*home;
-}				t_global;
-
-
-void	print_heredoc_lst(t_flist **target, int height);
-void	fork_heredoc(t_flist **heredoc, int height, char *installed);
 #endif

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   sentence_part.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:57:25 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/17 01:28:52 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 22:29:59 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-extern t_global global;
+extern t_global g_global;
 
 void	prepare_pipe(int ***pipes, int height)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < height)
@@ -24,11 +24,11 @@ void	prepare_pipe(int ***pipes, int height)
 		if (pipe((*pipes)[i]) == -1)
 		{
 			printf("Pipe error : %s\n", strerror(errno));
-			global.last_exitcode = 1;
+			g_global.last_exitcode = 1;
 		}
 		i++;
 	}
-	if (global.last_exitcode == 1)
+	if (g_global.last_exitcode == 1)
 		exit (1);
 	return ;
 }
@@ -38,24 +38,12 @@ int **init_pipe(int cmdnum)
 	int		**pipes;
 	int		i;
 
-	pipes = malloc(sizeof(int *) * cmdnum);
-	if (!pipes)
-	{
-		printf("malloc error\n");
-		global.last_exitcode = 1;
-	}
+	pipes = malloc_wrap(sizeof(int *) * cmdnum);
 	i = -1;
 	while (++i < cmdnum)
-	{
-		pipes[i] = malloc(sizeof(int) * 2);
-		if (!pipes[i])
-		{
-			printf("malloc error\n");
-			global.last_exitcode = 1;
-		}
-	}
+		pipes[i] = malloc_wrap(sizeof(int) * 2);
 	prepare_pipe(&pipes, cmdnum);
-	if (global.last_exitcode == 1)
+	if (g_global.last_exitcode == 1)
 		exit(1);
 	return (pipes);
 }
@@ -103,13 +91,7 @@ pid_t	*init_pids(int numbers)
 {
 	pid_t	*pids;
 
-	pids = malloc(sizeof(pid_t) * numbers);
-	if (!pids)
-	{
-		printf("malloc error\n");
-		global.last_exitcode = 1;
-		exit (1);
-	}
+	pids = malloc_wrap(sizeof(pid_t) * numbers);
 	return (pids);
 }
 
@@ -142,7 +124,7 @@ int	ft_wait(pid_t *childs, int numbers)
 			(void)temp;
 		}
 	}
-	global.last_exitcode = WEXITSTATUS(stats);
+	g_global.last_exitcode = WEXITSTATUS(stats);
 	if (kill_flag != 0)
 		return (TRUE);
 	return (FALSE);

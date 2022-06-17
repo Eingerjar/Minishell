@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: haryu <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 18:36:54 by haryu             #+#    #+#              #
-#    Updated: 2022/06/04 13:37:59 by haryu            ###   ########.fr        #
+#    Updated: 2022/06/17 17:09:54 by haryu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ READLINE_INCLUDE_DIR 		= ${addprefix $(INCLUDES_DIR), readline/}
 READLINE_LIB_DIR 			= ${addprefix $(LIB_DIR), readline/lib/}
 
 all							: $(NAME)
+								mkdir temp
 
 clean 						: 
 								$(MAKE) clean -C $(LIBFT_DIR)

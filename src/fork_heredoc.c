@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   fork_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:43:02 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/16 17:50:04 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 22:32:24 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-extern t_global global;
+extern t_global g_global;
 
 void	clean_global(void)
 {
-	global.last_exitcode = 0;
+	g_global.last_exitcode = 0;
 	return ;
 }
 
@@ -24,7 +24,7 @@ void	handler_heredoc(int signum)
 {
 	if (signum != SIGINT)
 		return ;
-	global.last_exitcode = 1;
+	g_global.last_exitcode = 1;
 	exit(1);
 }
 
@@ -63,7 +63,7 @@ void	reset_integer_vector(int **vector, int length)
 	int	i;
 
 	i = -1;
-	while(++i < length)
+	while (++i < length)
 		(*vector)[i] = 0;
 	return ;
 }
@@ -142,9 +142,9 @@ int	readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height)
 	len = 0;
 	while (TRUE)
 	{
-		line = readline(">");
+		line = readline("> ");
 		if (line == NULL)
-			line = ft_strdup("");
+			exit(EXIT_FAILURE);
 		if (!ft_strncmp(line, delimiter->name, ft_strlen(delimiter->name)) && \
 ft_strlen(line) == ft_strlen(delimiter->name))
 		{
@@ -179,11 +179,12 @@ void	child_heredoc(t_flist **heredoc, int height, char *installed)
 		if (readline_heredoc(fd_temp, &cmdnum, heredoc, height))
 		{
 			printf("%sheredoc Error\n", RED);
-			exit(1);
+			g_global.last_exitcode = EXIT_FAILURE;
+			exit(EXIT_FAILURE);
 		}
 		close(fd_temp);
 		if (cmdnum[0] == height)
-			exit (0);
+			exit (EXIT_SUCCESS);
 	}
 	exit (0);
 }
@@ -199,7 +200,7 @@ void	fork_heredoc(t_flist **heredoc, int height, char *installed)
 	if (here_child == 0)
 		child_heredoc(heredoc, height, installed);
 	else
-		if (wait(&status) == -1)
-			global.last_exitcode = WEXITSTATUS(status);
+		wait(&status);
+	g_global.last_exitcode = WEXITSTATUS(status);
 	return ;
 }

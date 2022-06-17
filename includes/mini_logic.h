@@ -3,92 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   mini_logic.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/16 14:44:42 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/17 22:33:15 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_LOGIC_H
 # define MINI_LOGIC_H
 
-# include "./minishell.h"
+# include "minishell.h"
+
+/*
+ * type :
+ * 			0 : normal input / normal output
+ * 			1 : heredoc input / append mode output
+ * name : in&output string
+ */
+typedef struct s_flist
+{
+	char			type;
+	char			*name;
+	struct s_flist	*next;
+}				t_flist;
+
+/*
+ * argv[0]	: command
+ * argv[x]	: arguments
+ * input	: redirection input & heredoc
+ * output	: redirection output & append mode output
+ */
+typedef struct s_chunk
+{
+	char		**argv;
+	t_flist		*input;
+	t_flist		*output;
+}				t_chunk;
+
+typedef struct s_global
+{
+	int		last_exitcode;
+	char	*home;
+}				t_global;
+
+/* utils */
+
+void	*malloc_wrap(size_t size);
 
 /* main prompt */
 
-/*
- * @Synopsis "current_prompt"
- *
- * @Returns : get current path and make prompt lines
- */
 char	*current_prompt(void);
-/**
- * @Synopsis "ft_getcwd"
- *
- * @Returns : get current path.
- */
 char	*ft_getcwd(void);
-/**
- * @Synopsis  "ft_unlink"
- *
- * @Param installed : the directory which minishell is installed on.
- *
- * @Returns         : if it delete all temp file, return 0 and if it can't return -1.
- */
-
 int		ft_unlink(char *installed);
-
-/**
- * @Synopsis  "welchs"
- *
- * @Returns   success to expose image of a welchs return 0.
- */
 int		welchs(void);
-
-/**
- * @Synopsis	"pre_error_check"
- *
- * @Param line : whole commands line for parsing.
- *
- * @Returns    : if this function finish check error, make return 0 for make chunks of commands. if not, return 1.
- */
+char	*omitted_dir(char *dir);
+char	*make_current_dir(char ***omitted);
+char	*omit_longstr(char	*str);
 int		pre_error_check(char *line);
-
 int		check_redirection(char *line, int index, char redirect);
-
 int		check_pipe(char *line, int index);
-
 int		skip_quotes(char *line, int index, char quotes);
-
 int		check_command(char *line, int index);
-
 void	print_syntex_error(int code);
-
-/**
- * @Synopsis	"check_height"
- *
- * @Param line : whole commands line for parsing.
- *
- * @Returns    : check how many pipe in there.(size_t)
- */
 size_t	check_height(char *line);
-
-/**
- * @Synopsis  		: free all chunk(utility)
- *
- * @Param chunk		: commands that are taken apart.
- * @Param height	: the number of commands.
- */
 void	chunk_free(char **chunk, size_t height);
-
 int		heredoc_check(char *line, char *installed);
-
+t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum);
+void	init_flist(t_flist ***target, int height);
+void	make_flist(int start, int end, char *line, t_flist **target);
+void	make_heredoc(char *line, t_flist **target, int *heredocnum);
+int		check_redirection_heredoc(char *line, int index, \
+t_flist **target, int *heredocnum);
+void	free_heredoc(t_flist **heredoc, int height);
+void	free_heredoc_part(t_flist **heredoc);
 void	print_chunks(char **chunks, int height);
+void	print_heredoc_lst(t_flist **target, int height);
+void	fork_heredoc(t_flist **heredoc, int height, char *installed);
 
 /* sentence part */
 
-int 	sentence_part(char *line);
+int		sentence_part(char *line);
 
 /* command part */
 
