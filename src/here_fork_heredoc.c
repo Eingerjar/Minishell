@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   here_fork_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/12 16:43:02 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 13:08:48 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	fork_heredoc(t_flist **heredoc, int height, char *installed)
 {
-	t_flist	**ret;
-	int		i;
+	pid_t	here_child;
+	int		status;
 
-	i = 0;
-	init_flist(&ret, height);
-	while (i < height)
-	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
-		i++;
-	}
-	return (ret);
+	here_child = fork();
+	if (here_child == -1)
+		printf("%sfork error\n", RED);
+	if (here_child == 0)
+		child_heredoc(heredoc, height, installed);
+	else
+		wait(&status);
+	g_global.last_exitcode = WEXITSTATUS(status);
+	return ;
 }

@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   pre_omit_longstr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 20:51:57 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/15 19:32:35 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 13:12:21 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 13:12:27 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_chunks(char **chunks, int height)
+extern t_global	g_global;
+
+char	*omit_longstr(char	*str)
 {
-	int	i;
+	char	*ret;
+	int		index;
 
-	i = 0;
-	while (i < height)
+	ret = malloc_wrap(sizeof(char) * 11);
+	index = -1;
+	while (++index < 10)
 	{
-		printf("[%d] %s(%d)\n", i, chunks[i], (int)ft_strlen(chunks[i]));
-		i++;
+		if (index < 7)
+			ret[index] = str[index];
+		else
+			ret[index] = '.';
 	}
-}
-
-void	print_heredoc_lst(t_flist **target, int height)
-{
-	int		i;
-	t_flist	*temp;
-
-	i = 0;
-	while (i < height)
-	{
-		temp = target[i]->next;
-		printf("%d 번 커멘드 heredoc\n", i);
-		while (temp != 0)
-		{
-			printf("%s\n", temp->name);
-			temp = temp->next;
-		}
-		i++;
-	}
-	return ;
+	ret[index] = '\0';
+	return (ret);
 }

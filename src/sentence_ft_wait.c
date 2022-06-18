@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   sentence_ft_wait.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 11:37:27 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 11:57:36 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+int	ft_wait(pid_t *childs, int numbers)
 {
-	t_flist	**ret;
-	int		i;
+	int		index;
+	int		stats;
+	int		kill_flag;
+	pid_t	temp;
 
-	i = 0;
-	init_flist(&ret, height);
-	while (i < height)
+	index = -1;
+	kill_flag = 0;
+	while (++index < numbers)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
-		i++;
+		temp = wait(&stats);
+		if (WEXITSTATUS(stats) != 0 && kill_flag == 0)
+		{
+			kill_them_all(childs, numbers);
+			kill_flag++;
+			(void)temp;
+		}
 	}
-	return (ret);
+	g_global.last_exitcode = WEXITSTATUS(stats);
+	if (kill_flag != 0)
+		return (TRUE);
+	return (FALSE);
 }

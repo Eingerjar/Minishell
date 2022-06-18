@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   here_free_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/17 21:58:29 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 11:59:36 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,35 @@
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	free_heredoc_part(t_flist **heredoc)
 {
-	t_flist	**ret;
-	int		i;
+	t_flist	*temp;
+	t_flist	*next;
 
-	i = 0;
-	init_flist(&ret, height);
-	while (i < height)
+	while (TRUE)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
-		i++;
+		temp = (*heredoc);
+		if (temp->next == 0)
+			break ;
+		next = temp->next;
+		(*heredoc) = next;
+		free(temp->name);
+		free(temp);
+		temp = 0;
 	}
-	return (ret);
+}
+
+void	free_heredoc(t_flist **heredoc, int height)
+{
+	int	i;
+
+	i = height;
+	while (--i >= 0)
+	{
+		if (heredoc[i]->next != 0)
+			free_heredoc_part(&(heredoc[i]->next));
+		free(heredoc[i]);
+	}
+	free(heredoc);
+	return ;
 }

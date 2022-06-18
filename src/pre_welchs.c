@@ -1,75 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   welchs.c                                           :+:      :+:    :+:   */
+/*   pre_welchs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:49:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/17 22:00:43 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/18 13:51:49 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-extern char	**environ;
-
-static void	welchs_clear(void)
+static char	*where_is_welches(char *install)
 {
-	char	*cmd;
-	pid_t	pid;
-	int		status;
+	char	*temp;
+	char	*ret;
 
-	cmd = "/usr/bin/clear";
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(cmd, NULL, environ) == -1)
-		{
-			printf("%s\n", strerror(errno));
-			exit(0);
-		}
-	}
-	else
-		waitpid(pid, &status, WUNTRACED);
-	return ;
+	temp = "/src/image_can";
+	ret = ft_strjoin(install, temp);
+	return (ret);
 }
 
-static void	welchs_sleep(void)
+static void	ft_clear_screen(void)
 {
-	char	*cmd;
-	pid_t	pid;
-	int		status;
-	char	*line;
-	char	**argv;
+	int	i;
 
-	cmd = "/bin/sleep";
-	line = "/bin/sleep 1";
-	argv = ft_split(line, ' ');
-	pid = fork();
-	if (pid == 0)
+	i = 0;
+	while (i < 100)
 	{
-		if (execve(cmd, argv, environ) == -1)
-		{
-			printf("%s\n", strerror(errno));
-			exit(0);
-		}
+		printf("\n");
+		i++;
 	}
-	else
-		waitpid(pid, &status, WUNTRACED);
-	free(argv);
-	return ;
-
 }
 
-int	welchs(void)
+int	welchs(char *installed)
 {
 	char	*buffer;
+	char	*temp;
 	int		fd;
 	int		cnt;
 
 	buffer = malloc_wrap(sizeof(char) * 3001);
-	fd = open("./src/image_can", O_RDONLY);
+	temp = where_is_welches(installed);
+	fd = open(temp, O_RDONLY);
 	if (fd < 0)
 		printf("%s\n", strerror(errno));
 	cnt = read(fd, buffer, 3000);
@@ -79,7 +53,8 @@ int	welchs(void)
 	printf("%s%s%s\n", PURPLE, buffer, WHITE);
 	close(fd);
 	free(buffer);
-	welchs_sleep();
-	welchs_clear();
+	free(temp);
+	sleep(1);
+	ft_clear_screen();
 	return (FALSE);
 }

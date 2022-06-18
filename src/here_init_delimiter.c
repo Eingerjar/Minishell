@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   here_init_delimiter.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 12:58:19 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 12:58:26 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	init_delimiter(int **cmd, t_flist **heredoc)
 {
-	t_flist	**ret;
-	int		i;
-
-	i = 0;
-	init_flist(&ret, height);
-	while (i < height)
+	while (TRUE)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
-		i++;
+		if (heredoc[(*cmd)[0]]->next == NULL)
+			(*cmd)[0] += 1;
+		else
+			break ;
 	}
-	return (ret);
 }

@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unlink.c                                        :+:      :+:    :+:   */
+/*   sentece_fork_cmds.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/01 21:13:36 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 21:02:49 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 11:46:05 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 11:58:40 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_unlink(char *installed)
-{
-	DIR				*dirptr;
-	struct dirent	*file;
-	char			*home;
-	char			*temp;
-	int				i;
+extern t_global	g_global;
 
-	home = ft_strjoin(installed, TEMP);
-	dirptr = opendir(home);
-	if (!dirptr)
+int	fork_cmds(int height, char **chunks, int **pipes)
+{
+	pid_t	*childs;
+	int		index;
+
+	childs = init_pids(height);
+	index = -1;
+	while (++index < height)
 	{
-		printf("error 처리가 필요합니다.");
-		return(TRUE);
+		childs[index] = fork();
+		if (childs[index] != 0)
+			continue ;
+		else if (childs[index] == 0)
+		{
+			childs_test(height, chunks, pipes);
+		}
 	}
-	file = readdir(dirptr);
-	i = 0;
-	while(file != NULL)
-	{
-		temp = ft_strjoin(home, file->d_name);
-		if (i > 1)
-			unlink(temp);
-		free(temp);
-		file = readdir(dirptr);
-		i++;
-	}
-	closedir(dirptr);
-	free(home);
+	close_pipe(pipes, height);
+	if (ft_wait(childs, height))
+		return (TRUE);
 	return (FALSE);
 }

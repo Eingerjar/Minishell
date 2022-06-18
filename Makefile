@@ -6,7 +6,7 @@
 #    By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 18:36:54 by haryu             #+#    #+#              #
-#    Updated: 2022/06/17 17:09:54 by haryu            ###   ########.fr        #
+#    Updated: 2022/06/18 14:05:40 by haryu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,22 +24,32 @@ LIBFT_AFILE 				= libft.a
 LIBFTA 						= ${addprefix $(LIBFT_DIR), $(LIBFT_AFILE)}
 READLINE_INCLUDE_DIR 		= ${addprefix $(INCLUDES_DIR), readline/}
 READLINE_LIB_DIR 			= ${addprefix $(LIB_DIR), readline/lib/}
+sky							:=$(shell tput setaf 6)
+reset						:=$(shell tput sgr0)
+
 
 all							: $(NAME)
-								mkdir temp
+								$(info $(shell tput setaf 1)============= $(NAME) =============$(reset))
+								@mkdir ./temp
 
 clean 						: 
 								$(MAKE) clean -C $(LIBFT_DIR)
-								rm -rf $(SRCS_DIR)*.o
-						   		rm -rf $(SRCS_DIR)*.dSYM
+								@rm -rf $(SRCS_DIR)*.o
+						   		@rm -rf $(SRCS_DIR)*.dSYM
+								@rm -rf ./temp
+								$(info $(shell tput setaf 1)============= $(NAME) clean =============$(reset))
+
 fclean 						:
 	 							$(MAKE) fclean -C $(LIBFT_DIR)
-								rm -rf $(SRCS_DIR)*.o
-								rm -rf $(SRCS_DIR)*.dSYM
-								rm -rf $(NAME)
+								@rm -rf $(SRCS_DIR)*.o
+								@rm -rf $(SRCS_DIR)*.dSYM
+								@rm -rf $(NAME)
+								@rm -rf ./temp
+								$(info $(shell tput setaf 1)============= $(NAME) fclean =============$(reset))
 re 							:
 								make fclean
 								make all
+								$(info $(shell tput setaf 1)============= $(NAME) recompile =============$(reset))
 debug 						:
 								make all CFLAGS+="-Wall -Werror -Wextra -g3 -fsanitize=address"
 
@@ -48,7 +58,8 @@ debug 						:
 
 $(NAME) 					: $(OBJS)
 								$(MAKE) bonus -C $(LIBFT_DIR)
+								$(info $(sky)============= libft.a =============$(reset))
 								$(CC) $(CFLAGS) -L$(READLINE_LIB_DIR) -I$(INCLUDES_DIR) -I$(READLINE_INCLUDE_DIR) -I$(LIBFT_DIR) $(LIBFTA) ./library/readline/lib/libreadline.8.1.dylib $^ -o $@
+								$(info $(shell tput setaf 1)============= $(NAME) =============$(reset))
 
 .PHONY : all bonus clean fclean re debug
-

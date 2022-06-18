@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_syntex_error.c                               :+:      :+:    :+:   */
+/*   pre_print_syntex_error.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:22:42 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/10 20:23:11 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/18 12:01:26 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_syntex_error(int code)
 	else if (code == COM)
 		printf("😮 syntex error near unexpected token  : %c\n", COM * -1);
 	else if (code == IR)
-		printf("😮 syntex error near unexpected token  : %c\n",IR * -1);
+		printf("😮 syntex error near unexpected token  : %c\n", IR * -1);
 	else if (code == OR)
 		printf("😮 syntex error near unexpected token  : %c\n", OR * -1);
 	else if (code == PARSE)
@@ -32,5 +32,4 @@ void	print_syntex_error(int code)
 		printf("😅 This is a bonus opperand\n");
 	else
 		printf("😮 syntex error near unexpected token : %c\n", code * -1);
-
 }

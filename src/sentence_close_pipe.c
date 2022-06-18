@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   sentence_close_pipe.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 11:36:40 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 12:02:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	close_pipe(int **pipe, int height)
 {
-	t_flist	**ret;
-	int		i;
+	int	i;
 
-	i = 0;
-	init_flist(&ret, height);
-	while (i < height)
+	i = -1;
+	while (++i < height)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
-		i++;
+		if (i == height - 1)
+		{
+			close(pipe[i][1]);
+			break ;
+		}
+		close(pipe[i][0]);
+		close(pipe[i][1]);
 	}
-	return (ret);
 }

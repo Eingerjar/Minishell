@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   sentence_childs_test.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 11:41:07 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 11:59:53 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	childs_test(int height, char **chunks, int **pipes)
 {
-	t_flist	**ret;
-	int		i;
+	int	i;
 
 	i = 0;
-	init_flist(&ret, height);
+	write(pipes[height - 1][1], "child process test!\n", \
+ft_strlen("child process test!\n"));
 	while (i < height)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
+		printf("pipe : %d %d\n", pipes[i][0], pipes[i][1]);
 		i++;
 	}
-	return (ret);
+	print_chunks(chunks, height);
+	exit(0);
 }

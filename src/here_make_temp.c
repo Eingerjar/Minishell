@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_heredoc.c                                     :+:      :+:    :+:   */
+/*   here_make_temp.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:06:52 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/17 22:10:25 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 12:09:34 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 12:55:47 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 #include "../includes/mini_logic.h"
 
-extern t_global	global;
+extern t_global	g_global;
 
-void	make_heredoc(char *line, t_flist **target, int *heredocnum)
+int	make_temp(char *directory, int *cmdnum)
 {
-	int	i;
+	char	*tempfile;
+	int		ret;
 
-	i = -1;
-	while (line[++i])
+	tempfile = make_filename(cmdnum[0], cmdnum[1], directory);
+	ret = open(tempfile, O_CREAT | O_RDWR | O_APPEND, S_IRUSR);
+	if (ret < 0)
 	{
-		if (line[i] == 60 || line[i] == 62)
-			i = check_redirection_heredoc(line, i, target, heredocnum);
-		else if (line[i] == ' ')
-			continue ;
-		else
-			i = check_command(line, i);
-		if (!line[i])
-			break ;
+		printf("%sOPEN ERROR, %s", RED, strerror(errno));
+		exit(1);
 	}
+	return (ret);
 }

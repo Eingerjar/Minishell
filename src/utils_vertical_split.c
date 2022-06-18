@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vertical_split.c                                   :+:      :+:    :+:   */
+/*   utils_vertical_split.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/17 16:31:06 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/18 11:55:09 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char *ft_strndup(char *line, size_t byte)
+static char	*ft_strndup(char *line, size_t byte)
 {
 	char	*ret;
 	size_t	i;
@@ -28,9 +28,34 @@ static char *ft_strndup(char *line, size_t byte)
 	return (ret);
 }
 
-static void cut_vertical(char ***chunks, char *line, size_t height)
+static int	make_vertical(char **chunks, char *line, int *index, int *previous)
 {
-	int 	i;
+	if (!line[*index + 1])
+		*index += 1;
+	(*chunks) = ft_strndup(line + *previous, *index - *previous);
+	if (!line[*index])
+		return (*index);
+	else if (line[*index + 1] == ' ')
+	{
+		*index += 1;
+		while (line[*index] == ' ')
+			*index += 1;
+		*previous = --(*index);
+	}
+	return (*index);
+}
+
+static int	skip_white_space(char *line, int index, int *prev)
+{
+	while (line[index] == ' ')
+		index++;
+	(*prev) = index - 1;
+	return (index);
+}
+
+static void	cut_vertical(char ***chunks, char *line, size_t height)
+{
+	int		i;
 	size_t	deep;
 	int		previous;
 
@@ -40,33 +65,19 @@ static void cut_vertical(char ***chunks, char *line, size_t height)
 	while (deep < height && line[i])
 	{
 		if (i == 0 && line[0] == ' ')
-		{
-			while (line[i] == ' ')
-				i++;
-			previous = i - 1;
-		}
+			i = skip_white_space(line, i, &previous);
 		if (line[i] == 34 || line[i] == 39)
 			i = skip_quotes(line, i, line[i]);
 		if (line[i] == '|' || !line[i + 1])
 		{
-			if (!line[i + 1])
-				i++;
-			(*chunks)[deep] = ft_strndup(line + previous, i - previous);
+			make_vertical(&(*chunks)[deep], line, &i, &previous);
 			if (!line[i])
 				break ;
-			else if (line[i + 1] == ' ')
-			{
-				i += 1;
-				while (line[i] == ' ')
-					i++;
-				previous = --i;
-			}
 			deep++;
 		}
 		i++;
 	}
 }
-
 
 char	**vertical_split(char *line)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   init_flist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/17 22:06:03 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 13:09:45 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	init_flist(t_flist ***target, int height)
 {
-	t_flist	**ret;
-	int		i;
+	int	i;
 
+	(*target) = malloc_wrap(sizeof(t_flist *) * (height));
 	i = 0;
-	init_flist(&ret, height);
 	while (i < height)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
+		(*target)[i] = malloc_wrap(sizeof(t_flist) * 1);
+		(*target)[i]->name = 0;
+		(*target)[i]->next = 0;
+		(*target)[i]->type = 0;
 		i++;
 	}
-	return (ret);
 }

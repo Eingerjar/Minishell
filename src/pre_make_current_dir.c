@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   pre_make_current_dir.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 13:11:26 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 13:11:40 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+char	*make_current_dir(char ***omitted)
 {
-	t_flist	**ret;
-	int		i;
+	char	*ret;
+	char	*temp;
+	char	*temp2;
+	int		index;
 
-	i = 0;
-	init_flist(&ret, height);
-	while (i < height)
+	index = -1;
+	ret = ".../";
+	while (++index < 3)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
-		i++;
+		if (ft_strlen((*omitted)[index]) > 10)
+			temp = omit_longstr((*omitted)[index]);
+		else
+			temp = (*omitted)[index];
+		temp2 = ft_strjoin(temp, "/");
+		free(temp);
+		ret = ft_strjoin(ret, temp2);
+		free(temp2);
 	}
 	return (ret);
 }

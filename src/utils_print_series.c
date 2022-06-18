@@ -1,31 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   utils_print_series.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/10 20:51:57 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 12:02:13 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/mini_logic.h"
 
-extern t_global	g_global;
-
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	print_chunks(char **chunks, int height)
 {
-	t_flist	**ret;
-	int		i;
+	int	i;
 
 	i = 0;
-	init_flist(&ret, height);
 	while (i < height)
 	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
+		printf("[%d] %s(%d)\n", i, chunks[i], (int)ft_strlen(chunks[i]));
 		i++;
 	}
-	return (ret);
+}
+
+void	print_heredoc_lst(t_flist **target, int height)
+{
+	int		i;
+	t_flist	*temp;
+
+	i = 0;
+	while (i < height)
+	{
+		temp = target[i]->next;
+		printf("%d 번 커멘드 heredoc\n", i);
+		while (temp != 0)
+		{
+			printf("%s\n", temp->name);
+			temp = temp->next;
+		}
+		i++;
+	}
+	return ;
 }

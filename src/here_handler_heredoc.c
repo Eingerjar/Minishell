@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_heredoc.c                                      :+:      :+:    :+:   */
+/*   here_handler_heredoc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:03:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:14:08 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 12:08:21 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 12:08:44 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,10 @@
 
 extern t_global	g_global;
 
-t_flist	**pre_heredoc(char **chunks, int height, int *heredocnum)
+void	handler_heredoc(int signum)
 {
-	t_flist	**ret;
-	int		i;
-
-	i = 0;
-	init_flist(&ret, height);
-	while (i < height)
-	{
-		make_heredoc(chunks[i], &ret[i], heredocnum);
-		i++;
-	}
-	return (ret);
+	if (signum != SIGINT)
+		return ;
+	g_global.last_exitcode = 1;
+	exit(TRUE);
 }

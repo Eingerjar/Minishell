@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_flist.c                                       :+:      :+:    :+:   */
+/*   sentence_init_pids.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:06:03 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/17 22:09:47 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 11:38:21 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 11:56:49 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
 
-extern t_global	global;
+extern t_global	g_global;
 
-void	init_flist(t_flist ***target, int height)
+pid_t	*init_pids(int numbers)
 {
-	int	i;
+	pid_t	*pids;
 
-	(*target) = malloc_wrap(sizeof(t_flist *) * (height));
-	i = 0;
-	while (i < height)
-	{
-		(*target)[i] = malloc_wrap(sizeof(t_flist) * 1);
-		(*target)[i]->name = 0;
-		(*target)[i]->next = 0;
-		(*target)[i]->type = 0;
-		i++;
-	}
+	pids = malloc_wrap(sizeof(pid_t) * numbers);
+	return (pids);
 }

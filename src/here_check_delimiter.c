@@ -1,48 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_heredoc.c                                     :+:      :+:    :+:   */
+/*   here_check_delimiter.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 21:58:29 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/17 22:01:07 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/18 12:57:29 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/18 12:57:30 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/mini_logic.h"
 
 extern t_global	g_global;
 
-void	free_heredoc_part(t_flist **heredoc)
+void	check_delimiter(int **cmd, t_flist *delimiter, \
+t_flist **heredoc, int maxlen)
 {
-	t_flist	*temp;
-	t_flist	*next;
-
-	while (TRUE)
+	if (delimiter->next == NULL)
 	{
-		temp = (*heredoc);
-		if (temp->next == 0)
+		(*cmd)[0] += 1;
+		(*cmd)[1] = 0;
+	}
+	else
+	{
+		(*cmd)[1] += 1;
+		return ;
+	}
+	if ((*cmd)[0] == maxlen)
+		return ;
+	while (heredoc[(*cmd)[0]]->next == NULL)
+	{
+		(*cmd)[0] += 1;
+		if ((*cmd)[0] == maxlen)
 			break ;
-		next = temp->next;
-		(*heredoc) = next;
-		free(temp->name);
-		free(temp);
-		temp = 0;
 	}
-}
-
-void	free_heredoc(t_flist **heredoc, int height)
-{
-	int	i;
-
-	i = height;
-	while (--i >= 0)
-	{
-		if (heredoc[i]->next != 0)
-			free_heredoc_part(&(heredoc[i]->next));
-		free(heredoc[i]);
-	}
-	free(heredoc);
-	return ;
 }
