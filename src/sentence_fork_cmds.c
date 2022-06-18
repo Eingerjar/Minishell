@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sentece_fork_cmds.c                                :+:      :+:    :+:   */
+/*   sentence_fork_cmds.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:46:05 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 11:58:40 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/18 20:23:54 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 			continue ;
 		else if (childs[index] == 0)
 		{
-			childs_test(height, chunks, pipes);
+			//childs_test(height, chunks, pipes);
+			builtin_test(height, chunks, pipes);
 		}
 	}
 	close_pipe(pipes, height);

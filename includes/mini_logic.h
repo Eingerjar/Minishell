@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:34:59 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/18 20:23:20 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,9 @@ void	prepare_pipe(int ***pipes, int height);
 void	childs_test(int height, char **chunks, int **pipes);
 
 /* command part */
+
+/* built-in commands */
+
+void	builtin_test(int height, char **chunks, int **pipes);
 
 #endif
