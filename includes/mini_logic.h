@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 20:23:20 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/19 21:35:47 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ typedef struct s_global
 {
 	int		last_exitcode;
 	char	*home;
+	char	*heredir;
 }				t_global;
 
 /* utils */
 
 void	*malloc_wrap(size_t size);
+char	**vertical_split(char *line);
 
 /* main prompt */
 

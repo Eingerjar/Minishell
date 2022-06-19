@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/17 16:26:30 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/19 21:36:07 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "error.h"
 # include "mini_external.h"
 # include "mini_logic.h"
-# include "parse.h"
 
 # include "../library/libft/libft.h"
 

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:22:42 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:01:26 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/19 22:05:23 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	print_syntex_error(int code)
 		printf("😮 syntex error near unexpected token  : %c\n", OR * -1);
 	else if (code == PARSE)
 		printf("😮 parse error near unexpected token :\\n\n");
+	else if (code == -124)
+		printf("😮 syntex error near unexpected token  : %c\n", code * -1);
 	else if (code == -38)
 		printf("😅 This is a bonus opperand\n");
 	else
