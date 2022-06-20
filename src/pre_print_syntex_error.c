@@ -6,13 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:22:42 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/19 22:05:23 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/20 12:35:23 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_syntex_error(int code)
+int	print_syntex_error(int code)
 {
 	if (code == SQ)
 		printf("😮 syntex error : %c\n", SQ * -1);
@@ -34,4 +34,5 @@ void	print_syntex_error(int code)
 		printf("😅 This is a bonus opperand\n");
 	else
 		printf("😮 syntex error near unexpected token : %c\n", code * -1);
+	return (TRUE);
 }

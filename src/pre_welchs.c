@@ -6,11 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:49:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 20:47:52 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/20 12:52:36 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+extern char	**environ;
 
 static char	*where_is_welches(char *install)
 {
@@ -24,14 +26,19 @@ static char	*where_is_welches(char *install)
 
 static void	ft_clear_screen(void)
 {
-	int	i;
+	char	**argv;
+	pid_t	pid;
+	int		stat;
 
-	i = 0;
-	while (i < 100)
-	{
-		printf("\n");
-		i++;
-	}
+	argv = malloc(sizeof(char *) * 2);
+	argv[0] = "/usr/bin/clear";
+	argv[1] = NULL;
+	pid = fork();
+	if (pid == 0)
+		execve(argv[0], argv, environ);
+	else
+		wait(&stat);
+	return ;
 }
 
 int	welchs(char *installed)

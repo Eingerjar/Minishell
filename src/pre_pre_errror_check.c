@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:02:28 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/20 12:36:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int	check_line(char *line)
 {
 	int	i;
+	int	max;
 
 	i = -1;
-	while (line[++i])
+	max = (int)ft_strlen(line);
+	while (++i < max)
 	{
 		if (line[i] == ' ')
 			continue ;
@@ -31,11 +33,8 @@ line[i] == 92 || line[i] == 38)
 		else
 			i = check_command(line, i);
 		if (i < 0)
-		{
-			print_syntex_error(i);
-			return (TRUE);
-		}
-		if (i == (int)ft_strlen(line))
+			return (print_syntex_error(i));
+		else if (i >= max)
 			break ;
 	}
 	return (FALSE);

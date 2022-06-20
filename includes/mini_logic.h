@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/19 21:35:47 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/20 12:35:59 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ int		check_redirection(char *line, int index, char redirect);
 int		check_pipe(char *line, int index);
 int		skip_quotes(char *line, int index, char quotes);
 int		check_command(char *line, int index);
-void	print_syntex_error(int code);
+int		what_is_opposite(char redirect);
+int		skip_whitespace(int i, char *line);
+int		check_whitespace(char *line, int index, char redirect);
+int		print_syntex_error(int code);
 size_t	check_height(char *line);
 void	chunk_free(char **chunk, size_t height);
 int		heredoc_check(char *line, char *installed);

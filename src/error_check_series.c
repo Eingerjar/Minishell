@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_series.c                                     :+:      :+:    :+:   */
+/*   error_check_series.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:23:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/19 22:05:22 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/20 12:34:32 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,11 @@ int	what_is_opposite(char redirect)
 
 int	check_redirection(char *line, int index, char redirect)
 {
-	int	i;
 	int	opposite;
 
-	i = index;
 	opposite = what_is_opposite(redirect);
 	if (line[index + 1] == ' ')
-	{
-		i++;
-		while (line[i] == ' ')
-			i++;
-		if (line[i] == redirect || line[i] == opposite || !line[i] || line[i] == '|')
-			 return(line[i] * -1);
-		i--;
-	}
+		index = check_whitespace(line, index + 1, redirect);
 	else if (line[index + 1] == '\n' || index + 1 == (int)ft_strlen(line))
 		return (PARSE);
 	else if (line[index + 1] == redirect)
@@ -50,7 +41,7 @@ int	check_redirection(char *line, int index, char redirect)
 		return ('|' * -1);
 	else if (line[index + 1] == '&')
 		return (-38);
-	return (i);
+	return (index);
 }
 
 int	check_pipe(char *line, int index)
@@ -58,11 +49,12 @@ int	check_pipe(char *line, int index)
 	if (line[index + 1] == ' ')
 	{
 		index += 1;
-		while (line[index] == ' ' && line[index])
-				index++;
+		if (line[index + 1] == ' ')
+			while (line[index] == ' ' && line[index])
+					index++;
 		if (line[index] == '|' || line[index] == '\0')
 			return ('|' * -1);
-		return (index + 1);
+		return (index);
 	}
 	else if (line[index + 1] == '|')
 	{
@@ -72,8 +64,8 @@ int	check_pipe(char *line, int index)
 			return (-38);
 	}
 	else if (line[index + 1] == '<' || line[index + 1] == '>')
-		return ((int)(line[index + 1] * -1));
-	else if (line[index + 1] == '\n' || !line[index + 1])
+		return (line[index + 1] * -1);
+	else if (!line[index + 1])
 		return ('|' * -1);
 	else
 		return (index);
@@ -104,19 +96,18 @@ int	check_command(char *line, int index)
 	int	i;
 
 	i = index - 1;
-	while (line[++i])
+	while (line[++i] != '\0')
 	{
 		if (line[i] == 39 || line[i] == 34)
+		{	
 			i = skip_quotes(line, i, line[i]);
-		if (i < 0)
-			break ;
-		if (line[i] == ' ')
-			break ;
-		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
-		{
-			i--;
-			break ;
+			if (i < 0)
+				return (i);
 		}
+		if (line[i] == ' ')
+			return (i);
+		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
+			return (i - 1);
 		if (line[i] == 59 || line[i] == 44 || line[i] == 92)
 			return (line[i] * -1);
 	}
