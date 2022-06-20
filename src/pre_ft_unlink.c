@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unlink.c                                        :+:      :+:    :+:   */
+/*   pre_ft_unlink.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 21:13:36 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/02 01:33:54 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/18 13:18:34 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_unlink(char *current)
+static void	delete_all(struct dirent *file, DIR *dirptr, char *home)
 {
-	DIR				*dirptr;
-	struct dirent	*file;
-	char			*home;
-	char			*temp;
-	int				i;
+	char	*temp;
+	int		i;
 
-	home = ft_strjoin(current, TEMP);
-	dirptr = opendir(home);
-	if (!dirptr)
-	{
-		printf("error 처리가 필요합니다.");
-		return(TRUE);
-	}
-	file = readdir(dirptr);
 	i = 0;
-	while(file != NULL)
+	while (file != NULL)
 	{
 		temp = ft_strjoin(home, file->d_name);
 		if (i > 1)
@@ -38,6 +27,23 @@ int	ft_unlink(char *current)
 		file = readdir(dirptr);
 		i++;
 	}
+}
+
+int	ft_unlink(char *installed)
+{
+	DIR				*dirptr;
+	struct dirent	*file;
+	char			*home;
+
+	home = ft_strjoin(installed, TEMP);
+	dirptr = opendir(home);
+	if (!dirptr)
+	{
+		printf("There is no temp forlder.\n");
+		return (TRUE);
+	}
+	file = readdir(dirptr);
+	delete_all(file, dirptr, home);
 	closedir(dirptr);
 	free(home);
 	return (FALSE);
