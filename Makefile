@@ -6,7 +6,7 @@
 #    By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 18:36:54 by haryu             #+#    #+#              #
-#    Updated: 2022/06/22 09:48:33 by cgim             ###   ########.fr        #
+#    Updated: 2022/06/22 21:16:24 by haryu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ reset						:=$(shell tput sgr0)
 
 all							: $(NAME)
 								$(info $(shell tput setaf 1)============= $(NAME) =============$(reset))
-								@mkdir ./temp
+								@sh makefolder.sh
 
 clean 						: 
 								$(MAKE) clean -C $(LIBFT_DIR)
