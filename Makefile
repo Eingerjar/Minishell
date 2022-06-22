@@ -6,7 +6,7 @@
 #    By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/02 18:36:54 by haryu             #+#    #+#              #
-#    Updated: 2022/06/18 14:05:40 by haryu            ###   ########.fr        #
+#    Updated: 2022/06/22 09:48:33 by cgim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,7 @@ OBJS 						:= $(SRCS:.c=.o)
 LIBFT_DIR 					= ${addprefix $(LIB_DIR), libft/}
 LIBFT_AFILE 				= libft.a
 LIBFTA 						= ${addprefix $(LIBFT_DIR), $(LIBFT_AFILE)}
-READLINE_INCLUDE_DIR 		= ${addprefix $(INCLUDES_DIR), readline/}
-READLINE_LIB_DIR 			= ${addprefix $(LIB_DIR), readline/lib/}
+READLINE_INCLUDE_DIR 		= ${addprefix $(INCLUDES_DIR), readline}
 sky							:=$(shell tput setaf 6)
 reset						:=$(shell tput sgr0)
 
@@ -59,7 +58,7 @@ debug 						:
 $(NAME) 					: $(OBJS)
 								$(MAKE) bonus -C $(LIBFT_DIR)
 								$(info $(sky)============= libft.a =============$(reset))
-								$(CC) $(CFLAGS) -L$(READLINE_LIB_DIR) -I$(INCLUDES_DIR) -I$(READLINE_INCLUDE_DIR) -I$(LIBFT_DIR) $(LIBFTA) ./library/readline/lib/libreadline.8.1.dylib $^ -o $@
+								$(CC) $(CFLAGS) $(LDFLAGS) -I$(INCLUDES_DIR) -I$(READLINE_INCLUDE_DIR) -I$(LIBFT_DIR) $(LIBFTA) -lreadline $^ -o $@
 								$(info $(shell tput setaf 1)============= $(NAME) =============$(reset))
 
 .PHONY : all bonus clean fclean re debug
