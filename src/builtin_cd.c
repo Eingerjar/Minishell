@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 09:38:36 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 22:07:54 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ static char	*check_location(char *locat)
 {
 	char	*ret;
 
+	ret = NULL;
 	if (!locat)
 		ret = ft_get_env("HOME");
 	else if (locat[0] == '-')
 		ret = ft_get_env("OLDPWD");
 	else if (locat[0] == '.')
 	{
-		if (locat[1] = '.')
+		if (locat[1] == '.')
 			printf("still under working\n");
 		else
 			printf("still under working\n");
@@ -75,6 +76,6 @@ void	builtin_cd(char *cmd, char **argv)
 	dir_env_add(location, oldpwd);
 	free(oldpwd);
 	free(location);
-	free_doublestr(&argv, check_argc);
+	free_doublestr(&argv, check_argc(argv));
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_env_val.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:50:53 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/11 13:31:10 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/23 22:08:40 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	count_env_val(char *str, int i)
 
 	if (str[i + 1] == '?')
 	{
-		env = ft_itoa(global.last_exitcode);
+		env = ft_itoa(g_global.last_exitcode);
 		if (env == NULL)
 			print_error_exit("ft_itoa malloc error\n");
 		return (ft_strlen(env));

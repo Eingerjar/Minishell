@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_env_val.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:29:31 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/11 13:30:42 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/23 22:08:29 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	copy_env_val(char *dst, char *str, int i, int cnt)
 
 	if (str[i + 1] == '?')
 	{
-		env_val = ft_itoa(global.last_exitcode);
+		env_val = ft_itoa(g_global.last_exitcode);
 		if (env_val == NULL)
 			print_error_exit("ft_itoa malloc error\n");
 		ft_memcpy(dst + cnt, str + i + 1, ft_strlen(env_val));
