@@ -6,14 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:08:01 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:08:15 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:32:09 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
-
-extern t_global	g_global;
 
 int	readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height)
 {

@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:37:27 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 11:57:36 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:33:31 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 int	ft_wait(pid_t *childs, int numbers)
 {

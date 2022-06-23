@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/19 21:36:07 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/22 21:19:25 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@
 # define TEMPFILE "temp_"
 
 # define BUILTIN "echo cd pwd export unset env"
+
+extern char	**environ;
 
 #endif

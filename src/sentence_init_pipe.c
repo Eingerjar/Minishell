@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:35:59 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 11:57:07 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:33:39 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 void	prepare_pipe(int ***pipes, int height)
 {

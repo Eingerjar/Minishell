@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:44:12 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 11:54:32 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:32:39 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 char	*ft_getcwd(void)
 {

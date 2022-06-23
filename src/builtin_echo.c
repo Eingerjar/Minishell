@@ -1,46 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_free_heredoc.c                                :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 21:58:29 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:31:01 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/23 09:38:29 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_heredoc_part(t_flist **heredoc)
-{
-	t_flist	*temp;
-	t_flist	*next;
-
-	while (TRUE)
-	{
-		temp = (*heredoc);
-		if (temp->next == 0)
-			break ;
-		next = temp->next;
-		(*heredoc) = next;
-		free(temp->name);
-		free(temp);
-		temp = 0;
-	}
-}
-
-void	free_heredoc(t_flist **heredoc, int height)
+void	builtin_echo(char *cmd, char **argv)
 {
 	int	i;
 
-	i = height;
-	while (--i >= 0)
+	i = 0;
+	(void)cmd;
+	while (argv[++i])
 	{
-		if (heredoc[i]->next != 0)
-			free_heredoc_part(&(heredoc[i]->next));
-		free(heredoc[i]);
+		write(1, argv[i], ft_strlen(argv[i]));
+		if (argv[i + 1] != NULL)
+			printf(" ");
 	}
-	free(heredoc);
-	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/20 12:35:59 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 21:45:43 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,24 @@ typedef struct s_global
 	int		last_exitcode;
 	char	*home;
 	char	*heredir;
+	char	**wel_env;
 }				t_global;
+
+extern t_global	g_global;
 
 /* utils */
 
 void	*malloc_wrap(size_t size);
 char	**vertical_split(char *line);
+void	ft_init_env(void);
+void	ft_add_env(char *variable);
+void	ft_del_env(char *variable);
+char	*ft_get_env(char *variable);
+int		length_doublestring(char **str);
+void	free_doublestr(char ***target, int size);
+int		find_in_env(char *target, char *str);
+char	**make_new_double(int omit, int length);
+void	print_env(void);
 
 /* main prompt */
 
@@ -70,7 +82,7 @@ int		check_pipe(char *line, int index);
 int		skip_quotes(char *line, int index, char quotes);
 int		check_command(char *line, int index);
 int		what_is_opposite(char redirect);
-int		skip_whitespace(int i, char *line);
+int		skip_whitespace_r(int i, char *line);
 int		check_whitespace(char *line, int index, char redirect);
 int		print_syntex_error(int code);
 size_t	check_height(char *line);

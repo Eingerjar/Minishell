@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:41:07 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 11:59:53 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:33:14 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 void	childs_test(int height, char **chunks, int **pipes)
 {

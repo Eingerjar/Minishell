@@ -6,14 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 12:58:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:58:26 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:31:19 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
-
-extern t_global	g_global;
 
 void	init_delimiter(int **cmd, t_flist **heredoc)
 {

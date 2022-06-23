@@ -6,14 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 12:09:01 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:09:17 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:31:29 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
-
-extern t_global	g_global;
 
 char	*make_filename(int number_cmd, int index_cmd, char *dir)
 {
