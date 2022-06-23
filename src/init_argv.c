@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:34:23 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/10 19:34:10 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/23 22:17:34 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static char	**get_argv(char *cmd, int size)
 		else
 		{
 			argv[index] = get_arg(cmd, i);
-			printf("%s\n", argv[index]);
 			i = skip_arg(cmd, i);
 			index++;
 		}
@@ -68,7 +67,6 @@ char	**init_argv(char *cmd)
 	int		index;
 
 	index = count_argv(cmd);
-	printf("index: %d\n", index);
 	argv = get_argv(cmd, index);
 	argv[index] = NULL;
 	return (argv);
