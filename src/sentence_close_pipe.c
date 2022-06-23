@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:36:40 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:02:51 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:33:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 void	close_pipe(int **pipe, int height)
 {

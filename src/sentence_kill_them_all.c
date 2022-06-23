@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:45:50 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:03:06 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:33:43 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 int	kill_them_all(pid_t *childs, int numbers)
 {

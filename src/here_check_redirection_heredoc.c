@@ -6,14 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 22:10:06 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:19:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:30:29 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
-
-extern t_global	g_global;
 
 int	check_redirection_heredoc(char *line, int index, \
 t_flist **target, int *heredocnum)

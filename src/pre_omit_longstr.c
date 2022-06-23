@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:12:21 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 13:12:27 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:32:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 char	*omit_longstr(char	*str)
 {

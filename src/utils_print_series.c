@@ -6,12 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:51:57 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:02:13 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:34:19 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
 
 void	print_chunks(char **chunks, int height)
 {

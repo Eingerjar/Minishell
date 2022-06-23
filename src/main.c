@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/20 02:05:58 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:36:35 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_process(char **installed)
 	(*installed) = ft_getcwd();
 	g_global.home = getenv("HOME");
 	g_global.heredir = ft_strjoin((*installed), TEMP);
+	ft_init_env();
 	welchs(*installed);
 	return ;
 }

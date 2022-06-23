@@ -6,14 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 12:59:17 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 12:59:24 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:30:34 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/mini_logic.h"
-
-extern t_global	g_global;
 
 void	child_heredoc(t_flist **heredoc, int height, \
 char *installed)

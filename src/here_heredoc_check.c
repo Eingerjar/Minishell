@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:33:56 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/20 12:33:57 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 02:31:14 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern t_global	g_global;
 
 int	heredoc_check(char *line, char *installed)
 {
