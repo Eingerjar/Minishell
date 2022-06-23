@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 09:34:02 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 09:38:29 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	builtin_echo(char *cmd, char **argv)
 	int	i;
 
 	i = 0;
+	(void)cmd;
 	while (argv[++i])
 	{
 		write(1, argv[i], ft_strlen(argv[i]));

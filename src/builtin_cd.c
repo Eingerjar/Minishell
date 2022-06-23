@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 03:43:22 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 09:38:36 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	builtin_cd(char *cmd, char **argv)
 	char	*oldpwd;
 	int		error;
 
+	(void)cmd;
 	oldpwd = ft_getcwd();
 	location = check_location(argv[1]);
 	error = chdir(location);
