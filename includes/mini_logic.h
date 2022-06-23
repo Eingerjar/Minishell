@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 21:45:43 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 21:59:40 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,31 @@ int		**init_pipe(int cmdnum);
 void	prepare_pipe(int ***pipes, int height);
 void	childs_test(int height, char **chunks, int **pipes);
 
+/* init_structure part */
+void	copy_env_val(char *dst, char *str, int i, int cnt);
+void	copy_quote(char *dst, char *str, int i, int cnt);
+int		count_env_val(char *str, int i);
+int		count_quote(char *str, int i);
+void	flistadd_back(t_flist **head, t_flist *new);
+t_flist	*flistnew(char type, char *name);
+char	*get_arg(char *cmd, int i);
+char	*get_env(char *str, int i);
+char	**init_argv(char *cmd);
+void	print_error_exit(char *err_msg);
+int		skip_arg(char *cmd, int i);
+int		skip_env(char *str, int i);
+int		skip_quote(char *cmd, int i);
+int		skip_redirection(char *cmd, int i);
+int		skip_whitespace(char *cmd, int i);
+t_chunk	*init_structure(int index, char **cmds);
+char	**init_argv(char *cmd);
+
 /* command part */
+void	call_cmd(int index, char **cmd, int **pipe);
+void	close_other_pipe(int index, char **cmd, int **pipe);
+int		count_cmd(char **cmd);
+void	set_stdin(int **pipe, int index, t_flist *f_input);
+void	set_stdout(int **pipe, int index, t_flist *f_output, char **cmd);
 
 /* built-in commands */
 
