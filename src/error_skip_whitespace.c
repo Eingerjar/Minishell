@@ -6,13 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 01:46:17 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/20 02:28:04 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 21:45:39 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	skip_whitespace(int i, char *line)
+int	skip_whitespace_r(int i, char *line)
 {
 	while (line[i] == 32)
 	{

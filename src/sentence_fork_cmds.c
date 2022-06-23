@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:46:05 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:37:50 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 21:38:36 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 		if (childs[index] != 0)
 			continue ;
 		else if (childs[index] == 0)
-		{
-			childs_test(height, chunks, pipes);
-		}
+			call_cmd(index, chunks[index], pipes);
 	}
 	close_pipe(pipes, height - 1);
 	if (ft_wait(childs, height))

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 21:57:25 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:39:30 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 21:39:05 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	sentence_part(char *line)
 	chunks = vertical_split(line);
 	chunk_height = check_height(line);
 	pipe = init_pipe(chunk_height - 1);
-	if (!fork_cmds(chunk_height, chunks, pipe))
-		final_print(pipe, chunk_height);
-	close(pipe[chunk_height - 1][0]);
+	fork_cmds(chunk_height, chunks, pipe);
 	chunk_free(chunks, (size_t)chunk_height);
 	return (FALSE);
 }

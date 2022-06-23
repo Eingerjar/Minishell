@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/22 21:20:39 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/23 21:45:43 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		check_pipe(char *line, int index);
 int		skip_quotes(char *line, int index, char quotes);
 int		check_command(char *line, int index);
 int		what_is_opposite(char redirect);
-int		skip_whitespace(int i, char *line);
+int		skip_whitespace_r(int i, char *line);
 int		check_whitespace(char *line, int index, char redirect);
 int		print_syntex_error(int code);
 size_t	check_height(char *line);
