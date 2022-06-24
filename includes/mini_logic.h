@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 21:59:40 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/24 11:43:53 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ t_flist	*flistnew(char type, char *name);
 char	*get_arg(char *cmd, int i);
 char	*get_env(char *str, int i);
 char	**init_argv(char *cmd);
+int		is_whitespace(char chr);
 void	print_error_exit(char *err_msg);
 int		skip_arg(char *cmd, int i);
 int		skip_env(char *str, int i);

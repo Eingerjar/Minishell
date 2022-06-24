@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:27:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/10 11:27:35 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/24 11:44:26 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	skip_whitespace(char *cmd, int i)
 {
-	while (cmd[i] == ' ')
+	while (is_whitespace(cmd[i]))
 		i++;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:34:23 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/23 22:17:34 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/24 11:49:31 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	count_argv(char *cmd)
 	i = 0;
 	while (cmd[i] != '\0')
 	{	
-		if (cmd[i] == ' ')
+		if (is_whitespace(cmd[i]))
 			i = skip_whitespace(cmd, i);
 		else if (cmd[i] == '<' || cmd[i] == '>')
 			i = skip_redirection(cmd, i);
@@ -47,7 +47,7 @@ static char	**get_argv(char *cmd, int size)
 	i = 0;
 	while (cmd[i] != '\0')
 	{
-		if (cmd[i] == ' ')
+		if (is_whitespace(cmd[i]))
 			i = skip_whitespace(cmd, i);
 		else if (cmd[i] == '<' || cmd[i] == '>')
 			i = skip_redirection(cmd, i);

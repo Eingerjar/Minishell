@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:26:20 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/10 20:15:47 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/24 11:50:32 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_flist	*init_input(char *cmd)
 	i = 0;
 	while (cmd[i] != '\0')
 	{
-		if (cmd[i] == ' ')
+		if (is_whitespace(cmd[i]))
 			i = skip_whitespace(cmd, i);
 		else if (cmd[i] == '<')
 		{
@@ -76,7 +76,7 @@ static t_flist	*init_output(char *cmd)
 	i = 0;
 	while (cmd[i] != '\0')
 	{
-		if (cmd[i] == ' ')
+		if (is_whitespace(cmd[i]))
 			i = skip_whitespace(cmd, i);
 		else if (cmd[i] == '>')
 		{
