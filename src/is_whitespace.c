@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skip_arg.c                                         :+:      :+:    :+:   */
+/*   is_whitespace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 11:29:10 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/24 11:51:20 by cgim             ###   ########.fr       */
+/*   Created: 2022/06/24 11:42:31 by cgim              #+#    #+#             */
+/*   Updated: 2022/06/24 11:44:42 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	skip_arg(char *cmd, int i)
+int	is_whitespace(char chr)
 {
-	while (cmd[i] != '\0')
-	{
-		if (cmd[i] == '<' || cmd[i] == '>' || is_whitespace(cmd[i]))
-			break ;
-		else if (cmd[i] == '"' || cmd[i] == '\'')
-			i = skip_quote(cmd, i);
-		else
-			i++;
-	}
-	return (i);
+	if (chr == '\t' || chr == '\n' || chr == '\v'
+		|| chr == '\f' || chr == '\r' || chr == ' ')
+		return (1);
+	return (0);
 }

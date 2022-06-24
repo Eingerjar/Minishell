@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:30:29 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/10 11:30:29 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/24 11:51:39 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	skip_redirection(char *cmd, int i)
 	i++;
 	if (cmd[i] == '<' || cmd[i] == '>')
 		i++;
-	if (cmd[i] == ' ')
+	if (is_whitespace(cmd[i]))
 		i = skip_whitespace(cmd, i);
 	i = skip_arg(cmd, i);
 	return (i);
