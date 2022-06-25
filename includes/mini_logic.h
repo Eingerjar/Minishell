@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/25 19:25:29 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/26 04:33:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	free_doublestr(char ***target, int size);
 int		find_in_env(char *target, char *str);
 char	**make_new_double(int omit, int length);
 void	print_env(void);
+void	free_t_chunk(t_chunk *chunk);
 
 /* main prompt */
 
@@ -146,7 +147,7 @@ t_chunk	*init_structure(int index, char **cmds);
 char	**init_argv(char *cmd);
 
 /* command part */
-void	call_cmd(int index, char **cmd, int **pipe);
+void	call_cmd(int index, char **cmd, t_chunk *chunk, int **pipe);
 void	close_other_pipe(int index, char **cmd, int **pipe);
 int		count_cmd(char **cmd);
 void	set_stdin(int **pipe, int index, t_flist *f_input);

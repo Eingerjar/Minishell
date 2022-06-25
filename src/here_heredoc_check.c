@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:33:56 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:31:14 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/25 08:25:03 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	heredoc_check(char *line, char *installed)
 	int		chunk_height;
 	t_flist	**heredoc;
 	int		heredocnum;
+	int		prev_last;
 
+	prev_last = g_global.last_exitcode;
+	g_global.last_exitcode = 0;
 	chunks = vertical_split(line);
 	chunk_height = check_height(line);
 	heredocnum = 0;
@@ -29,5 +32,9 @@ int	heredoc_check(char *line, char *installed)
 	chunk_free(chunks, chunk_height);
 	if (g_global.last_exitcode != 0)
 		return (TRUE);
-	return (FALSE);
+	else
+	{
+		g_global.last_exitcode = prev_last;
+		return (FALSE);
+	}
 }
