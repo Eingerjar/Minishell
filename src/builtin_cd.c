@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 08:07:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 08:24:15 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,14 @@ static char	*check_location(char *locat)
 	else if (locat[0] == '.')
 	{
 		if (locat[1] == '.')
-		{
 			ret = prev_directory();
-			printf("%s\n", ret);
-		}
 		else
 			ret = ft_getcwd();
 	}
 	else if (locat[0] == '~')
 		ret = ft_strdup(g_global.home);
 	else
-	{
 		ret = make_location(locat);
-	}
 	return (ret);
 }
 
