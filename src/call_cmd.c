@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/26 04:41:48 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 06:13:20 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	execute_process(char **argv)
 		tmp = get_cmd(path[i], cmd);
 		free(argv[0]);
 		argv[0] = tmp;
-		execve(argv[0], argv, NULL);
+		execve(argv[0], argv, g_global.wel_env);
 	}
 	print_cmd_exit(cmd);
 }
@@ -68,5 +68,12 @@ void	call_cmd(int index, char **cmd, t_chunk *chunk, int **pipe)
 	close_other_pipe(index, cmd, pipe);
 	set_stdin(pipe, index, chunk->input);
 	set_stdout(pipe, index, cmd_size, chunk->output);
+	if (cmd_size == 1 && is_builtin(chunk))
+	{
+		execute_builtin(chunk->argv);
+		return ;
+	}
+	else if (is_builtin(chunk))
+		execute_builtin(chunk->argv);
 	execute_process(chunk->argv);
 }

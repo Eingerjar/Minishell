@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   builtin_is_builtin.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/23 02:41:23 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 09:38:18 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/26 05:24:42 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/26 06:13:00 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	builtin_exit(char *cmd, char **argv)
+int	is_builtin(t_chunk *chunk)
 {
-	(void)cmd;
-	(void)argv;
-	exit(0);
+	int	i;
+
+	i = 0;
+	while (BUILTIN[i])
+	{
+		if (BUILTIN[i] == chunk->argv[0][0])
+		{
+			if (!ft_strncmp(&BUILTIN[i], chunk->argv[0], \
+ft_strlen(chunk->argv[0])))
+				return (TRUE);
+		}
+		i++;
+	}
+	return (FALSE);
 }

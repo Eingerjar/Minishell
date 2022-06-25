@@ -6,11 +6,27 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:46:05 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 04:48:40 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 06:24:03 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	fake_process(void)
+{
+	usleep(300);
+	exit(0);
+}
+
+void	builtin_process(pid_t **child, char	**chunks, \
+t_chunk *chunk, int **pipes)
+{
+	(*child)[0] = fork();
+	if ((*child)[0] == 0)
+		fake_process();
+	else
+		call_cmd(0, chunks, chunk, pipes);
+}
 
 int	fork_cmds(int height, char **chunks, int **pipes)
 {
@@ -23,12 +39,12 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 	while (++index < height)
 	{
 		chunk = init_structure(index, chunks);
-		childs[index] = fork();
+		if (height == 1 && is_builtin(chunk) && index == 0)
+			builtin_process(&childs, chunks, chunk, pipes);
+		else
+			childs[index] = fork();
 		if (childs[index] != 0)
-		{
 			free_t_chunk(chunk);
-			chunk = NULL;
-		}
 		else if (childs[index] == 0)
 			call_cmd(index, chunks, chunk, pipes);
 	}

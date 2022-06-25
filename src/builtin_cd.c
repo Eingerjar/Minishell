@@ -6,11 +6,59 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 22:07:54 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 08:07:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static char	*make_location(char *locat)
+{
+	char	*temp;
+	char	*temp2;
+	char	*ret;
+
+	temp2 = ft_getcwd();
+	if (locat[0] == '/')
+		return (locat);
+	else
+	{
+		temp = ft_strjoin("/", locat);
+		ret = ft_strjoin(temp2, temp);
+		free(temp);
+	}
+	free(temp2);
+	return (ret);
+}
+
+static char	*prev_directory(void)
+{
+	char	*temp;
+	char	*ret;
+	int		i;
+	int		prev;
+
+	temp = ft_getcwd();
+	i = 0;
+	while (temp[i])
+	{
+		if (temp[i] == '/')
+			prev = i;
+		if (temp[i] == '/' && temp[i + 1] == 0)
+			break ;
+		i++;
+	}
+	if (prev == 0)
+	{
+		free(temp);
+		return (strdup("/"));
+	}
+	ret = malloc_wrap(sizeof(char) * (prev + 1));
+	ret[prev] = 0;
+	ft_memmove(ret, temp, prev);
+	free(temp);
+	return (ret);
+}
 
 static char	*check_location(char *locat)
 {
@@ -24,12 +72,19 @@ static char	*check_location(char *locat)
 	else if (locat[0] == '.')
 	{
 		if (locat[1] == '.')
-			printf("still under working\n");
+		{
+			ret = prev_directory();
+			printf("%s\n", ret);
+		}
 		else
-			printf("still under working\n");
+			ret = ft_getcwd();
 	}
+	else if (locat[0] == '~')
+		ret = ft_strdup(g_global.home);
 	else
-		ret = ft_strdup(locat);
+	{
+		ret = make_location(locat);
+	}
 	return (ret);
 }
 
@@ -47,23 +102,12 @@ static void	dir_env_add(char *pwd, char *oldpwd)
 	free(temp);
 }
 
-static int	check_argc(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i])
-		i++;
-	return (i);
-}
-
-void	builtin_cd(char *cmd, char **argv)
+void	builtin_cd(char **argv)
 {
 	char	*location;
 	char	*oldpwd;
 	int		error;
 
-	(void)cmd;
 	oldpwd = ft_getcwd();
 	location = check_location(argv[1]);
 	error = chdir(location);
@@ -76,6 +120,5 @@ void	builtin_cd(char *cmd, char **argv)
 	dir_env_add(location, oldpwd);
 	free(oldpwd);
 	free(location);
-	free_doublestr(&argv, check_argc(argv));
 	return ;
 }

@@ -6,11 +6,21 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:46:32 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:32:56 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 08:08:52 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	splitlen(char **root)
+{
+	int	i;
+
+	i = 0;
+	while (root[i])
+		i++;
+	return (i);
+}
 
 char	*omitted_dir(char *dir)
 {
@@ -18,13 +28,16 @@ char	*omitted_dir(char *dir)
 	char	**omitted;
 	char	*ret;
 	int		index;
+	int		max;
 
-	splitted = ft_split(dir, '/');
-	omitted = malloc_wrap(sizeof(char *) * 3);
+	splitted = ft_split(dir + 1, '/');
+	omitted = malloc_wrap(sizeof(char *) * 4);
+	omitted[3] = 0;
 	index = -1;
-	while (splitted[++index])
+	max = splitlen(splitted);
+	while (++index < max)
 	{
-		if (!splitted[index + 1])
+		if (max > 2 && !splitted[index + 1])
 		{
 			omitted[0] = splitted[index - 2];
 			omitted[1] = splitted[index - 1];
@@ -32,7 +45,12 @@ char	*omitted_dir(char *dir)
 			break ;
 		}
 	}
-	ret = make_current_dir(&omitted);
+	if (index > 2)
+		ret = make_current_dir(&omitted);
+	else if (index > 1)
+		ret = ft_strjoin(ft_getcwd(), "/");
+	else
+		ret = ft_getcwd();
 	free(omitted);
 	return (ret);
 }

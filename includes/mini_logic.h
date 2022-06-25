@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 04:33:51 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 06:32:55 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,11 @@ void	set_stdout(int **pipe, int index, int cmd_size, t_flist *f_output);
 
 /* built-in commands */
 
-void	builtin_test(int height, char **chunks, int **pipes);
+int		is_builtin(t_chunk *chunk);
+void	execute_builtin(char **argv);
+void	ctrld(void);
+void	builtin_echo(char **argv);
+void	builtin_cd(char **argv);
+void	builtin_pwd(char **argv);
 
 #endif
