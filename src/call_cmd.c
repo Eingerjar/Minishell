@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/23 21:03:44 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/25 19:25:31 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ static void	execute_process(char **argv)
 void	call_cmd(int index, char **cmd, int **pipe)
 {
 	t_chunk	*chunk;
+	int		cmd_size;
 
+	cmd_size = count_cmd(cmd);
 	chunk = init_structure(index, cmd);
 	close_other_pipe(index, cmd, pipe);
 	set_stdin(pipe, index, chunk->input);
-	set_stdout(pipe, index, chunk->output, cmd);
+	set_stdout(pipe, index, cmd_size, chunk->output);
 	execute_process(chunk->argv);
 }
