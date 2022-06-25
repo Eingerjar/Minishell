@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 20:36:36 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/25 12:33:25 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/25 17:57:53 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ static int	open_write_mode(t_flist *f_output)
 	return (output_fd);
 }
 
-void	set_stdout(int **pipe, int index, t_flist *f_output, char **cmd)
+void	set_stdout(int **pipe, int index, int cmd_size, t_flist *f_output)
 {
 	int	output_fd;
-	int	cmd_size;
 
 	cmd_size = count_cmd(cmd);
 	if (f_output == NULL)

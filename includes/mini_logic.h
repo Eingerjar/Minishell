@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/24 11:43:53 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/25 19:25:29 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	call_cmd(int index, char **cmd, int **pipe);
 void	close_other_pipe(int index, char **cmd, int **pipe);
 int		count_cmd(char **cmd);
 void	set_stdin(int **pipe, int index, t_flist *f_input);
-void	set_stdout(int **pipe, int index, t_flist *f_output, char **cmd);
+void	set_stdout(int **pipe, int index, int cmd_size, t_flist *f_output);
 
 /* built-in commands */
 
