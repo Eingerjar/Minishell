@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:37:27 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:33:31 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 18:24:48 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,13 @@ int	ft_wait(pid_t *childs, int numbers)
 {
 	int		index;
 	int		stats;
-	int		kill_flag;
-	pid_t	temp;
 
 	index = -1;
-	kill_flag = 0;
+	(void)childs;
 	while (++index < numbers)
-	{
-		temp = wait(&stats);
-		if (WEXITSTATUS(stats) != 0 && kill_flag == 0)
-		{
-			kill_them_all(childs, numbers);
-			kill_flag++;
-			(void)temp;
-		}
-	}
+		wait(&stats);
 	g_global.last_exitcode = WEXITSTATUS(stats);
-	if (kill_flag != 0)
+	if (g_global.last_exitcode != 0)
 		return (TRUE);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 17:22:28 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 18:28:20 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ static int	echo_argv_length(char **argv)
 	int	i;
 
 	i = 0;
-	while(argv[i])
-	{
+	while (argv[i])
 		i++;
-	}
 	return (i);
 }
 
