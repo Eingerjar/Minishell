@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 06:32:55 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 17:15:37 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,6 @@ void	ctrld(void);
 void	builtin_echo(char **argv);
 void	builtin_cd(char **argv);
 void	builtin_pwd(char **argv);
+int		builtin_pro_or_not(char **chunk);
 
 #endif
