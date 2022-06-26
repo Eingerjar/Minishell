@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/26 06:13:20 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 17:24:39 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,16 @@ void	call_cmd(int index, char **cmd, t_chunk *chunk, int **pipe)
 	close_other_pipe(index, cmd, pipe);
 	set_stdin(pipe, index, chunk->input);
 	set_stdout(pipe, index, cmd_size, chunk->output);
-	if (cmd_size == 1 && is_builtin(chunk))
+	if (cmd_size == 1 && is_builtin(chunk) && \
+			!builtin_pro_or_not(chunk->argv))
 	{
 		execute_builtin(chunk->argv);
 		return ;
 	}
 	else if (is_builtin(chunk))
+	{
 		execute_builtin(chunk->argv);
+		exit(0);
+	}
 	execute_process(chunk->argv);
 }

@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   builtin_pro_or_not.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 17:22:28 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/26 17:16:37 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/26 17:17:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	echo_argv_length(char **argv)
+int builtin_pro_or_not(char **chunks)
 {
-	int	i;
-
-	i = 0;
-	while(argv[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-void	builtin_echo(char **argv)
-{
-	int	i;
-	int	max;
-
-	i = 1;
-	max = echo_argv_length(argv);
-	while (i < max)
-	{
-		write(1, argv[i], ft_strlen(argv[i]));
-		if (i + 1 == max)
-			break ;
-		write(1, " ", 1);
-		i++;
-	}
-	return ;
+	if (!ft_strncmp(chunks[0], "echo", 4))
+		return (TRUE);
+	if (!ft_strncmp(chunks[0], "pwd", 3))
+		return (TRUE);
+	if (!ft_strncmp(chunks[0], "env", 3))
+		return (TRUE);
+	if (!ft_strncmp(chunks[0], "export", 6) && !chunks[1])
+		return (TRUE);
+	return (FALSE);
 }
