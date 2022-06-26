@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 20:36:36 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/25 17:57:53 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/26 05:01:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	set_stdout(int **pipe, int index, int cmd_size, t_flist *f_output)
 {
 	int	output_fd;
 
-	cmd_size = count_cmd(cmd);
 	if (f_output == NULL)
 	{
 		if (index == cmd_size - 1)

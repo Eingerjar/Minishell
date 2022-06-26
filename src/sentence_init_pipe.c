@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:35:59 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:33:39 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/26 04:54:49 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ int	**init_pipe(int cmdnum)
 {
 	int		**pipes;
 	int		i;
+	int		prev;
 
+	prev = g_global.last_exitcode;
+	g_global.last_exitcode = 0;
 	pipes = malloc_wrap(sizeof(int *) * cmdnum);
 	i = -1;
 	while (++i < cmdnum)
 		pipes[i] = malloc_wrap(sizeof(int) * 2);
 	prepare_pipe(&pipes, cmdnum);
-	if (g_global.last_exitcode == 1)
-		exit(1);
+	g_global.last_exitcode = prev;
 	return (pipes);
 }
