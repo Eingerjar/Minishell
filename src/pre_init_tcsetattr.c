@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_current_prompt.c                               :+:      :+:    :+:   */
+/*   pre_init_tcsetattr.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 21:48:21 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 01:54:09 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/27 02:14:16 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/27 02:18:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*current_prompt(void)
+void	init_tcsetattr(struct termios *new)
 {
-	char	*ret;
-	char	*front;
-	char	*last;
-	char	*middle;
-
-	front = "\033[0;35m🥤 shell \033[0;36m\"";
-	last = "\" \033[0;37m \n>> ";
-	middle = ft_getcwd();
-	ret = omitted_dir(middle);
-	free(middle);
-	middle = ft_strdup(ret);
-	free(ret);
-	ret = ft_strjoin(CYAN, middle);
-	free(middle);
-	middle = ft_strjoin(front, ret);
-	free(ret);
-	ret = ft_strjoin(middle, last);
-	free(middle);
-	return (ret);
+	tcgetattr(0, &g_global.old_settings);
+	(*new) = g_global.old_settings;
+	new->c_lflag |= ICANON;
+	new->c_cc[VQUIT] = 255;
+	tcsetattr(0, TCSANOW, new);
+	return ;
 }

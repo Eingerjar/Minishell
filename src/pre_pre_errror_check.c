@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_error_check.c                                  :+:      :+:    :+:   */
+/*   pre_pre_errror_check.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/20 12:36:02 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/27 02:52:52 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ line[i] == 92 || line[i] == 38)
 
 int	pre_error_check(char *line)
 {
+	if (ft_strlen(line) == 0)
+		return (TRUE);
 	if (check_line(line))
 		return (TRUE);
 	return (FALSE);

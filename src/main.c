@@ -6,23 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 06:46:16 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/27 02:53:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 t_global	g_global;
-
-void	handler_main(int signum)
-{
-	if (signum != SIGINT)
-		return ;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
-}
 
 void	clean_line(char **line, char *tempdir, char *currentdir)
 {
@@ -40,33 +30,35 @@ void	ctrld(void)
 	exit(EXIT_SUCCESS);
 }
 
-void	init_process(char **installed)
+void	init_process(char **installed, struct termios *new)
 {
 	(*installed) = ft_getcwd();
 	g_global.home = getenv("HOME");
 	g_global.heredir = ft_strjoin((*installed), TEMP);
 	ft_init_env();
 	welchs(*installed);
+	tcgetattr(0, &g_global.old_settings);
+	init_tcsetattr(new);
 	return ;
 }
 
 int	main(void)
 {
-	char	*installed;
-	char	*line;
-	char	*prompt;
+	char			*installed;
+	char			*line;
+	char			*prompt;
+	struct termios	new;
 
-	init_process(&installed);
+	init_process(&installed, &new);
 	while (TRUE)
 	{
-		signal(SIGINT, handler_main);
+		main_signal();
 		prompt = current_prompt();
 		line = readline(prompt);
 		if (line)
 		{
 			add_history(line);
-			if (ft_strlen(line) == 0)
-				continue ;
+			tcsetattr(0, TCSANOW, &g_global.old_settings);
 			if (!pre_error_check(line))
 			{
 				if (!heredoc_check(line, installed))
