@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   utils_wait_signal.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 13:28:49 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/27 13:37:02 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/27 13:38:43 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	echo_argv_length(char **argv)
+void	handler_wait(int signum)
 {
-	int	i;
-
-	i = 0;
-	while (argv[i])
-		i++;
-	return (i);
+	(void)signum;
+	return ;
 }
 
-void	builtin_echo(char **argv)
+void	wait_signal(void)
 {
-	int	i;
-	int	max;
-
-	i = 1;
-	max = echo_argv_length(argv);
-	while (i < max)
-	{
-		write(1, argv[i], ft_strlen(argv[i]));
-		if (i + 1 == max)
-			break ;
-		write(1, " ", 1);
-		i++;
-	}
-	g_global.last_exitcode = 0;
-	return ;
+	signal(SIGINT, handler_wait);
+	signal(SIGQUIT, handler_wait);
 }

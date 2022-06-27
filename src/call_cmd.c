@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/26 17:24:39 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/27 13:24:44 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	execute_process(char **argv)
 	int		i;
 
 	i = -1;
-	execve(argv[0], argv, NULL);
+	execve(argv[0], argv, g_global.wel_env);
 	cmd = ft_strdup(argv[0]);
 	if (cmd == NULL)
 		print_error_exit("ft_strdup malloc error\n");
@@ -64,6 +64,7 @@ void	call_cmd(int index, char **cmd, t_chunk *chunk, int **pipe)
 {
 	int		cmd_size;
 
+	call_cmd_signal();
 	cmd_size = count_cmd(cmd);
 	close_other_pipe(index, cmd, pipe);
 	set_stdin(pipe, index, chunk->input);

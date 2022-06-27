@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 17:15:37 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/27 13:39:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ typedef struct s_chunk
 
 typedef struct s_global
 {
-	int		last_exitcode;
-	char	*home;
-	char	*heredir;
-	char	**wel_env;
+	int				last_exitcode;
+	char			*home;
+	char			*heredir;
+	char			**wel_env;
+	struct termios	old_settings;
 }				t_global;
 
 extern t_global	g_global;
@@ -65,6 +66,10 @@ int		find_in_env(char *target, char *str);
 char	**make_new_double(int omit, int length);
 void	print_env(void);
 void	free_t_chunk(t_chunk *chunk);
+void	main_signal(void);
+void	call_cmd_signal(void);
+void	wait_signal(void);
+void	init_tcsetattr(struct termios *new);
 
 /* main prompt */
 

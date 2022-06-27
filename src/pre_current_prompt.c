@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:48:21 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:32:35 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/27 01:54:09 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*current_prompt(void)
 	char	*middle;
 
 	front = "\033[0;35m🥤 shell \033[0;36m\"";
-	last = "\" \033[0;37m\n>> ";
+	last = "\" \033[0;37m \n>> ";
 	middle = ft_getcwd();
 	ret = omitted_dir(middle);
 	free(middle);

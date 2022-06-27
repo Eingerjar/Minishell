@@ -1,42 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   pre_init_tcsetattr.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 13:28:49 by haryu            ###   ########.fr       */
+/*   Created: 2022/06/27 02:14:16 by haryu             #+#    #+#             */
+/*   Updated: 2022/06/27 02:18:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	echo_argv_length(char **argv)
+void	init_tcsetattr(struct termios *new)
 {
-	int	i;
-
-	i = 0;
-	while (argv[i])
-		i++;
-	return (i);
-}
-
-void	builtin_echo(char **argv)
-{
-	int	i;
-	int	max;
-
-	i = 1;
-	max = echo_argv_length(argv);
-	while (i < max)
-	{
-		write(1, argv[i], ft_strlen(argv[i]));
-		if (i + 1 == max)
-			break ;
-		write(1, " ", 1);
-		i++;
-	}
-	g_global.last_exitcode = 0;
+	tcgetattr(0, &g_global.old_settings);
+	(*new) = g_global.old_settings;
+	new->c_lflag |= ICANON;
+	new->c_cc[VQUIT] = 255;
+	tcsetattr(0, TCSANOW, new);
 	return ;
 }

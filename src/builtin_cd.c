@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 15:57:37 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/27 13:28:20 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ void	builtin_cd(char **argv)
 	dir_env_add(location, oldpwd);
 	free(oldpwd);
 	free(location);
+	g_global.last_exitcode = 0;
 	return ;
 }
