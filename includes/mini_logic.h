@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 02:18:37 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/27 13:39:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	**make_new_double(int omit, int length);
 void	print_env(void);
 void	free_t_chunk(t_chunk *chunk);
 void	main_signal(void);
+void	call_cmd_signal(void);
+void	wait_signal(void);
 void	init_tcsetattr(struct termios *new);
 
 /* main prompt */
