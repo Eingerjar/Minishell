@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 02:53:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/28 16:01:43 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(void)
 	init_process(&installed, &new);
 	while (TRUE)
 	{
+		init_tcsetattr(&new);
 		main_signal();
 		prompt = current_prompt();
 		line = readline(prompt);
