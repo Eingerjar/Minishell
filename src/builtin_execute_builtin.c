@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 05:39:04 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 06:39:36 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 16:03:54 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	execute_builtin(char **argv)
 	if (!ft_strncmp("pwd", argv[0], ft_strlen("pwd")))
 		builtin_pwd(argv);
 	if (!ft_strncmp("export", argv[0], ft_strlen("export")))
-		printf("it is %s\n", argv[0]);
+		builtin_export(argv);
 	if (!ft_strncmp("unset", argv[0], ft_strlen("unset")))
-		printf("it is %s\n", argv[0]);
+		builtin_unset(argv);
 	if (!ft_strncmp("env", argv[0], ft_strlen("env")))
-		printf("it is %s\n", argv[0]);
+		builtin_env();
 	if (!ft_strncmp("exit", argv[0], ft_strlen("exit")))
 		ctrld();
 	return ;

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 13:48:03 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 16:40:09 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_global
 	char			*home;
 	char			*heredir;
 	char			**wel_env;
+	char			**wel_export;
 	struct termios	old_settings;
 }				t_global;
 
@@ -57,8 +58,12 @@ extern t_global	g_global;
 void	*malloc_wrap(size_t size);
 char	**vertical_split(char *line);
 void	ft_init_env(void);
+void	ft_init_export(void);
 void	ft_add_env(char *variable);
+void	ft_add_export(char *variable);
 void	ft_del_env(char *variable);
+void	ft_del_export(char *variable);
+void	ft_update_strvec(char **strvec, char * variable);
 char	*ft_get_env(char *variable);
 int		length_doublestring(char **str);
 void	free_doublestr(char ***target, int size);
@@ -166,6 +171,10 @@ void	ctrld(void);
 void	builtin_echo(char **argv);
 void	builtin_cd(char **argv);
 void	builtin_pwd(char **argv);
+void	builtin_unset(char **argv);
+void	builtin_echo(char **argv);
+void	builtin_export(char **argv);
+void	builtin_env();
 int		builtin_pro_or_not(char **chunk);
 
 #endif
