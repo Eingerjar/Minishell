@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   count_equal_offset.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 18:18:25 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 20:27:31 by cgim             ###   ########.fr       */
+/*   Created: 2022/06/29 19:16:09 by cgim              #+#    #+#             */
+/*   Updated: 2022/06/29 19:25:00 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin_env(void)
+int	count_equal_offset(char *env_str)
 {
 	int	i;
 
-	i = -1;
-	while (g_global.wel_env[++i])
-	{
-		write(1, g_global.wel_env[i], ft_strlen(g_global.wel_env[i]));
-		write(1, "\n", 1);
-	}
-	g_global.last_exitcode = 0;
-	return ;
+	i = 0;
+	while (env_str[i] != '\0' && env_str[i] != '=')
+		i++;
+	return (i);
 }

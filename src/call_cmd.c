@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 18:14:11 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 21:11:08 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	execute_process(char **argv)
 	cmd = ft_strdup(argv[0]);
 	if (cmd == NULL)
 		print_error_exit("ft_strdup malloc error\n");
-	path = ft_split(getenv("PATH"), ':');
+	path = ft_split(ft_get_env("PATH"), ':');
 	if (path == NULL)
 		print_error_exit("PATH ft_split error\n");
 	while (path[++i])
