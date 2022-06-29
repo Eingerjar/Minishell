@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 12:29:15 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 13:37:12 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ static int	echo_argv_length(char **argv)
 	return (i);
 }
 
+static int	no_argument(int flag)
+{
+	if (flag == TRUE)
+		;
+	else
+		write(1, "\n", 1);
+	g_global.last_exitcode = 0;
+	return (TRUE);
+}
+
+static int	check_flag(int max, char **argv)
+{
+	if (max == 1)
+		return (FALSE);
+	else
+		return (!ft_strncmp(argv[1], "-n", 2));
+}
+
 void	builtin_echo(char **argv)
 {
 	int	i;
@@ -30,7 +48,9 @@ void	builtin_echo(char **argv)
 
 	i = 0;
 	max = echo_argv_length(argv);
-	flag = !ft_strncmp(argv[1], "-n", 2);
+	flag = check_flag(max, argv);
+	if ((max == 1 || (max == 2 && flag == TRUE)) && no_argument(flag))
+		return ;
 	while (++i < max)
 	{
 		if (i == 1 && flag == TRUE)

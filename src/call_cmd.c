@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 12:55:47 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 14:06:03 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	print_cmd_exit(char *cmd)
 	write(2, "😤 ", ft_strlen("😤 "));
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
-	exit(1);
+	g_global.last_exitcode = 127;
+	exit(127);
 }
 
 static void	execute_process(char **argv)
