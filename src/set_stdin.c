@@ -6,11 +6,18 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 20:21:06 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/26 15:46:42 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 21:48:52 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_open_error(char *filename)
+{
+	ft_putstr_fd(filename, 2);
+	perror(" \b");
+	exit(1);
+}
 
 static int	open_heredoc(int cmd_index, int h_num)
 {
@@ -54,7 +61,7 @@ static int	last_f_input(int index, t_flist *f_input)
 	else
 		input_fd = open_heredoc(index, ++heredoc_cnt);
 	if (input_fd == -1)
-		print_error_exit("fd open error");
+		print_open_error(f_input->name);
 	return (input_fd);
 }
 

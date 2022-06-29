@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 16:40:09 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/29 19:16:59 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ void	set_stdout(int **pipe, int index, int cmd_size, t_flist *f_output);
 
 int		is_builtin(t_chunk *chunk);
 void	execute_builtin(char **argv);
+int		count_equal_offset(char *env_str);
 void	ctrld(void);
 void	builtin_echo(char **argv);
 void	builtin_cd(char **argv);

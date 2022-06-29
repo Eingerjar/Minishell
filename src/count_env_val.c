@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:50:53 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 12:45:29 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/29 21:30:13 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	count_env_val(char *str, int i)
 	env = get_env(str, i);
 	if (env == NULL)
 		print_error_exit("get_env error\n");
-	env_val = getenv(env);
+	env_val = ft_get_env(env);
 	if (env_val == NULL)
 		cnt = 0;
 	else
