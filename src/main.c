@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 02:53:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 10:54:58 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_process(char **installed, struct termios *new)
 	g_global.home = getenv("HOME");
 	g_global.heredir = ft_strjoin((*installed), TEMP);
 	ft_init_env();
+	ft_init_export();
 	welchs(*installed);
 	tcgetattr(0, &g_global.old_settings);
 	init_tcsetattr(new);
