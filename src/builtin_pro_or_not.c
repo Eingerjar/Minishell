@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:16:37 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 18:27:53 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 18:13:06 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ int	builtin_pro_or_not(char **chunks)
 		return (TRUE);
 	if (!ft_strncmp(chunks[0], "env", 3))
 		return (TRUE);
-	if (!ft_strncmp(chunks[0], "export", 6) && !chunks[1])
+	if (!ft_strncmp(chunks[0], "export", 6) && \
+			ft_strlen(chunks[0]) == 6 && !chunks[1])
 		return (TRUE);
+	if (!ft_strncmp(chunks[0], "export", 6) && \
+			chunks[1] && chunks[1][0] != '\0')
+		return (FALSE);
 	return (FALSE);
 }
