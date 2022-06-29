@@ -6,19 +6,19 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:46:05 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 17:19:33 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 12:44:03 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	fake_process(void)
+static void	fake_process(void)
 {
 	usleep(300);
 	exit(0);
 }
 
-void	builtin_process(pid_t **child, char	**chunks, \
+static void	builtin_process(pid_t **child, char	**chunks, \
 t_chunk *chunk, int **pipes)
 {
 	(*child)[0] = fork();

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 02:14:16 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 02:18:02 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 12:03:59 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	init_tcsetattr(struct termios *new)
 	new->c_lflag |= ICANON;
 	new->c_cc[VQUIT] = 255;
 	tcsetattr(0, TCSANOW, new);
+	main_signal();
 	return ;
 }
