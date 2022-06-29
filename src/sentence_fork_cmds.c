@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:46:05 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 14:06:31 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 18:06:43 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 	{
 		chunk = init_structure(index, chunks);
 		if (height == 1 && is_builtin(chunk) && \
-				index == 0 && !builtin_pro_or_not(chunks))
+				index == 0 && !builtin_pro_or_not(chunk->argv))
 			builtin_process(&childs, chunks, chunk, pipes);
 		else
 			childs[index] = fork();
