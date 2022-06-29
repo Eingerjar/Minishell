@@ -6,13 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:37:16 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 13:43:59 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 12:56:39 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handler_main(int signum)
+static void	handler_main(int signum)
 {
 	char	*temp;
 	char	**temp2;
@@ -43,11 +43,9 @@ void	main_signal(void)
 	signal(SIGQUIT, handler_main);
 }
 
-void	handler_call_cmd(int signum)
+static void	handler_call_cmd(int signum)
 {
-	if (signum != SIGINT)
-		return ;
-	ft_putstr_fd("\b\b  \b\b\n", STDERR_FILENO);
+	exit (128 + signum);
 }
 
 void	call_cmd_signal(void)

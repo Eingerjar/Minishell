@@ -6,16 +6,17 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:37:27 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 13:39:27 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 14:12:36 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_wait(pid_t *childs, int numbers)
+int	ft_wait(pid_t *childs, int numbers, int builtin)
 {
 	int		index;
 	int		stats;
+	int		prev;
 
 	index = -1;
 	(void)childs;
@@ -23,10 +24,14 @@ int	ft_wait(pid_t *childs, int numbers)
 	while (++index < numbers)
 	{
 		wait(&stats);
+		if (builtin == 1 && numbers == 1)
+			prev = g_global.last_exitcode;
 		g_global.last_exitcode = WEXITSTATUS(stats);
 		if (WIFSIGNALED(stats))
 			g_global.last_exitcode = 128 + WTERMSIG(stats);
 	}
+	if (prev != 0 && builtin == 1 && numbers == 1)
+		g_global.last_exitcode = prev;
 	if (g_global.last_exitcode != 0)
 		return (TRUE);
 	return (FALSE);

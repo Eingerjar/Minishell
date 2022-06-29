@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/27 13:24:44 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/29 14:06:03 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ static char	*get_cmd(char *path, char *cmd)
 
 static void	print_cmd_exit(char *cmd)
 {
+	write(2, "😤 ", ft_strlen("😤 "));
 	write(2, cmd, ft_strlen(cmd));
 	write(2, ": command not found\n", 20);
-	exit(1);
+	g_global.last_exitcode = 127;
+	exit(127);
 }
 
 static void	execute_process(char **argv)
@@ -64,18 +66,20 @@ void	call_cmd(int index, char **cmd, t_chunk *chunk, int **pipe)
 {
 	int		cmd_size;
 
+	tcsetattr(0, TCSANOW, &g_global.old_settings);
 	call_cmd_signal();
 	cmd_size = count_cmd(cmd);
 	close_other_pipe(index, cmd, pipe);
-	set_stdin(pipe, index, chunk->input);
-	set_stdout(pipe, index, cmd_size, chunk->output);
 	if (cmd_size == 1 && is_builtin(chunk) && \
 			!builtin_pro_or_not(chunk->argv))
 	{
+		set_stdout(pipe, index, cmd_size, chunk->output);
 		execute_builtin(chunk->argv);
 		return ;
 	}
-	else if (is_builtin(chunk))
+	set_stdin(pipe, index, chunk->input);
+	set_stdout(pipe, index, cmd_size, chunk->output);
+	if (is_builtin(chunk))
 	{
 		execute_builtin(chunk->argv);
 		exit(0);
