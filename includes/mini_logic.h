@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 16:06:43 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/29 16:40:09 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	putin_to_temp(char *line, int *len, int fd);
 
 int		sentence_part(char *line);
 int		fork_cmds(int height, char **chunks, int **pipes);
-int		ft_wait(pid_t *childs, int numbers);
+int		ft_wait(pid_t *childs, int numbers, int builtin);
 int		kill_them_all(pid_t *childs, int numbers);
 pid_t	*init_pids(int numbers);
 int		final_print(int **pipe, int height);
