@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/18 11:55:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/30 13:28:13 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static int	make_vertical(char **chunks, char *line, int *index, int *previous)
 	(*chunks) = ft_strndup(line + *previous, *index - *previous);
 	if (!line[*index])
 		return (*index);
-	else if (line[*index + 1] == ' ')
+	else if (is_whitespace(line[*index + 1]))
 	{
 		*index += 1;
-		while (line[*index] == ' ')
+		while (is_whitespace(line[*index]))
 			*index += 1;
 		*previous = --(*index);
 	}
@@ -47,7 +47,7 @@ static int	make_vertical(char **chunks, char *line, int *index, int *previous)
 
 static int	skip_white_space(char *line, int index, int *prev)
 {
-	while (line[index] == ' ')
+	while (is_whitespace(line[index]))
 		index++;
 	(*prev) = index - 1;
 	return (index);
@@ -64,7 +64,7 @@ static void	cut_vertical(char ***chunks, char *line, size_t height)
 	previous = 0;
 	while (deep < height && line[i])
 	{
-		if (i == 0 && line[0] == ' ')
+		if (i == 0 && is_whitespace(line[0]))
 			i = skip_white_space(line, i, &previous);
 		if (line[i] == 34 || line[i] == 39)
 			i = skip_quotes(line, i, line[i]);

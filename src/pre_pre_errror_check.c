@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 02:52:52 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/30 13:21:12 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_line(char *line)
 	max = (int)ft_strlen(line);
 	while (++i < max)
 	{
-		if (line[i] == ' ')
+		if (is_whitespace(line[i]))
 			continue ;
 		else if (line[i] == 60 || line[i] == 62)
 			i = check_redirection(line, i, line[i]);
@@ -40,9 +40,26 @@ line[i] == 92 || line[i] == 38)
 	return (FALSE);
 }
 
+static int	is_empty(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (is_whitespace(line[i]))
+			i++;
+		else
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
 int	pre_error_check(char *line)
 {
 	if (ft_strlen(line) == 0)
+		return (TRUE);
+	if (is_empty(line))
 		return (TRUE);
 	if (check_line(line))
 		return (TRUE);

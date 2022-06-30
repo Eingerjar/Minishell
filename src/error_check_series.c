@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:23:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/20 12:34:32 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/30 13:24:14 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_redirection(char *line, int index, char redirect)
 	int	opposite;
 
 	opposite = what_is_opposite(redirect);
-	if (line[index + 1] == ' ')
+	if (is_whitespace(line[index + 1]))
 		index = check_whitespace(line, index + 1, redirect);
 	else if (line[index + 1] == '\n' || index + 1 == (int)ft_strlen(line))
 		return (PARSE);
@@ -46,11 +46,11 @@ int	check_redirection(char *line, int index, char redirect)
 
 int	check_pipe(char *line, int index)
 {
-	if (line[index + 1] == ' ')
+	if (is_whitespace(line[index + 1]))
 	{
 		index += 1;
-		if (line[index + 1] == ' ')
-			while (line[index] == ' ' && line[index])
+		if (is_whitespace(line[index + 1]))
+			while (is_whitespace(line[index]) && line[index])
 					index++;
 		if (line[index] == '|' || line[index] == '\0')
 			return ('|' * -1);
@@ -104,7 +104,7 @@ int	check_command(char *line, int index)
 			if (i < 0)
 				return (i);
 		}
-		if (line[i] == ' ')
+		if (is_whitespace(line[i]))
 			return (i);
 		if (line[i] == '<' || line[i] == '>' || line[i] == '|')
 			return (i - 1);
