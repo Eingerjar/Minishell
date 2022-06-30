@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 14:20:38 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 20:25:54 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/30 13:17:56 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@ void	ft_update_strvec(char **strvec, char *variable)
 	{
 		if (ft_strncmp(strvec[i], variable, size) == 0 && variable[size] == '=')
 		{
-			printf("%s ", strvec[i]);
 			free(strvec[i]);
 			strvec[i] = ft_strdup(variable);
 			if (strvec[i] == NULL)
 				print_error_exit("ft_update_strvec malloc error\n");
-			printf("-> %s\n", strvec[i]);
 			return ;
 		}
 	}

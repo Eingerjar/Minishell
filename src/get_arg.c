@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 12:10:30 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/10 19:28:55 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/30 13:50:48 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	count_env_val_and_quote(char *str)
 	cnt = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '\0')
 		{
 			cnt += count_env_val(str, i);
 			i = skip_env(str, i);
@@ -49,7 +49,7 @@ static void	copy_env_val_and_quote(char *dst, char *src)
 	cnt = 0;
 	while (src[i] != '\0')
 	{
-		if (src[i] == '$')
+		if (src[i] == '$' && src[i + 1] != '\0')
 		{
 			copy_env_val(dst, src, i, cnt);
 			cnt += count_env_val(src, i);
