@@ -6,11 +6,12 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 18:05:12 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/30 23:39:13 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdlib.h>
 
 t_global	g_global;
 
@@ -27,6 +28,13 @@ void	clean_line(char **line, char *tempdir, char *currentdir)
 void	ctrld(void)
 {
 	printf("😴 exit\n");
+	exit(EXIT_SUCCESS);
+}
+
+void	ctrld_leaks(void)
+{
+	printf("😴 exit : leaks check\n");
+	system("leaks minishell");
 	exit(EXIT_SUCCESS);
 }
 
