@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 19:16:59 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/30 12:59:01 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,5 +177,7 @@ void	builtin_echo(char **argv);
 void	builtin_export(char **argv);
 void	builtin_env();
 int		builtin_pro_or_not(char **chunk);
+char	*prev_directory_alter(char *locat);
+char	*prev_directory(void);
 
 #endif
