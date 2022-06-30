@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_make_heredoc.c                                :+:      :+:    :+:   */
+/*   check_utils_conditions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 22:06:52 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 04:06:59 by haryu            ###   ########.fr       */
+/*   Created: 2022/07/01 04:16:47 by haryu             #+#    #+#             */
+/*   Updated: 2022/07/01 04:23:52 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	make_heredoc(char *line, t_flist **target, int *heredocnum)
+int	utils_conditions(char c, int *index)
 {
-	int	i;
-	int	max;
-
-	i = -1;
-	max = ft_strlen(line);
-	while (line[++i])
+	if (is_whitespace(c))
+		return (TRUE);
+	if (c == '<' || c == '>' || c == '|')
 	{
-		if (line[i] == 60 || line[i] == 62)
-			i = check_redirection_heredoc(line, i, target, heredocnum);
-		else if (is_whitespace(line[i]))
-			continue ;
-		else if (line[i] == '|')
-			continue ;
-		else
-			i = check_command(line, i);
-		if (i >= max)
-			break ;
+		(*index)--;
+		return (TRUE);
 	}
+	if (c == 59 || c == 44 || c == 92)
+	{
+		(*index) = c * -1;
+		return (TRUE);
+	}
+	return (FALSE);
 }

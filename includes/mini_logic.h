@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 18:05:45 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 04:25:41 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		check_command(char *line, int index);
 int		what_is_opposite(char redirect);
 int		skip_whitespace_r(int i, char *line);
 int		check_whitespace(char *line, int index, char redirect);
+int		utils_conditions(char c, int *index);
 int		print_syntex_error(int code);
 size_t	check_height(char *line);
 void	chunk_free(char **chunk, size_t height);

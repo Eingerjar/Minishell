@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pre_pre_errror_check.c                             :+:      :+:    :+:   */
+/*   pre_pre_error_check.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 13:21:12 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 03:33:56 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	check_line(char *line)
 {
 	int	i;
-	int	max;
 
 	i = -1;
-	max = (int)ft_strlen(line);
-	while (++i < max)
+	while (line[++i])
 	{
 		if (is_whitespace(line[i]))
 			continue ;
@@ -34,7 +32,7 @@ line[i] == 92 || line[i] == 38)
 			i = check_command(line, i);
 		if (i < 0)
 			return (print_syntex_error(i));
-		else if (i >= max)
+		else if (!line[i])
 			break ;
 	}
 	return (FALSE);

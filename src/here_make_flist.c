@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:57:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:31:33 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 04:16:26 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	make_flist(int start, int end, char *line, t_flist **target)
 	temp = malloc_wrap(sizeof(t_flist) * 1);
 	temp->next = 0;
 	temp->type = 1;
+	if (line[start] == '"' || line[start] == '\'')
+	{
+		end = skip_quotes(line, start, line[start]) - 1;
+		start++;
+	}
 	temp->name = ft_strndup(line + start, (size_t)(end - start));
 	while (TRUE)
 	{

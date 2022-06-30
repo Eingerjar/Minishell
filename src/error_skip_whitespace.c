@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 01:46:17 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 13:25:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 03:02:33 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	skip_whitespace_r(int i, char *line)
 	{
 		if (i >= (int)ft_strlen(line))
 			return (PARSE);
-		else if (is_whitespace(line[i]))
-			break ;
 		i++;
 	}
 	return (i);
