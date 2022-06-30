@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/27 13:28:20 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/30 12:58:33 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*make_location(char *locat)
 	return (ret);
 }
 
-static char	*prev_directory(void)
+char	*prev_directory(void)
 {
 	char	*temp;
 	char	*ret;
@@ -72,7 +72,12 @@ static char	*check_location(char *locat)
 	else if (locat[0] == '.')
 	{
 		if (locat[1] == '.')
-			ret = prev_directory();
+		{
+			if (!locat[2])
+				ret = prev_directory();
+			else
+				ret = prev_directory_alter(locat);
+		}
 		else
 			ret = ft_getcwd();
 	}
@@ -90,10 +95,12 @@ static void	dir_env_add(char *pwd, char *oldpwd)
 	ft_del_env("PWD");
 	temp = ft_strjoin("PWD=", pwd);
 	ft_add_env(temp);
+	ft_update_strvec(g_global.wel_export, temp);
 	free(temp);
 	ft_del_env("OLDPWD");
 	temp = ft_strjoin("OLDPWD=", oldpwd);
 	ft_add_env(temp);
+	ft_update_strvec(g_global.wel_export, temp);
 	free(temp);
 }
 
