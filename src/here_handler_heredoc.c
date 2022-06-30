@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 12:08:21 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:31:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 04:45:20 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 void	handler_heredoc(int signum)
 {
-	if (signum != SIGINT)
-		return ;
-	g_global.last_exitcode = 1;
-	exit(TRUE);
+	exit(128 + signum);
 }

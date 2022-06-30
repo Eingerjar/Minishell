@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:08:01 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:32:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 04:45:48 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height)
 
 	delimiter = find_delimiter(cmd, heredoc);
 	signal(SIGINT, handler_heredoc);
+	signal(SIGQUIT, handler_heredoc);
 	len = 0;
 	while (TRUE)
 	{

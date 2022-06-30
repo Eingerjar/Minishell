@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:37:16 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 12:56:39 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 04:47:45 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	main_signal(void)
 	signal(SIGQUIT, handler_main);
 }
 
-static void	handler_call_cmd(int signum)
+void	handler_call_cmd(int signum)
 {
 	exit (128 + signum);
 }
