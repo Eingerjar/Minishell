@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 05:39:04 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 16:03:54 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/30 14:43:19 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void	execute_builtin(char **argv)
 	if (!ft_strncmp("env", argv[0], ft_strlen("env")))
 		builtin_env();
 	if (!ft_strncmp("exit", argv[0], ft_strlen("exit")))
-		ctrld();
+		builtin_exit(argv);
 	return ;
 }
