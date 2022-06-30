@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 21:11:08 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/30 17:57:00 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	call_cmd(int index, char **cmd, t_chunk *chunk, int **pipe)
 {
 	int		cmd_size;
 
-	tcsetattr(0, TCSANOW, &g_global.old_settings);
 	call_cmd_signal();
 	cmd_size = count_cmd(cmd);
 	close_other_pipe(index, cmd, pipe);

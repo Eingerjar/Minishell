@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 12:59:01 by haryu            ###   ########.fr       */
+/*   Updated: 2022/06/30 18:05:45 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	main_signal(void);
 void	call_cmd_signal(void);
 void	wait_signal(void);
 void	init_tcsetattr(struct termios *new);
+void	back_tcsetattr(struct termios *old);
 
 /* main prompt */
 

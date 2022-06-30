@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 16:39:49 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/30 18:05:12 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ctrld(void)
 	exit(EXIT_SUCCESS);
 }
 
-void	init_process(char **installed, struct termios *new)
+void	init_process(char **installed)
 {
 	(*installed) = ft_getcwd();
 	g_global.home = getenv("HOME");
@@ -39,7 +39,6 @@ void	init_process(char **installed, struct termios *new)
 	ft_init_export();
 	welchs(*installed);
 	tcgetattr(0, &g_global.old_settings);
-	init_tcsetattr(new);
 	return ;
 }
 
@@ -50,7 +49,7 @@ int	main(void)
 	char			*prompt;
 	struct termios	new;
 
-	init_process(&installed, &new);
+	init_process(&installed);
 	while (TRUE)
 	{
 		init_tcsetattr(&new);
@@ -59,7 +58,7 @@ int	main(void)
 		if (line)
 		{
 			add_history(line);
-			tcsetattr(0, TCSANOW, &g_global.old_settings);
+			back_tcsetattr(&new);
 			if (!pre_error_check(line))
 			{
 				if (!heredoc_check(line, installed))
