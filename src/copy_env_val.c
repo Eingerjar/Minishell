@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:29:31 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 21:19:06 by cgim             ###   ########.fr       */
+/*   Updated: 2022/06/30 17:04:15 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	copy_env_val(char *dst, char *str, int i, int cnt)
 		env_val = ft_itoa(g_global.last_exitcode);
 		if (env_val == NULL)
 			print_error_exit("ft_itoa malloc error\n");
-		ft_memcpy(dst, env_val, ft_strlen(env_val));
+		ft_memcpy(dst + cnt, env_val, ft_strlen(env_val));
 		free(env_val);
 		return ;
 	}
