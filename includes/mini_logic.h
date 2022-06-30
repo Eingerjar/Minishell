@@ -63,7 +63,7 @@ void	ft_add_env(char *variable);
 void	ft_add_export(char *variable);
 void	ft_del_env(char *variable);
 void	ft_del_export(char *variable);
-void	ft_update_strvec(char **strvec, char * variable);
+void	ft_update_strvec(char **strvec, char *variable);
 char	*ft_get_env(char *variable);
 int		length_doublestring(char **str);
 void	free_doublestr(char ***target, int size);
@@ -76,6 +76,7 @@ void	call_cmd_signal(void);
 void	wait_signal(void);
 void	init_tcsetattr(struct termios *new);
 void	back_tcsetattr(struct termios *old);
+int		ft_strtol(long long *dest, char *str);
 
 /* main prompt */
 
@@ -172,13 +173,15 @@ int		count_equal_offset(char *env_str);
 void	ctrld(void);
 void	builtin_echo(char **argv);
 void	builtin_cd(char **argv);
+void	builtin_exit(char **argv);
 void	builtin_pwd(char **argv);
 void	builtin_unset(char **argv);
 void	builtin_echo(char **argv);
 void	builtin_export(char **argv);
-void	builtin_env();
+void	builtin_env(void);
 int		builtin_pro_or_not(char **chunk);
 char	*prev_directory_alter(char *locat);
 char	*prev_directory(void);
+void	error_print(int code, char *argv);
 
 #endif
