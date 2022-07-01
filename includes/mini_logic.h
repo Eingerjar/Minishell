@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 04:25:41 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 22:34:43 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	main_signal(void);
 void	call_cmd_signal(void);
 void	wait_signal(void);
 void	init_tcsetattr(struct termios *new);
+int		is_env_in_dquote(char *str, int i);
 void	back_tcsetattr(struct termios *old);
 int		ft_strtol(long long *dest, char *str);
 

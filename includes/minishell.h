@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 20:27:54 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 23:08:23 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@
 # define BUILTIN "echo cd pwd export unset env exit"
 # define ELMAX 922337203685477580
 
-extern char **environ;
+extern char	**environ;
 
 #endif

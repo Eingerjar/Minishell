@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:27:51 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 22:10:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 22:15:25 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	find_in_env(char *target, char *str)
 	split_target = ft_split(target, '=');
 	ret = ft_strncmp(split_target[0], str, ft_strlen(str));
 	free_doublestr(&split_target, 2);
+	if (!ft_strlen(str))
+		return (FALSE);
 	if (ret == 0)
 		return (TRUE);
 	return (FALSE);
