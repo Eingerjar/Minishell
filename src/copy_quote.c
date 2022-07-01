@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 19:47:58 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/10 19:47:59 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/01 22:36:14 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	copy_quote(char *dst, char *str, int i, int cnt)
 	{
 		if ((str[i] == '"' && q == 2) || (str[i] == '\'' && q == 1))
 			q = 0;
-		else if (str[i] == '$' && q == 2)
+		else if (str[i] == '$' && q == 2 && is_env_in_dquote(str, i))
 		{
 			copy_env_val(dst, str, i, cnt);
 			cnt += count_env_val(str, i);
