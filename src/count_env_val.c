@@ -36,5 +36,6 @@ int	count_env_val(char *str, int i)
 	else
 		cnt = ft_strlen(env_val);
 	free(env);
+	free(env_val);
 	return (cnt);
 }
