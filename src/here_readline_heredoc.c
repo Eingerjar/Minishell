@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_readline_heredoc.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:08:01 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 04:45:48 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 21:29:35 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ ft_strlen(line) == ft_strlen(delimiter->name))
 			break ;
 		}
 		putin_to_temp(line, &len, fd);
+		free(line);
 	}
 	check_delimiter(cmd, delimiter, heredoc, height);
 	return (FALSE);

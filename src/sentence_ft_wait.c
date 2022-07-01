@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sentence_ft_wait.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:37:27 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 14:12:36 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 21:45:50 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_wait(pid_t *childs, int numbers, int builtin)
 	int		prev;
 
 	index = -1;
-	(void)childs;
 	wait_signal();
 	while (++index < numbers)
 	{
@@ -32,6 +31,7 @@ int	ft_wait(pid_t *childs, int numbers, int builtin)
 	}
 	if (prev != 0 && builtin == 1 && numbers == 1)
 		g_global.last_exitcode = prev;
+	free(childs);
 	if (g_global.last_exitcode != 0)
 		return (TRUE);
 	return (FALSE);

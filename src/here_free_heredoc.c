@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:58:29 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:31:01 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 21:20:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_heredoc_part(t_flist **heredoc)
 	while (TRUE)
 	{
 		temp = (*heredoc);
-		if (temp->next == 0)
+		if (temp == 0)
 			break ;
 		next = temp->next;
 		(*heredoc) = next;
@@ -32,13 +32,12 @@ void	free_heredoc_part(t_flist **heredoc)
 
 void	free_heredoc(t_flist **heredoc, int height)
 {
-	int	i;
+	int		i;
 
-	i = height;
-	while (--i >= 0)
+	i = -1;
+	while (++i < height)
 	{
-		if (heredoc[i]->next != 0)
-			free_heredoc_part(&(heredoc[i]->next));
+		free_heredoc_part(&heredoc[i]);
 		free(heredoc[i]);
 	}
 	free(heredoc);

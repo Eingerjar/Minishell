@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_omitted_dir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:46:32 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 20:21:04 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 21:49:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	setting_directiory(int *index, char **omitted, char **splitted)
 
 static void	split_free(char **splitted)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (splitted[i])

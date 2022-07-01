@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 12:10:30 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/30 13:50:48 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/01 21:05:24 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ char	*get_arg(char *cmd, int i)
 	ft_memcpy(arg, cmd + i, index);
 	arg[index] = '\0';
 	ret = convert_env_and_quote(arg);
+	free(arg);
 	return (ret);
 }
