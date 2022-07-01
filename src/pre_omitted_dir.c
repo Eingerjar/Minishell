@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:46:32 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 15:43:00 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 20:21:04 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ static void	setting_directiory(int *index, char **omitted, char **splitted)
 	}
 }
 
+static void	split_free(char **splitted)
+{
+	int i;
+
+	i = 0;
+	while (splitted[i])
+	{
+		free(splitted[i]);
+		i++;
+	}
+	free(splitted[i]);
+	free(splitted);
+}
+
 char	*omitted_dir(char *dir)
 {
 	char	**splitted;
@@ -58,5 +72,6 @@ char	*omitted_dir(char *dir)
 	else
 		ret = ft_getcwd();
 	free(omitted);
+	split_free(splitted);
 	return (ret);
 }
