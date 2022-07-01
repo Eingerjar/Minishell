@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:11:26 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 08:10:00 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 20:08:32 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*make_current_dir(char ***omitted)
 	char	*ret;
 	char	*temp;
 	char	*temp2;
+	char	*temp3;
 	int		index;
 
 	index = -1;
@@ -26,11 +27,15 @@ char	*make_current_dir(char ***omitted)
 		if (ft_strlen((*omitted)[index]) > 10)
 			temp = omit_longstr((*omitted)[index]);
 		else
-			temp = (*omitted)[index];
+			temp = ft_strdup((*omitted)[index]);
 		temp2 = ft_strjoin(temp, "/");
 		free(temp);
-		ret = ft_strjoin(ret, temp2);
+		temp3 = ft_strdup(ret);
+		if (index != 0)
+			free(ret);
+		ret = ft_strjoin(temp3, temp2);
 		free(temp2);
+		free(temp3);
 	}
 	return (ret);
 }

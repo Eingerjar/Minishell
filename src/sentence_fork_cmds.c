@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sentence_fork_cmds.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:46:05 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 19:37:01 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 21:35:53 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ int	fork_cmds(int height, char **chunks, int **pipes)
 			builtin_process(&childs, chunks, chunk, pipes);
 		else
 			childs[index] = fork();
-		if (childs[index] != 0)
-			free_t_chunk(chunk);
-		else if (childs[index] == 0)
+		if (childs[index] == 0)
 			call_cmd(index, chunks, chunk, pipes);
+		free_t_chunk(chunk);
 	}
 	close_pipe(pipes, height - 1);
 	if (ft_wait(childs, height, !builtin_pro_or_not(chunks)))

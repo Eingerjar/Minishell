@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_omitted_dir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:46:32 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/26 15:43:00 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 21:49:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ static void	setting_directiory(int *index, char **omitted, char **splitted)
 	}
 }
 
+static void	split_free(char **splitted)
+{
+	int	i;
+
+	i = 0;
+	while (splitted[i])
+	{
+		free(splitted[i]);
+		i++;
+	}
+	free(splitted[i]);
+	free(splitted);
+}
+
 char	*omitted_dir(char *dir)
 {
 	char	**splitted;
@@ -58,5 +72,6 @@ char	*omitted_dir(char *dir)
 	else
 		ret = ft_getcwd();
 	free(omitted);
+	split_free(splitted);
 	return (ret);
 }

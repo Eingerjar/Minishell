@@ -6,12 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 23:39:13 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 20:55:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdlib.h>
 
 t_global	g_global;
 
@@ -75,6 +74,6 @@ int	main(void)
 			clean_line(&line, installed, prompt);
 		}
 		else
-			ctrld();
+			ctrld_leaks();
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:49:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/22 21:34:00 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 20:47:02 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ static void	ft_clear_screen(void)
 	argv[1] = NULL;
 	pid = fork();
 	if (pid == 0)
-		execve(argv[0], argv, environ);
+		execve(argv[0], argv, g_global.wel_env);
 	else
 		wait(&stat);
+	free(argv);
 	return ;
 }
 
