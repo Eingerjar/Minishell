@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 01:49:32 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 21:45:46 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 02:49:10 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	check_whitespace(char *line, int index, char redirect)
 
 	opposite = what_is_opposite(redirect);
 	i = skip_whitespace_r(index, line);
+	while (is_whitespace(line[i]))
+		i++;
 	if (line[i] == redirect || line[i] == opposite || \
 !line[i] || line[i] == '|')
 		return (line[i] * -1);
