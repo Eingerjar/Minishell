@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 04:05:32 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 19:41:08 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static int	make_vertical(char **chunks, char *line, int *index, int *previous)
 	(*chunks) = ft_strndup(line + *previous, *index - *previous);
 	if (*index > len)
 		return (len);
-	else if (is_whitespace(line[*index + 1]))
+	else
 	{
 		*index += 1;
 		while (is_whitespace(line[*index]))
-			*index += 1;
-		*previous = --(*index);
+			(*index)++;
+		*previous = (*index);
 	}
 	return (*index);
 }
@@ -73,10 +73,9 @@ static void	cut_vertical(char ***chunks, char *line, size_t height)
 			i = skip_quotes(line, i, line[i]) - 1;
 		if (line[i] == '|' || !line[i + 1])
 		{
-			i++;
+			if (!line[i + 1])
+				i++;
 			make_vertical(&(*chunks)[deep], line, &i, &previous);
-			if (i > (int)ft_strlen(line))
-				break ;
 			deep++;
 		}
 		i++;
