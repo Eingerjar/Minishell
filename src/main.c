@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/02 10:40:29 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 10:50:52 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ int	main(void)
 			clean_line(&line, installed, prompt);
 		}
 		else
-			ctrld();
+			ctrld_leaks();
 	}
 }
