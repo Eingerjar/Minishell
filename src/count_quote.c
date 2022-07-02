@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:50:16 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/01 22:36:16 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/02 14:25:25 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	count_quote(char *str, int i)
 			i = skip_env(str, i);
 		}
 		else
+		{
 			cnt++;
-		i++;
+			i++;
+		}
 	}
 	return (cnt);
 }
