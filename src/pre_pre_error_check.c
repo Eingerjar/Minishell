@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 03:33:56 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 11:24:11 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,19 @@ static int	is_empty(char *line)
 
 int	pre_error_check(char *line)
 {
+	int	error;
+
+	error = 0;
 	if (ft_strlen(line) == 0)
-		return (TRUE);
+		error = 1;
 	if (is_empty(line))
-		return (TRUE);
+		error = 1;
 	if (check_line(line))
+		error = 1;
+	if (error == 1)
+	{
+		g_global.last_exitcode = 1;
 		return (TRUE);
+	}
 	return (FALSE);
 }

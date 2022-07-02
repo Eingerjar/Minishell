@@ -6,11 +6,18 @@
 /*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:08:01 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/02 10:58:04 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 11:26:24 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	signal_heredoc(void)
+{
+	signal(SIGINT, handler_heredoc);
+	signal(SIGQUIT, handler_heredoc);
+	return ;
+}
 
 int	readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height)
 {
@@ -19,9 +26,8 @@ int	readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height)
 	int		len;
 
 	delimiter = find_delimiter(cmd, heredoc);
-	signal(SIGINT, handler_heredoc);
-	signal(SIGQUIT, handler_heredoc);
 	len = 0;
+	signal_heredoc();
 	while (TRUE)
 	{
 		line = readline("> ");
