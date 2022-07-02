@@ -96,6 +96,7 @@ char	*get_arg(char *cmd, int i)
 	ft_memcpy(arg, cmd + i, index);
 	arg[index] = '\0';
 	ret = convert_env_and_quote(arg);
+	ret = convert_tilde(ret);
 	free(arg);
 	return (ret);
 }
