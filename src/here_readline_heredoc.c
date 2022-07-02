@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 13:08:01 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 21:29:35 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 10:58:04 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ ft_strlen(line) == ft_strlen(delimiter->name))
 		{
 			if (len == 0)
 				write(fd, "\n", 1);
+			free(line);
 			break ;
 		}
 		putin_to_temp(line, &len, fd);
