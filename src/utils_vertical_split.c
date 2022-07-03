@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/03 10:35:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/01 19:41:08 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	cut_vertical(char ***chunks, char *line, size_t height)
 		if (is_whitespace(line[0]))
 			i = skip_white_space(line, i, &previous);
 		if (line[i] == 34 || line[i] == 39)
-			i = skip_quotes(line, i, line[i]);
+			i = skip_quotes(line, i, line[i]) - 1;
 		if (line[i] == '|' || !line[i + 1])
 		{
 			if (!line[i + 1])
