@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:46:32 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 21:49:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 10:37:51 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*omitted_dir(char *dir)
 	char	**splitted;
 	char	**omitted;
 	char	*ret;
+	char	*temp;
 	int		index;
 
 	splitted = ft_split(dir + 1, '/');
@@ -67,10 +68,15 @@ char	*omitted_dir(char *dir)
 	setting_directiory(&index, omitted, splitted);
 	if (index > 2)
 		ret = make_current_dir(&omitted);
-	else if (index > 1)
-		ret = ft_strjoin(ft_getcwd(), "/");
 	else
-		ret = ft_getcwd();
+	{
+		temp = ft_getcwd();
+		if (temp[0] == '/' && ft_strlen(temp) == 1)
+			ret = ft_strdup(temp);
+		else
+			ret = ft_strjoin(temp, "/");
+		free(temp);
+	}
 	free(omitted);
 	split_free(splitted);
 	return (ret);
