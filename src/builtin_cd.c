@@ -20,7 +20,10 @@ static char	*make_location(char *locat)
 
 	temp2 = ft_getcwd();
 	if (locat[0] == '/')
+	{
+		free(temp2);
 		return (ft_strdup(locat));
+	}
 	else
 	{
 		temp = ft_strjoin("/", locat);

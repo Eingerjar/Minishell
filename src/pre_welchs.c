@@ -6,13 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:49:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 20:47:02 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 08:56:07 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-extern char	**environ;
 
 static char	*where_is_welches(char *install)
 {

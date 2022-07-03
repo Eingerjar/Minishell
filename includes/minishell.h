@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:49:46 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 23:08:23 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/02 09:00:53 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define TRUE 1
 # define FALSE 0
-# define BUFFER 1024
+# define BUFFER 512
 
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"
