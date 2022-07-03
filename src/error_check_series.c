@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:23:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 04:27:03 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/03 10:33:20 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ int	skip_quotes(char *line, int index, char quotes)
 		if (line[i] == quotes)
 			flag++;
 		if (flag == 2)
-		{
-			i++;
 			break ;
-		}
 		i++;
 	}
 	if (flag != 2)

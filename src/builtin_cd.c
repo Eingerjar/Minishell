@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:15 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/30 12:58:33 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 09:11:45 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static char	*make_location(char *locat)
 
 	temp2 = ft_getcwd();
 	if (locat[0] == '/')
+	{
+		free(temp2);
 		return (ft_strdup(locat));
+	}
 	else
 	{
 		temp = ft_strjoin("/", locat);
@@ -116,6 +119,8 @@ void	builtin_cd(char **argv)
 	if (error == -1)
 	{
 		printf("😭 no such directory : %s\n", location);
+		free(oldpwd);
+		free(location);
 		g_global.last_exitcode = 1;
 		return ;
 	}

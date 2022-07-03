@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 21:44:12 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/23 02:32:39 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/02 09:04:47 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 char	*ft_getcwd(void)
 {
 	char	*buf;
+	char	*ret;
 
 	buf = (char *)malloc_wrap(sizeof(char) * BUFFER);
 	getcwd(buf, BUFFER);
-	return (buf);
+	ret = ft_strdup(buf);
+	free(buf);
+	return (ret);
 }
