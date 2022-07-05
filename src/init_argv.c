@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 11:34:23 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/24 11:49:31 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/05 21:35:26 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ static char	**get_argv(char *cmd, int size)
 		{
 			argv[index] = get_arg(cmd, i);
 			i = skip_arg(cmd, i);
-			index++;
+			if (argv[index] != NULL)
+				index++;
 		}
 	}
+	argv[index] = NULL;
 	return (argv);
 }
 
@@ -68,6 +70,5 @@ char	**init_argv(char *cmd)
 
 	index = count_argv(cmd);
 	argv = get_argv(cmd, index);
-	argv[index] = NULL;
 	return (argv);
 }
