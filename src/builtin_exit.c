@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/04 17:07:26 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/04 18:15:44 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ static int	is_numeric_arg(char	*argv)
 				return (FALSE);
 			else
 				continue ;
+		}
+		if (i == 0)
+		{
+			while (is_whitespace(argv[i]))
+					i++;
 		}
 		if (!ft_isdigit(argv[i]))
 			return (FALSE);
