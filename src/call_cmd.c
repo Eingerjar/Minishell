@@ -6,27 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/05 20:52:49 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/05 21:39:58 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*get_cmd(char *path, char *cmd)
-{
-	char	*ret;
-	int		size;
-
-	size = ft_strlen(path) + ft_strlen(cmd) + 2;
-	ret = (char *)malloc(sizeof(char) * size);
-	if (ret == NULL)
-		return (NULL);
-	ret[0] = '\0';
-	ft_strlcat(ret, path, size);
-	ft_strlcat(ret, "/", size);
-	ft_strlcat(ret, cmd, size);
-	return (ret);
-}
 
 static void	print_cmd_exit(char *cmd)
 {
@@ -46,7 +30,8 @@ static char	**copy_argv(char **argv)
 	i = 0;
 	while (argv[i])
 		i++;
-	ret = malloc_wrap(sizeof(char *) * i);
+	ret = malloc_wrap(sizeof(char *) * (i + 1));
+	ret[i] = 0;
 	j = 0;
 	while (j < i)
 	{
@@ -65,7 +50,7 @@ static void	execute_process(char **argv)
 
 	i = -1;
 	argv_copy = copy_argv(argv);
-	if (argv[0][0] != '.')
+	if (argv[0][0] != '.' && argv[0][0] != '/')
 	{
 		tmp = ft_get_env("PATH");
 		if (!tmp)
@@ -73,14 +58,10 @@ static void	execute_process(char **argv)
 		path = ft_split(tmp, ':');
 		free(tmp);
 		while (path[++i])
-		{
-			tmp = get_cmd(path[i], argv_copy[0]);
-			free(argv[0]);
-			argv[0] = tmp;
-			execve(argv[0], argv, g_global.wel_env);
-		}
+			path_execute(argv, argv_copy, path[i]);
+		execve(argv_copy[0], argv_copy, g_global.wel_env);
 	}
-	else
+	else if (argv[0][0] == '.' || argv[0][0] == '/')
 		execve(argv_copy[0], argv_copy, g_global.wel_env);
 	print_cmd_exit(argv_copy[0]);
 }
