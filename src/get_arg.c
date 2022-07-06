@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 12:10:30 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/06 17:59:52 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 21:48:26 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,5 @@ char	*get_arg(char *cmd, int i)
 	arg = convert_quote(ret);
 	free(ret);
 	ret = convert_tilde(arg);
-	if (ret != arg)
-		free(arg);
 	return (ret);
 }
