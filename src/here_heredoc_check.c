@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 20:33:56 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/25 08:25:03 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 19:38:38 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	heredoc_check(char *line, char *installed)
 	heredocnum = 0;
 	heredoc = pre_heredoc(chunks, chunk_height, &heredocnum);
 	if (heredocnum != 0)
-		fork_heredoc(heredoc, chunk_height, installed);
+		fork_heredoc(heredoc, chunk_height, installed, prev_last);
 	free_heredoc(heredoc, chunk_height);
 	chunk_free(chunks, chunk_height);
 	if (g_global.last_exitcode != 0)

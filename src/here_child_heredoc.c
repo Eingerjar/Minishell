@@ -6,20 +6,20 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 12:59:17 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/01 04:44:43 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 19:46:26 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 void	child_heredoc(t_flist **heredoc, int height, \
-char *installed)
+char *installed, int prev)
 {
 	char	*directory;
 	int		fd_temp;
 	int		*cmdnum;
 
-	clean_global();
+	g_global.last_exitcode = prev;
 	directory = ft_strjoin(installed, TEMP);
 	cmdnum = malloc(sizeof(int) * 2);
 	cmdnum[0] = 0;

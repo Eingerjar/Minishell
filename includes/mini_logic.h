@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 14:37:12 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 19:40:06 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	free_heredoc(t_flist **heredoc, int height);
 void	free_heredoc_part(t_flist **heredoc);
 void	print_chunks(char **chunks, int height);
 void	print_heredoc_lst(t_flist **target, int height);
-void	fork_heredoc(t_flist **heredoc, int height, char *installed);
+void	fork_heredoc(t_flist **heredoc, int height, char *installed, int prev);
 void	clean_global(void);
 void	handler_heredoc(int signum);
 char	*make_filename(int number_cmd, int index_cmd, char *dir);
@@ -124,7 +124,7 @@ t_flist **heredoc, int maxlen);
 void	init_delimiter(int **cmd, t_flist **heredoc);
 t_flist	*find_delimiter(int **cmd, t_flist **heredoc);
 int		readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height);
-void	child_heredoc(t_flist **heredoc, int height, char *installed);
+void	child_heredoc(t_flist **heredoc, int height, char *installed, int prev);
 void	putin_to_temp(char *line, int *len, int fd);
 void	add_history_wrapper(char **line);
 
