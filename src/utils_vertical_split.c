@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 03:20:47 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/03 10:35:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 13:30:50 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ static int	make_vertical(char **chunks, char *line, int *index, int *previous)
 	return (*index);
 }
 
-static int	skip_white_space(char *line, int index, int *prev)
+static int	skip_white_space(char *line, int index)
 {
 	while (is_whitespace(line[index]))
 		index++;
-	(*prev) = index - 1;
 	return (index);
 }
 
@@ -67,16 +66,16 @@ static void	cut_vertical(char ***chunks, char *line, size_t height)
 	previous = 0;
 	while (deep < height && line[i])
 	{
-		if (is_whitespace(line[0]))
-			i = skip_white_space(line, i, &previous);
+		if (is_whitespace(line[i]))
+			i = skip_white_space(line, i);
 		if (line[i] == 34 || line[i] == 39)
 			i = skip_quotes(line, i, line[i]);
-		if (line[i] == '|' || !line[i + 1])
+		if (!line[i] || line[i] == '|')
+			make_vertical(&(*chunks)[deep++], line, &i, &previous);
+		else if (!line[i + 1])
 		{
-			if (!line[i + 1])
-				i++;
-			make_vertical(&(*chunks)[deep], line, &i, &previous);
-			deep++;
+			i++;
+			make_vertical(&(*chunks)[deep++], line, &i, &previous);
 		}
 		i++;
 	}
