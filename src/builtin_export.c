@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:24:03 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/06 15:01:34 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 15:13:40 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_env(char *env_str)
 	{
 		if (*env_str == '=')
 			return (1);
-		if (ft_isalnum(env_str[0]) != 0 || env_str[0] != '_')
+		if (ft_isalnum(*env_str) || *env_str == '_')
 			env_str++;
 		else
 			return (0);
