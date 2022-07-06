@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 12:27:47 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 12:29:55 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ void	copy_quote(char *dst, char *str, int i, int cnt);
 int		count_env_val(char *str, int i);
 int		count_quote(char *str, int i);
 char	*convert_tilde(char *str);
+char	*convert_env(char *str);
+char	*convert_quote(char *str);
 void	flistadd_back(t_flist **head, t_flist *new);
 t_flist	*flistnew(char type, char *name);
 char	*get_arg(char *cmd, int i);
