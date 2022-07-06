@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 23:36:41 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/03 10:34:02 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 14:37:27 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(void)
 		line = readline(prompt);
 		if (line)
 		{
-			add_history(line);
+			add_history_wrapper(&line);
 			back_tcsetattr(&new);
 			if (!pre_error_check(line))
 			{

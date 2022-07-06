@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/05 21:39:58 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 14:23:43 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	execute_process(char **argv)
 	int		i;
 
 	i = -1;
+	if (!argv[0])
+		exit(0);
 	argv_copy = copy_argv(argv);
 	if (argv[0][0] != '.' && argv[0][0] != '/')
 	{

@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 12:29:55 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 14:37:12 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ t_flist	*find_delimiter(int **cmd, t_flist **heredoc);
 int		readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height);
 void	child_heredoc(t_flist **heredoc, int height, char *installed);
 void	putin_to_temp(char *line, int *len, int fd);
+void	add_history_wrapper(char **line);
 
 /* sentence part */
 
@@ -190,7 +191,7 @@ int		builtin_pro_or_not(char **chunk);
 char	*prev_directory_alter(char *locat);
 char	*prev_directory(void);
 void	error_print(int code, char *argv);
-int	r_open(const char *path, int flags);
-int	w_open(const char *path, int flags);
+int		r_open(const char *path, int flags);
+int		w_open(const char *path, int flags);
 
 #endif
