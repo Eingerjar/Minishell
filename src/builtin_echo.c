@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 13:37:12 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 18:11:07 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,22 @@ static int	no_argument(int flag)
 
 static int	check_flag(int max, char **argv)
 {
+	int	i;
+
+	i = 0;
 	if (max == 1)
 		return (FALSE);
 	else
-		return (!ft_strncmp(argv[1], "-n", 2));
+	{
+		i = 1;
+		while (argv[1][i])
+		{
+			if (argv[1][i] != 'n')
+				return (FALSE);
+			i++;
+		}
+		return (TRUE);
+	}
 }
 
 void	builtin_echo(char **argv)
