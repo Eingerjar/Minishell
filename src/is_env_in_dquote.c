@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 22:30:59 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/01 23:00:52 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 19:57:45 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_env_in_dquote(char *str, int i)
 {
-	if (is_whitespace(str[i + 1]) != 1 \
-			&& str[i + 1] != '"' && str[i + 1] != '\'')
-		return (1);
-	return (0);
+	i++;
+	if (ft_isalpha(str[i]) == 0 && str[i] != '_' && str[i] != '?')
+		return (0);
+	return (1);
 }
