@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 20:58:06 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/05 21:47:48 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 10:48:12 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	copy_env_val_and_quote(char *dst, char *src)
 		}
 		else if (src[i] == '"' || src[i] == '\'')
 		{
-			ft_memcpy(dst, src + i, skip_quote(src,i) - i);
+			ft_memcpy(dst, src + i, skip_quote(src, i) - i);
 			cnt += skip_quote(src, i) - i;
 			i = skip_quote(src, i);
 		}
@@ -72,7 +72,7 @@ static void	copy_env_val_and_quote(char *dst, char *src)
 char	*convert_env(char *str)
 {
 	char	*ret;
-	int	index;
+	int		index;
 
 	index = count_env_val_and_quote(str);
 	if (index == 0)

@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:16:41 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/05 21:31:29 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 10:48:32 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	copy_str_and_quote(char *dst, char *src)
 char	*convert_quote(char *str)
 {
 	char	*ret;
-	int	index;
+	int		index;
 
 	index = count_str_and_quote(str);
 	ret = (char *)malloc(sizeof(char) * (index + 1));
