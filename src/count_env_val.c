@@ -6,13 +6,13 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:50:53 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/06 18:55:16 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 19:24:22 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	env_val_questionmark()
+static int	env_val_questionmark(void)
 {
 	char	*env_val;
 	int		cnt;
