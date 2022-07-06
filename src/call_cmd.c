@@ -6,27 +6,11 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 13:58:34 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/02 11:30:22 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/05 21:39:58 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*get_cmd(char *path, char *cmd)
-{
-	char	*ret;
-	int		size;
-
-	size = ft_strlen(path) + ft_strlen(cmd) + 2;
-	ret = (char *)malloc(sizeof(char) * size);
-	if (ret == NULL)
-		return (NULL);
-	ret[0] = '\0';
-	ft_strlcat(ret, path, size);
-	ft_strlcat(ret, "/", size);
-	ft_strlcat(ret, cmd, size);
-	return (ret);
-}
 
 static void	print_cmd_exit(char *cmd)
 {
@@ -37,33 +21,49 @@ static void	print_cmd_exit(char *cmd)
 	exit(127);
 }
 
+static char	**copy_argv(char **argv)
+{
+	char	**ret;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (argv[i])
+		i++;
+	ret = malloc_wrap(sizeof(char *) * (i + 1));
+	ret[i] = 0;
+	j = 0;
+	while (j < i)
+	{
+		ret[j] = ft_strdup(argv[j]);
+		j++;
+	}
+	return (ret);
+}
+
 static void	execute_process(char **argv)
 {
 	char	**path;
+	char	**argv_copy;
 	char	*tmp;
-	char	*cmd;
 	int		i;
 
 	i = -1;
-	execve(argv[0], argv, g_global.wel_env);
-	cmd = ft_strdup(argv[0]);
-	if (cmd == NULL)
-		print_error_exit("ft_strdup malloc error\n");
-	tmp = ft_get_env("PATH");
-	if (!tmp)
-		print_cmd_exit(argv[0]);
-	path = ft_split(tmp, ':');
-	if (path == NULL)
-		print_error_exit("PATH ft_split error\n");
-	free(tmp);
-	while (path[++i])
+	argv_copy = copy_argv(argv);
+	if (argv[0][0] != '.' && argv[0][0] != '/')
 	{
-		tmp = get_cmd(path[i], cmd);
-		free(argv[0]);
-		argv[0] = tmp;
-		execve(argv[0], argv, g_global.wel_env);
+		tmp = ft_get_env("PATH");
+		if (!tmp)
+			print_cmd_exit(argv[0]);
+		path = ft_split(tmp, ':');
+		free(tmp);
+		while (path[++i])
+			path_execute(argv, argv_copy, path[i]);
+		execve(argv_copy[0], argv_copy, g_global.wel_env);
 	}
-	print_cmd_exit(cmd);
+	else if (argv[0][0] == '.' || argv[0][0] == '/')
+		execve(argv_copy[0], argv_copy, g_global.wel_env);
+	print_cmd_exit(argv_copy[0]);
 }
 
 void	call_cmd(int index, char **cmd, t_chunk *chunk, int **pipe)

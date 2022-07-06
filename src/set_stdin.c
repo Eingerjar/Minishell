@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 20:21:06 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 21:48:52 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/04 23:11:38 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	open_heredoc(int cmd_index, int h_num)
 	ft_strlcat(fname, s_cindex, size);
 	ft_strlcat(fname, "_", size);
 	ft_strlcat(fname, s_hnum, size);
-	fd = open(fname, O_RDONLY);
+	fd = r_open(fname, O_RDONLY);
 	return (fd);
 }
 
@@ -57,7 +57,7 @@ static int	last_f_input(int index, t_flist *f_input)
 		f_input = f_input->next;
 	}
 	if (f_input->type == 0)
-		input_fd = open(f_input->name, O_RDONLY);
+		input_fd = r_open(f_input->name, O_RDONLY);
 	else
 		input_fd = open_heredoc(index, ++heredoc_cnt);
 	if (input_fd == -1)

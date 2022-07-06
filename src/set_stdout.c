@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 20:36:36 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/26 05:01:02 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/04 23:12:42 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	open_write_mode(t_flist *f_output)
 	int	output_fd;
 
 	if (f_output->type == 0)
-		output_fd = open(f_output->name, O_WRONLY | O_CREAT, 0644);
+		output_fd = w_open(f_output->name, O_WRONLY | O_CREAT);
 	else
-		output_fd = open(f_output->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		output_fd = w_open(f_output->name, O_WRONLY | O_CREAT | O_APPEND);
 	return (output_fd);
 }
 
