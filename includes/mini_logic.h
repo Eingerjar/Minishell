@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 12:29:55 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 14:28:18 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ int		builtin_pro_or_not(char **chunk);
 char	*prev_directory_alter(char *locat);
 char	*prev_directory(void);
 void	error_print(int code, char *argv);
-int	r_open(const char *path, int flags);
-int	w_open(const char *path, int flags);
+int		r_open(const char *path, int flags);
+int		w_open(const char *path, int flags);
 
 #endif

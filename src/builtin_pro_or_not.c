@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:16:37 by haryu             #+#    #+#             */
-/*   Updated: 2022/06/29 18:13:06 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 14:22:37 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	builtin_pro_or_not(char **chunks)
 {
+	if (!chunks[0])
+		return (FALSE);
 	if (!ft_strncmp(chunks[0], "echo", 4))
 		return (TRUE);
 	if (!ft_strncmp(chunks[0], "pwd", 3))

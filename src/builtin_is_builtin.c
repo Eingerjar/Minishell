@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 05:24:42 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/03 22:29:16 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 14:18:17 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	is_builtin(t_chunk *chunk)
 	int		i;
 
 	i = 0;
+	if (!(chunk->argv[0]))
+		return (FALSE);
 	builtin = malloc_wrap(sizeof(char *) * 8);
 	builtin[7] = 0;
 	make_builtin(&builtin);
