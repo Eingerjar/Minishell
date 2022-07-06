@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 16:43:02 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 19:40:12 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/07 03:40:09 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,5 @@ void	fork_heredoc(t_flist **heredoc, int height, char *installed, int prev)
 	else
 		wait(&status);
 	g_global.last_exitcode = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-		g_global.last_exitcode = 128 + WTERMSIG(status);
 	return ;
 }

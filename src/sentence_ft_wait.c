@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 11:37:27 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 18:34:22 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/07 02:59:55 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_wait(pid_t *childs, int numbers, int builtin)
 		if (WIFSIGNALED(stats))
 			g_global.last_exitcode = 128 + WTERMSIG(stats);
 	}
-	if (prev != 0 && builtin == 1 && numbers == 1)
+	if (prev != 0 && builtin == 1 && numbers == 1 && !WIFSIGNALED(stat))
 		g_global.last_exitcode = prev;
 	free(childs);
 	if (g_global.last_exitcode != 0)
