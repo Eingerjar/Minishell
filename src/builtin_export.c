@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:24:03 by cgim              #+#    #+#             */
-/*   Updated: 2022/06/29 20:32:05 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 15:01:34 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 static int	is_env(char *env_str)
 {
+	if (ft_isalpha(env_str[0]) == 0 && env_str[0] != '_')
+		return (0);
+	env_str++;
 	while (*env_str != '\0')
 	{
 		if (*env_str == '=')
 			return (1);
-		env_str++;
+		if (ft_isalnum(env_str[0]) != 0 || env_str[0] != '_')
+			env_str++;
+		else
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 static int	is_var_dup(char **strvec, char *var)
@@ -63,6 +69,27 @@ static void	print_export(void)
 	return ;
 }
 
+static void	add_export(char *arg)
+{
+	int	equal_offset;
+
+	equal_offset = count_equal_offset(arg);
+	if (is_var_dup(g_global.wel_export, arg))
+	{
+		ft_update_strvec(g_global.wel_export, arg);
+		if (is_var_dup(g_global.wel_env, arg))
+			ft_update_strvec(g_global.wel_env, arg);
+		else
+			ft_add_env(arg);
+	}
+	else
+	{
+		ft_add_export(arg);
+		if (arg[equal_offset] == '=')
+			ft_add_env(arg);
+	}
+}
+
 void	builtin_export(char **argv)
 {
 	int	i;
@@ -75,19 +102,13 @@ void	builtin_export(char **argv)
 	}
 	while (argv[++i])
 	{
-		if (is_var_dup(g_global.wel_export, argv[i]))
-		{
-			ft_update_strvec(g_global.wel_export, argv[i]);
-			if (is_var_dup(g_global.wel_env, argv[i]))
-				ft_update_strvec(g_global.wel_env, argv[i]);
-			else
-				ft_add_env(argv[i]);
-		}
+		if (is_env(argv[i]))
+			add_export(argv[i]);
 		else
 		{
-			ft_add_export(argv[i]);
-			if (is_env(argv[i]))
-				ft_add_env(argv[i]);
+			ft_putstr_fd("export: ", 2);
+			ft_putstr_fd(argv[i], 2);
+			ft_putstr_fd(": not a valid identifier\n", 2);
 		}
 	}
 }
