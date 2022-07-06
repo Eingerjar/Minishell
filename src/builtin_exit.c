@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/04 18:15:44 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 18:30:53 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	exit_with_arg(char **argv)
 			error_print(1, argv[1]);
 	}
 	printf("😴 exit\n");
-	exit((unsigned int)exitcode);
+	exit((unsigned char)exitcode);
 }
 
 void	builtin_exit(char **argv)

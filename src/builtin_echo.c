@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 02:41:19 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 18:11:07 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 18:46:59 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_flag(int max, char **argv)
 	i = 0;
 	if (max == 1)
 		return (FALSE);
-	else
+	else if (argv[1][0] == '-')
 	{
 		i = 1;
 		while (argv[1][i])
@@ -50,6 +50,8 @@ static int	check_flag(int max, char **argv)
 		}
 		return (TRUE);
 	}
+	else
+		return (FALSE);
 }
 
 void	builtin_echo(char **argv)
