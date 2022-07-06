@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:50:53 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/06 18:42:52 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/06 18:55:16 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static int	env_val_questionmark()
 	if (env_val == NULL)
 		print_error_exit("ft_itoa malloc error\n");
 	cnt = ft_strlen(env_val);
-	printf("env_val questionmark: %s cnt: %d\n", env_val, cnt);
 	free(env_val);
 	return (cnt);
 }
