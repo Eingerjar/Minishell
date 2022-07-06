@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 14:28:18 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/06 14:37:12 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ t_flist	*find_delimiter(int **cmd, t_flist **heredoc);
 int		readline_heredoc(int fd, int **cmd, t_flist **heredoc, int height);
 void	child_heredoc(t_flist **heredoc, int height, char *installed);
 void	putin_to_temp(char *line, int *len, int fd);
+void	add_history_wrapper(char **line);
 
 /* sentence part */
 
