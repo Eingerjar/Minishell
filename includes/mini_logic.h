@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/06 19:40:06 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/07 17:41:09 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,8 @@ void	builtin_exit(char **argv);
 void	builtin_pwd(char **argv);
 void	builtin_unset(char **argv);
 void	builtin_echo(char **argv);
+int		echo_print_nl(int flag);
+void	init_echo_flags(int *flag, int *first, int *other);
 void	builtin_export(char **argv);
 void	builtin_env(void);
 int		builtin_pro_or_not(char **chunk);

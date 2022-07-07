@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 20:37:16 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/02 11:10:04 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/07 17:43:31 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@ static void	handler_main(int signum)
 
 	temp = current_prompt();
 	temp2 = ft_split(temp, '>');
-	if (signum == SIGQUIT)
-	{
-		printf("%s", temp2[0]);
-		free(temp);
-		free(temp2);
-		rl_replace_line("\n", 0);
-		return ;
-	}
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	if (g_global.last_exitcode != 130)
 		ft_putstr_fd(temp2[0], 1);
@@ -35,6 +27,8 @@ static void	handler_main(int signum)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_global.last_exitcode = 1;
+	(void)signum;
 }
 
 void	main_signal(void)
