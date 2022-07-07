@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 12:08:21 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/07 04:02:19 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/07 12:10:39 by haryu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	handler_heredoc(int signum)
 {
+	(void)signum;
 	exit(1);
 }
