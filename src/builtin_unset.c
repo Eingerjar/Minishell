@@ -6,7 +6,7 @@
 /*   By: cgim <cgim@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 18:29:21 by cgim              #+#    #+#             */
-/*   Updated: 2022/07/07 19:28:01 by cgim             ###   ########.fr       */
+/*   Updated: 2022/07/08 11:42:47 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	builtin_unset(char **argv)
 			ft_putstr_fd("unset: ", 2);
 			ft_putstr_fd(argv[i], 2);
 			ft_putstr_fd(": not a valid identifier\n", 2);
-
 		}
 	}	
 }

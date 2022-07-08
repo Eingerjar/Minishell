@@ -6,7 +6,7 @@
 /*   By: haryu <haryu@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 14:39:45 by haryu             #+#    #+#             */
-/*   Updated: 2022/07/07 17:41:09 by haryu            ###   ########.fr       */
+/*   Updated: 2022/07/08 12:29:41 by cgim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,10 @@ void	add_history_wrapper(char **line);
 int		sentence_part(char *line);
 int		fork_cmds(int height, char **chunks, int **pipes);
 int		ft_wait(pid_t *childs, int numbers, int builtin);
-int		kill_them_all(pid_t *childs, int numbers);
 pid_t	*init_pids(int numbers);
-int		final_print(int **pipe, int height);
 void	close_pipe(int **pipe, int height);
 int		**init_pipe(int cmdnum);
 void	prepare_pipe(int ***pipes, int height);
-void	childs_test(int height, char **chunks, int **pipes);
 
 /* init_structure part */
 void	copy_env_val(char *dst, char *str, int i, int cnt);
